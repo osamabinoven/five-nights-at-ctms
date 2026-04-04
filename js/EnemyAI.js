@@ -235,7 +235,7 @@ class EnemyAI {
         this.trumpImages = {
             'cam10': 'assets/images/drhope3.png',
             'cam11': 'assets/images/drhope3.png',
-            'cam9': 'assets/images/Dr Hope.png',
+            'cam9': 'assets/images/drhope.png',
             'cam8': 'assets/images/drhope5.png',
             'cam7': 'assets/images/drhope3.png',
             'cam6': 'assets/images/drhope3.png',
@@ -521,9 +521,9 @@ class EnemyAI {
             this.epstein.movementInterval = this.getRandomInterval(this.currentEpsteinConfig.movementInterval);
             
             // Dr Hope 自定义配置
-            if (customLevels.Dr Hope > 0) {
+            if (customLevels.drHope > 0) {
                 this.currentTrumpConfig = {
-                    aiLevel: customLevels.Dr Hope,
+                    aiLevel: customLevels.drHope,
                     movementInterval: [8000, 9000],
                     movementDuration: 1000,
                     spawnDelay: 0,
@@ -542,7 +542,7 @@ class EnemyAI {
                         retreatSoundDuration: 3000
                     }
                 };
-                this.trump.aiLevel = customLevels.Dr Hope;
+                this.trump.aiLevel = customLevels.drHope;
                 this.trump.movementInterval = this.getRandomInterval(this.currentTrumpConfig.movementInterval);
             } else {
                 this.currentTrumpConfig = null;

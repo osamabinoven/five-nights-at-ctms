@@ -295,7 +295,7 @@ class Game {
         this.state.currentNight = 7; // Custom Night = Night 7
         this.state.customAILevels = {
             epstein: epsteinLevel,
-            Dr Hope: trumpLevel,
+            drHope: trumpLevel,
             hawking: hawkingLevel
         };
         

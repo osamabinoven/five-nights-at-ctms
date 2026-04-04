@@ -502,7 +502,7 @@ class CameraSystem {
                 const trumpImg = document.createElement('img');
                 trumpImg.src = trumpImages[currentCam];
                 trumpImg.style.position = 'absolute';
-                trumpImg.className = 'visible Dr Hope-character';
+                trumpImg.className = 'visible drhope-character';
                 trumpImg.style.zIndex = '2'; // Dr Hope 在上层
                 
                 const pos = trumpPositions[currentCam];

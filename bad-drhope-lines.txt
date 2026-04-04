@@ -1,0 +1,53 @@
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\AssetManager.js:68: trumpJumpscare: `${basePath}assets/images/jumpdrhope.png`, // Dr Hope跳杀图片
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\CameraSystem.js:382: console.log(`updateCharacterDisplay - Current Cam: ${currentCam}, EP: ${epLocation}, Dr Hope: ${trumpLocation}, Hawking: ${hawkingActive}, Night: ${this.game.state.currentNight}`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\CameraSystem.js:495: // 显示 Dr Hope（如果已出场且在当前摄像头，且不在爬行状态，且当前夜晚有Trump配置）
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\CameraSystem.js:505: trumpImg.className = 'visible Dr Hope-character';
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\CameraSystem.js:506: trumpImg.style.zIndex = '2'; // Dr Hope 在上层
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\CameraSystem.js:527: console.log(`✓ Displaying Dr Hope at ${currentCam}`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:83: // Dr Hope AI配置（按夜数，Night 2开始）
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:238: 'cam9': 'assets/images/Dr Hope.png',
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:477: console.log(`Night ${this.game.state.currentNight} - Dr Hope AI Config:`, this.currentTrumpConfig);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:478: console.log(`Dr Hope will spawn in ${this.currentTrumpConfig.spawnDelay / 1000} seconds...`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:523: // Dr Hope 自定义配置
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:524: if (customLevels.Dr Hope > 0) {
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:526: aiLevel: customLevels.Dr Hope,
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:545: this.trump.aiLevel = customLevels.Dr Hope;
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:556: console.log(`- Dr Hope: Level ${this.trump.aiLevel || 0}`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:574: this.currentTrumpConfig = null; // Night 6 没有 Dr Hope
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:580: console.log(`- Dr Hope: Level ${this.trump.aiLevel}, Interval ${this.trump.movementInterval}ms`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:582: console.log(`- Dr Hope: Not active this night`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:618: console.log('Dr Hope has spawned at cam10!');
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:919: console.log('⚡ Night 5: 4AM reached! Dr Hope is now in aggressive mode (faster + more crawling)');
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:926: console.log('Dr Hope is crawling, cannot move');
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:934: console.log(`Dr Hope starting to crawl from ${currentLoc} to office (${config.ventCrawling.cam1Probability * 100}% chance)`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:944: console.log(`Dr Hope decided to crawl from ${currentLoc} to office (${config.ventCrawling.cam2Probability * 100}% chance)`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:948: console.log(`Dr Hope decided to continue moving from ${currentLoc} (${(1 - config.ventCrawling.cam2Probability) * 100}% chance)`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:971: console.log(`Dr Hope has no valid path from ${currentLoc}`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:981: console.log(`Dr Hope movement probability is 0`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:1018: console.log(`Dr Hope has no valid path from ${currentLoc}`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:1026: console.log(`Dr Hope moved [${movementType}]: ${currentLoc} (depth ${currentDepth}) -> ${nextLocation} (depth ${this.trumpLocationDepth[nextLocation]})`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:1048: console.log('Dr Hope tried to crawl but vents are already closed! Silent retreat.');
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:1067: console.log(`Dr Hope silently retreats to ${retreatLocation} (depth 3)`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:1083: console.log(`Dr Hope is crawling from ${fromLocation}...`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:1108: console.log('Dr Hope reached the office!');
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:1117: this.triggerJumpscare('Dr Hope');
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:1129: console.log('Dr Hope crawling blocked by closed vents!');
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:1161: console.log(`Dr Hope will retreat to ${retreatLocation} (depth 3)`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:1242: console.log(`Dr Hope attracted by sound: ${trumpCurrentLoc} (depth ${currentDepth}) -> ${soundLocation} (depth ${soundDepth})`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:1253: this.triggerJumpscare('Dr Hope');
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:1258: console.log(`Sound at ${soundLocation} is not adjacent to Dr Hope at ${trumpCurrentLoc}`);
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:1332: if (enemy === 'Dr Hope') {
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\EnemyAI.js:1423: // 重置 Dr Hope
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\Game.js:60: this.trumpSlider = document.getElementById('Dr Hope-slider');
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\Game.js:63: this.trumpValue = document.getElementById('Dr Hope-value');
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\Game.js:298: Dr Hope: trumpLevel,
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\Game.js:543: // Night 2 教程：Dr Hope
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\Game.js:545: <h2>DEFEND YOURSELF AGAINST DR HOPE</h2>
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\Game.js:547: DR HOPE WILL TRY TO ATTACK YOU THROUGH THE DOORS IN CAM 1 AND CAM 2, SO IF YOU HEAR BANGING AT THE DOORS HEAD OVER TO THE CONTROL PANEL AND LOCK THEM.
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\Game.js:549: DR HOPE CAN BE LURED WITH THE AUDIOS BUT YOUR MAIN PRIORITY WITH THE AUDIO LURES SHOULD BE EPSTEIN.
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\GameState.js:23: Dr Hope: 0,
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\InputHandler.js:31: if (this.game.state.isGameRunning && this.game.enemyAI.Dr Hope.hasSpawned) {
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\InputHandler.js:32: console.log('🎮 CHEAT: Forcing Dr Hope to crawl into vents...');
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\InputHandler.js:33: this.showCheatNotification('Dr Hope entering vents NOW!');
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\InputHandler.js:36: this.game.enemyAI.Dr Hope.currentLocation = 'cam1';
+C:\Users\juggm\Downloads\FNAE-HTML5-1.2.3-main\FNAE-HTML5-1.2.3-main\five-nights-at-ctms\js\InputHandler.js:48: this.showCheatNotification('Dr Hope not spawned yet!');

@@ -20,7 +20,7 @@ class GameState {
         this.customNight = false; // 是否为自定义夜晚
         this.customAILevels = {
             epstein: 0,
-            Dr Hope: 0,
+            drHope: 0,
             hawking: 0
         };
     }
