@@ -571,16 +571,16 @@ class Game {
                 gotItBtn.addEventListener('click', () => this.closeTutorial());
             }
         } else {
-            // Night 1 教程：EP
+            // Night 1 教程：TILLERY
             tutorialContent.innerHTML = `
-                <h2>DEFEND YOURSELF AGAINST EPSTEIN</h2>
+                <h2>DEFEND YOURSELF AGAINST TILLERY</h2>
                 <p>
-                    EPSTEIN ALWAYS STARTS AT CAM 11. USE THE CAMERA'S AUDIO LURE TO KEEP EPSTEIN FAR AWAY FROM YOU. 
-                    MAKE SURE THE CAMERA YOU'RE PLAYING THE SOUND IN IS NEXT TO THE CAMERA WHERE EPSTEIN IS. 
+                    TILLERY ALWAYS STARTS AT CAM 11. USE THE CAMERA'S AUDIO LURE TO KEEP TILLERY FAR AWAY FROM YOU. 
+                    MAKE SURE THE CAMERA YOU'RE PLAYING THE SOUND IN IS NEXT TO THE CAMERA WHERE TILLERY IS. 
                     PLAYING SOUND IN ONLY ONE SPOT WILL NOT WORK IF YOU DO IT TWICE OR MORE IN A ROW. 
                     USING THE AUDIO LURE TOO MUCH WILL LEAD TO THE CAMERAS BREAKING. 
                     TO FIX THEM HEAD TO THE CONTROL PANEL AND RESTART THE CAMERAS LIKE YOU JUST DID. 
-                    EPSTEIN DOES NOT ATTACK THROUGH THE VENTS SO DON'T BOTHER CLOSING THEM FOR THIS NIGHT.
+                    TILLERY DOES NOT ATTACK THROUGH THE VENTS SO DON'T BOTHER CLOSING THEM FOR THIS NIGHT.
                 </p>
                 <button id="tutorial-got-it">GOT IT</button>
             `;
