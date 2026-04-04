@@ -99,9 +99,14 @@ class AssetManager {
         // 加载音频
         for (const [key, path] of Object.entries(soundPaths)) {
             try {
-                this.sounds[key] = new Audio(path);
+                const audio = new Audio();
+                audio.src = path;
+                audio.onerror = () => {
+                    console.warn(`Failed to load audio file: ${path}`);
+                };
+                this.sounds[key] = audio;
             } catch (e) {
-                console.warn(`Failed to load sound: ${path}`);
+                console.warn(`Failed to create audio element for: ${path}`, e);
             }
         }
 
@@ -148,7 +153,21 @@ class AssetManager {
             }
             
             this.sounds[key].volume = Math.min(1, volume * categoryVolume);
-            this.sounds[key].play();
+            
+            // Reset playback and handle promise rejection
+            try {
+                this.sounds[key].currentTime = 0;
+                const playPromise = this.sounds[key].play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(err => {
+                        console.warn(`Could not play sound "${key}":`, err.message);
+                    });
+                }
+            } catch (err) {
+                console.warn(`Error playing sound "${key}":`, err.message);
+            }
+        } else {
+            console.warn(`Sound "${key}" not found`);
         }
     }
 
