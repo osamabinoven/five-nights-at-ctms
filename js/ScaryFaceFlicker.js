@@ -1,23 +1,9 @@
 // 恐怖脸闪烁效果
-const getBasePath = () => {
-    // 如果有 base 标签，相对路径会自动处理
-    // 这里主要用于调试和特殊情况
-    const currentPath = window.location.pathname;
-    if (currentPath.includes('/five-nights-at-ctms/')) {
-        return '';  // 相对路径，让base标签处理
-    }
-    if (currentPath.includes('/FNAE-HTML5-1.2.3/')) {
-        return '/FNAE-HTML5-1.2.3/';
-    }
-    return '';
-};
-
-const basePath = getBasePath();
-const normalBackground = `${basePath}assets/images/menubackground.png`;
+const normalBackground = 'assets/images/menubackground.png';
 const scaryBackgrounds = [
-    `${basePath}assets/images/scaryhawk.png`,
-    `${basePath}assets/images/scaryep.png`,
-    `${basePath}assets/images/scarytrump.png`
+    'assets/images/scaryhawk.png',
+    'assets/images/scaryep.png',
+    'assets/images/scarytrump.png'
 ];
 
 let scaryFaceInterval = null;

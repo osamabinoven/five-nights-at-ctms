@@ -116,9 +116,7 @@ function updatePreloadProgress(progress) {
 // 预加载所有游戏资源
 async function preloadGameAssets() {
     
-    const basePath = window.location.pathname.includes('/five-nights-at-ctms/') 
-        ? '/five-nights-at-ctms/' 
-        : './';
+    const basePath = './';
     
     // Define all assets to be preloaded
     const imagePaths = [

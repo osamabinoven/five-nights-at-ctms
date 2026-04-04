@@ -203,47 +203,47 @@ class EnemyAI {
         
         // 每个摄像头使用的角色图片（根据距离办公室远近）
         this.characterImages = {
-            'cam11': '/FNAE-HTML5-1.2.3/assets/images/enemyep1.png',
-            'cam10': '/FNAE-HTML5-1.2.3/assets/images/ep1.png',
-            'cam1': '/FNAE-HTML5-1.2.3/assets/images/ep4.png',
-            'cam9': '/FNAE-HTML5-1.2.3/assets/images/enemyep1.png',
-            'cam8': '/FNAE-HTML5-1.2.3/assets/images/enemyep1.png',
-            'cam7': '/FNAE-HTML5-1.2.3/assets/images/enemyep1.png',
-            'cam6': '/FNAE-HTML5-1.2.3/assets/images/enemyep1.png',
-            'cam5': '/FNAE-HTML5-1.2.3/assets/images/enemyep4.png',
-            'cam4': '/FNAE-HTML5-1.2.3/assets/images/ep1.png',
-            'cam3': '/FNAE-HTML5-1.2.3/assets/images/ep4.png',
-            'cam2': '/FNAE-HTML5-1.2.3/assets/images/enemyep1.png',
+            'cam11': 'assets/images/enemyep1.png',
+            'cam10': 'assets/images/ep1.png',
+            'cam1': 'assets/images/ep4.png',
+            'cam9': 'assets/images/enemyep1.png',
+            'cam8': 'assets/images/enemyep1.png',
+            'cam7': 'assets/images/enemyep1.png',
+            'cam6': 'assets/images/enemyep1.png',
+            'cam5': 'assets/images/enemyep4.png',
+            'cam4': 'assets/images/ep1.png',
+            'cam3': 'assets/images/ep4.png',
+            'cam2': 'assets/images/enemyep1.png',
         };
         
         // Night 6 专用图片（带电眼）
         this.characterImagesNight6 = {
-            'cam11': '/FNAE-HTML5-1.2.3/assets/images/enemyep1_night6.png',
-            'cam10': '/FNAE-HTML5-1.2.3/assets/images/ep1_night6.png',
-            'cam1': '/FNAE-HTML5-1.2.3/assets/images/ep4_night6.png',
-            'cam9': '/FNAE-HTML5-1.2.3/assets/images/enemyep1_night6.png',
-            'cam8': '/FNAE-HTML5-1.2.3/assets/images/enemyep1_night6.png',
-            'cam7': '/FNAE-HTML5-1.2.3/assets/images/enemyep1_night6.png',
-            'cam6': '/FNAE-HTML5-1.2.3/assets/images/enemyep1_night6.png',
-            'cam5': '/FNAE-HTML5-1.2.3/assets/images/enemyep4_night6.png',
-            'cam4': '/FNAE-HTML5-1.2.3/assets/images/ep1_night6.png',
-            'cam3': '/FNAE-HTML5-1.2.3/assets/images/ep4_night6.png',
-            'cam2': '/FNAE-HTML5-1.2.3/assets/images/enemyep1_night6.png',
+            'cam11': 'assets/images/enemyep1_night6.png',
+            'cam10': 'assets/images/ep1_night6.png',
+            'cam1': 'assets/images/ep4_night6.png',
+            'cam9': 'assets/images/enemyep1_night6.png',
+            'cam8': 'assets/images/enemyep1_night6.png',
+            'cam7': 'assets/images/enemyep1_night6.png',
+            'cam6': 'assets/images/enemyep1_night6.png',
+            'cam5': 'assets/images/enemyep4_night6.png',
+            'cam4': 'assets/images/ep1_night6.png',
+            'cam3': 'assets/images/ep4_night6.png',
+            'cam2': 'assets/images/enemyep1_night6.png',
         };
         
         // 特朗普的图片配置（使用绝对路径）
         this.trumpImages = {
-            'cam10': '/FNAE-HTML5-1.2.3/assets/images/trump3.png',
-            'cam11': '/FNAE-HTML5-1.2.3/assets/images/trump3.png',
-            'cam9': '/FNAE-HTML5-1.2.3/assets/images/trump.png',
-            'cam8': '/FNAE-HTML5-1.2.3/assets/images/trump5.png',
-            'cam7': '/FNAE-HTML5-1.2.3/assets/images/trump3.png',
-            'cam6': '/FNAE-HTML5-1.2.3/assets/images/trump3.png',
-            'cam5': '/FNAE-HTML5-1.2.3/assets/images/trump2.png',
-            'cam1': '/FNAE-HTML5-1.2.3/assets/images/trump4.png',
-            'cam2': '/FNAE-HTML5-1.2.3/assets/images/trump4.png',
-            'cam3': '/FNAE-HTML5-1.2.3/assets/images/trump2.png',
-            'cam4': '/FNAE-HTML5-1.2.3/assets/images/trump3.png',
+            'cam10': 'assets/images/trump3.png',
+            'cam11': 'assets/images/trump3.png',
+            'cam9': 'assets/images/trump.png',
+            'cam8': 'assets/images/trump5.png',
+            'cam7': 'assets/images/trump3.png',
+            'cam6': 'assets/images/trump3.png',
+            'cam5': 'assets/images/trump2.png',
+            'cam1': 'assets/images/trump4.png',
+            'cam2': 'assets/images/trump4.png',
+            'cam3': 'assets/images/trump2.png',
+            'cam4': 'assets/images/trump3.png',
         };
         
         // 定义移动路径图（根据地图连接关系，只能向前移动）
@@ -1340,8 +1340,8 @@ class EnemyAI {
         jumpscareImg.style.top = '50%';
         jumpscareImg.style.left = '50%';
         jumpscareImg.style.transform = 'translate(-50%, -50%)';
-        jumpscareImg.style.width = '25%'; // 初始大小25%
-        jumpscareImg.style.maxWidth = '80vw';
+        jumpscareImg.style.width = '18%'; // 初始大小较小，避免过度放大
+        jumpscareImg.style.maxWidth = '60vw';
         jumpscareImg.style.height = 'auto';
         jumpscareImg.style.zIndex = '2';
         jumpscareImg.style.transition = 'none';
@@ -1360,14 +1360,14 @@ class EnemyAI {
         // 第1帧：25% (立即显示)
         // 已经设置
         
-        // 第2帧：40% (0.15秒后)
+        // 第2帧：30% (0.15秒后)
         setTimeout(() => {
-            jumpscareImg.style.width = '40%';
+            jumpscareImg.style.width = '30%';
         }, 150);
         
-        // 第3帧：55% (0.3秒后)
+        // 第3帧：45% (0.3秒后)
         setTimeout(() => {
-            jumpscareImg.style.width = '55%';
+            jumpscareImg.style.width = '45%';
         }, 300);
         
         // 1.5秒后淡出并显示游戏结束画面
@@ -1609,9 +1609,9 @@ class EnemyAI {
         
         // 设置警告图片
         if (this.hawking.warningLevel === 1) {
-            warningIcon.src = '/FNAE-HTML5-1.2.3/assets/images/Warninglight.png';
+            warningIcon.src = 'assets/images/Warninglight.png';
         } else if (this.hawking.warningLevel === 2) {
-            warningIcon.src = '/FNAE-HTML5-1.2.3/assets/images/Warningheavy.png';
+            warningIcon.src = 'assets/images/Warningheavy.png';
         }
     }
     
@@ -1676,7 +1676,7 @@ class EnemyAI {
         
         // 创建霍金图片（在房间里）
         const hawkingImg = document.createElement('img');
-        hawkingImg.src = '/FNAE-HTML5-1.2.3/assets/images/mrstephen.png';
+        hawkingImg.src = 'assets/images/mrstephen.png';
         hawkingImg.style.position = 'absolute';
         hawkingImg.style.left = '43.6%';
         hawkingImg.style.bottom = '27.4%';
@@ -1687,7 +1687,7 @@ class EnemyAI {
         
         // 创建导弹图片（从霍金位置飞向玩家）
         const missileImg = document.createElement('img');
-        missileImg.src = '/FNAE-HTML5-1.2.3/assets/images/front.png';
+        missileImg.src = 'assets/images/front.png';
         missileImg.style.position = 'absolute';
         missileImg.style.left = '25%';
         missileImg.style.top = '40%';
@@ -1705,7 +1705,7 @@ class EnemyAI {
         explosionImg.style.width = '50vw'; // 容器宽度
         explosionImg.style.height = '50vh'; // 容器高度
         explosionImg.style.zIndex = '4';
-        explosionImg.style.backgroundImage = 'url(/FNAE-HTML5-1.2.3/assets/images/exp2.png)';
+        explosionImg.style.backgroundImage = 'url(assets/images/exp2.png)';
         explosionImg.style.backgroundSize = '400% auto'; // 4列，高度自适应
         explosionImg.style.backgroundRepeat = 'no-repeat';
         explosionImg.style.backgroundPosition = '0% 0%';
@@ -1818,3 +1818,4 @@ class EnemyAI {
         return true;
     }
 }
+
