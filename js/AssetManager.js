@@ -65,7 +65,7 @@ class AssetManager {
             cam10: `${basePath}assets/images/Cam10.png`,
             cam11: `${basePath}assets/images/Cam11.png`,
             jumpscare: `${basePath}assets/images/jump.png`, // EP跳杀图片
-            trumpJumpscare: `${basePath}assets/images/jumptrump.png`, // Trump跳杀图片
+            trumpJumpscare: `${basePath}assets/images/jumpdrhope.png`, // Dr Hope跳杀图片
             hawkingJumpscare: `${basePath}assets/images/scaryhawking.png`, // Hawking跳杀图片
         };
 
@@ -123,7 +123,9 @@ class AssetManager {
             const img = new Image();
             img.onload = () => resolve(img);
             img.onerror = reject;
-            img.src = src;
+            // Add cache-busting timestamp to prevent browser caching
+            const separator = src.includes('?') ? '&' : '?';
+            img.src = src + separator + 't=' + Date.now();
         });
     }
 

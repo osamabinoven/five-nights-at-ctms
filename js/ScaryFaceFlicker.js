@@ -3,7 +3,7 @@ const normalBackground = 'assets/images/menubackground.png';
 const scaryBackgrounds = [
     'assets/images/scaryhawk.png',
     'assets/images/scaryep.png',
-    'assets/images/scarytrump.png'
+    'assets/images/scarydrhope.png'
 ];
 
 let scaryFaceInterval = null;

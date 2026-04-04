@@ -57,10 +57,10 @@ class Game {
         // Custom Night 元素
         this.customNightMenu = document.getElementById('custom-night-menu');
         this.epsteinSlider = document.getElementById('epstein-slider');
-        this.trumpSlider = document.getElementById('trump-slider');
+        this.trumpSlider = document.getElementById('Dr Hope-slider');
         this.hawkingSlider = document.getElementById('hawking-slider');
         this.epsteinValue = document.getElementById('epstein-value');
-        this.trumpValue = document.getElementById('trump-value');
+        this.trumpValue = document.getElementById('Dr Hope-value');
         this.hawkingValue = document.getElementById('hawking-value');
         this.startCustomNightBtn = document.getElementById('start-custom-night');
         this.backToMenuBtn = document.getElementById('back-to-menu');
@@ -295,7 +295,7 @@ class Game {
         this.state.currentNight = 7; // Custom Night = Night 7
         this.state.customAILevels = {
             epstein: epsteinLevel,
-            trump: trumpLevel,
+            Dr Hope: trumpLevel,
             hawking: hawkingLevel
         };
         
@@ -540,13 +540,13 @@ class Game {
         if (!tutorialContent) return;
         
         if (type === 'night2') {
-            // Night 2 教程：Trump
+            // Night 2 教程：Dr Hope
             tutorialContent.innerHTML = `
-                <h2>DEFEND YOURSELF AGAINST TRUMP</h2>
+                <h2>DEFEND YOURSELF AGAINST DR HOPE</h2>
                 <p>
-                    TRUMP WILL TRY TO ATTACK YOU THROUGH THE VENTS IN CAM 1 AND CAM 2, SO IF YOU HEAR BANGING IN THE VENTS HEAD OVER TO THE CONTROL PANEL AND CLOSE THEM. 
-                    AFTER CLOSING THEM YOU WILL HEAR BANGING AGAIN AFTER A FEW SECONDS WHICH MEANS HE LEFT THE VENTS. YOU MUST OPEN THE VENTS OTHERWISE YOU WILL DIE FROM LACK OF OXYGEN. 
-                    TRUMP CAN BE LURED WITH THE AUDIOS BUT YOUR MAIN PRIORITY WITH THE AUDIO LURES SHOULD BE EPSTEIN.
+                    DR HOPE WILL TRY TO ATTACK YOU THROUGH THE DOORS IN CAM 1 AND CAM 2, SO IF YOU HEAR BANGING AT THE DOORS HEAD OVER TO THE CONTROL PANEL AND LOCK THEM. 
+                    AFTER LOCKING THEM YOU WILL HEAR BANGING AGAIN AFTER A FEW SECONDS WHICH MEANS HE LEFT THE DOORS. YOU MUST UNLOCK THE DOORS OTHERWISE YOU WILL DIE FROM LACK OF OXYGEN. 
+                    DR HOPE CAN BE LURED WITH THE AUDIOS BUT YOUR MAIN PRIORITY WITH THE AUDIO LURES SHOULD BE EPSTEIN.
                 </p>
                 <button id="tutorial-got-it">GOT IT</button>
             `;
@@ -580,7 +580,7 @@ class Game {
                     PLAYING SOUND IN ONLY ONE SPOT WILL NOT WORK IF YOU DO IT TWICE OR MORE IN A ROW. 
                     USING THE AUDIO LURE TOO MUCH WILL LEAD TO THE CAMERAS BREAKING. 
                     TO FIX THEM HEAD TO THE CONTROL PANEL AND RESTART THE CAMERAS LIKE YOU JUST DID. 
-                    TILLERY DOES NOT ATTACK THROUGH THE VENTS SO DON'T BOTHER CLOSING THEM FOR THIS NIGHT.
+                    TILLERY DOES NOT ATTACK THROUGH THE DOORS SO DON'T BOTHER LOCKING THEM FOR THIS NIGHT.
                 </p>
                 <button id="tutorial-got-it">GOT IT</button>
             `;
@@ -1430,4 +1430,5 @@ class Game {
         }
     }
 }
+
 

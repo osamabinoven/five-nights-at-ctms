@@ -243,8 +243,8 @@ class UIManager {
         option1.style.alignItems = 'center';
         option1.style.direction = 'ltr'; // 强制从左到右
         option1.innerHTML = this.game.state.ventsClosed ? 
-            '<span class="option-arrow" style="color: #0f0; margin-right: 1.5vw; width: 2vw;">&gt;</span><span>Open Air Vents</span><span id="vents-dots" style="margin-left: 1vw; direction: ltr; font-family: \'Courier New\', monospace;"></span>' :
-            '<span class="option-arrow" style="color: #0f0; margin-right: 1.5vw; width: 2vw;">&gt;</span><span>Close Air Vents</span><span id="vents-dots" style="margin-left: 1vw; direction: ltr; font-family: \'Courier New\', monospace;"></span>';
+            '<span class="option-arrow" style="color: #0f0; margin-right: 1.5vw; width: 2vw;">&gt;</span><span>Unlock Doors</span><span id="vents-dots" style="margin-left: 1vw; direction: ltr; font-family: \'Courier New\', monospace;"></span>' :
+            '<span class="option-arrow" style="color: #0f0; margin-right: 1.5vw; width: 2vw;">&gt;</span><span>Lock Doors</span><span id="vents-dots" style="margin-left: 1vw; direction: ltr; font-family: \'Courier New\', monospace;"></span>';
         option1.addEventListener('click', () => {
             this.game.toggleVents();
             // 不在这里立即更新，等toggleVents完成后会自动调用updateControlPanelOptions
@@ -300,7 +300,7 @@ class UIManager {
             // 更新通风口文本（不包括dots span）
             const text1 = option1.querySelector('span:nth-child(2)');
             if (text1) {
-                text1.textContent = this.game.state.ventsClosed ? 'Open Air Vents' : 'Close Air Vents';
+                text1.textContent = this.game.state.ventsClosed ? 'Unlock Doors' : 'Lock Doors';
             }
         } else {
             const arrow1 = option1.querySelector('.option-arrow');

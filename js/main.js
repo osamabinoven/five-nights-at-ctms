@@ -143,7 +143,7 @@ async function preloadGameAssets() {
         'assets/images/enemyep4.png',
         'assets/images/scaryhawk.png',
         'assets/images/scaryep.png',
-        'assets/images/scarytrump.png',
+        'assets/images/scarydrhope.png',
         'assets/images/winscreen.png',
         'assets/images/goldenstephen.png'
     ];
@@ -180,7 +180,9 @@ async function preloadGameAssets() {
                 updatePreloadProgress((loadedAssets / totalAssets) * 100);
                 resolve();
             };
-            img.src = basePath + path;
+            // Add cache-busting timestamp
+            const separator = path.includes('?') ? '&' : '?';
+            img.src = basePath + path + separator + 't=' + Date.now();
         });
     });
     

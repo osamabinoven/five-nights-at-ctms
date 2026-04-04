@@ -20,7 +20,7 @@ class GameState {
         this.customNight = false; // 是否为自定义夜晚
         this.customAILevels = {
             epstein: 0,
-            trump: 0,
+            Dr Hope: 0,
             hawking: 0
         };
     }
@@ -41,3 +41,4 @@ class GameState {
         // 注意：不重置 customNight 和 customAILevels，因为它们在 initGame 之前设置
     }
 }
+

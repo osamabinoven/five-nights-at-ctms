@@ -80,7 +80,7 @@ class EnemyAI {
             }
         };
         
-        // Trump AI配置（按夜数，Night 2开始）
+        // Dr Hope AI配置（按夜数，Night 2开始）
         this.trumpConfig = {
             2: {
                 aiLevel: 14,              // AI等级，10/24 = 42%移动概率
@@ -233,17 +233,17 @@ class EnemyAI {
         
         // 特朗普的图片配置（使用绝对路径）
         this.trumpImages = {
-            'cam10': 'assets/images/trump3.png',
-            'cam11': 'assets/images/trump3.png',
-            'cam9': 'assets/images/trump.png',
-            'cam8': 'assets/images/trump5.png',
-            'cam7': 'assets/images/trump3.png',
-            'cam6': 'assets/images/trump3.png',
-            'cam5': 'assets/images/trump2.png',
-            'cam1': 'assets/images/trump4.png',
-            'cam2': 'assets/images/trump4.png',
-            'cam3': 'assets/images/trump2.png',
-            'cam4': 'assets/images/trump3.png',
+            'cam10': 'assets/images/drhope3.png',
+            'cam11': 'assets/images/drhope3.png',
+            'cam9': 'assets/images/Dr Hope.png',
+            'cam8': 'assets/images/drhope5.png',
+            'cam7': 'assets/images/drhope3.png',
+            'cam6': 'assets/images/drhope3.png',
+            'cam5': 'assets/images/drhope2.png',
+            'cam1': 'assets/images/drhope4.png',
+            'cam2': 'assets/images/drhope4.png',
+            'cam3': 'assets/images/drhope2.png',
+            'cam4': 'assets/images/drhope3.png',
         };
         
         // 定义移动路径图（根据地图连接关系，只能向前移动）
@@ -474,8 +474,8 @@ class EnemyAI {
         
         // Trump出场逻辑
         if (this.currentTrumpConfig && this.trump.aiLevel > 0) {
-            console.log(`Night ${this.game.state.currentNight} - Trump AI Config:`, this.currentTrumpConfig);
-            console.log(`Trump will spawn in ${this.currentTrumpConfig.spawnDelay / 1000} seconds...`);
+            console.log(`Night ${this.game.state.currentNight} - Dr Hope AI Config:`, this.currentTrumpConfig);
+            console.log(`Dr Hope will spawn in ${this.currentTrumpConfig.spawnDelay / 1000} seconds...`);
             
             // 根据配置延迟后Trump出场
             setTimeout(() => {
@@ -520,10 +520,10 @@ class EnemyAI {
             this.epstein.aiLevel = customLevels.epstein;
             this.epstein.movementInterval = this.getRandomInterval(this.currentEpsteinConfig.movementInterval);
             
-            // Trump 自定义配置
-            if (customLevels.trump > 0) {
+            // Dr Hope 自定义配置
+            if (customLevels.Dr Hope > 0) {
                 this.currentTrumpConfig = {
-                    aiLevel: customLevels.trump,
+                    aiLevel: customLevels.Dr Hope,
                     movementInterval: [8000, 9000],
                     movementDuration: 1000,
                     spawnDelay: 0,
@@ -542,7 +542,7 @@ class EnemyAI {
                         retreatSoundDuration: 3000
                     }
                 };
-                this.trump.aiLevel = customLevels.trump;
+                this.trump.aiLevel = customLevels.Dr Hope;
                 this.trump.movementInterval = this.getRandomInterval(this.currentTrumpConfig.movementInterval);
             } else {
                 this.currentTrumpConfig = null;
@@ -553,7 +553,7 @@ class EnemyAI {
             
             console.log(`Custom Night AI Config loaded:`);
             console.log(`- Epstein: Level ${this.epstein.aiLevel}`);
-            console.log(`- Trump: Level ${this.trump.aiLevel || 0}`);
+            console.log(`- Dr Hope: Level ${this.trump.aiLevel || 0}`);
             console.log(`- Hawking: Level ${customLevels.hawking}`);
             
             return;
@@ -571,15 +571,15 @@ class EnemyAI {
             this.trump.aiLevel = this.currentTrumpConfig.aiLevel;
             this.trump.movementInterval = this.getRandomInterval(this.currentTrumpConfig.movementInterval);
         } else {
-            this.currentTrumpConfig = null; // Night 6 没有 Trump
+            this.currentTrumpConfig = null; // Night 6 没有 Dr Hope
         }
         
         console.log(`AI Config loaded for Night ${night}`);
         console.log(`- Epstein: Level ${this.epstein.aiLevel}, Interval ${this.epstein.movementInterval}ms`);
         if (this.currentTrumpConfig) {
-            console.log(`- Trump: Level ${this.trump.aiLevel}, Interval ${this.trump.movementInterval}ms`);
+            console.log(`- Dr Hope: Level ${this.trump.aiLevel}, Interval ${this.trump.movementInterval}ms`);
         } else {
-            console.log(`- Trump: Not active this night`);
+            console.log(`- Dr Hope: Not active this night`);
         }
     }
     
@@ -615,7 +615,7 @@ class EnemyAI {
         if (this.trump.hasSpawned) return;
         
         this.trump.hasSpawned = true;
-        console.log('Trump has spawned at cam10!');
+        console.log('Dr Hope has spawned at cam10!');
         
         // 立即更新摄像头显示（如果摄像头打开）
         if (this.game.state.cameraOpen) {
@@ -916,14 +916,14 @@ class EnemyAI {
             };
             // 只在第一次触发时显示日志
             if (!this.trump.night5AggressiveMode) {
-                console.log('⚡ Night 5: 4AM reached! Trump is now in aggressive mode (faster + more crawling)');
+                console.log('⚡ Night 5: 4AM reached! Dr Hope is now in aggressive mode (faster + more crawling)');
                 this.trump.night5AggressiveMode = true;
             }
         }
         
         // 如果正在爬行，不能移动
         if (this.trump.isCrawling) {
-            console.log('Trump is crawling, cannot move');
+            console.log('Dr Hope is crawling, cannot move');
             return;
         }
         
@@ -931,7 +931,7 @@ class EnemyAI {
         if (currentLoc === 'cam1') {
             const shouldCrawl = Math.random() < config.ventCrawling.cam1Probability;
             if (shouldCrawl) {
-                console.log(`Trump starting to crawl from ${currentLoc} to office (${config.ventCrawling.cam1Probability * 100}% chance)`);
+                console.log(`Dr Hope starting to crawl from ${currentLoc} to office (${config.ventCrawling.cam1Probability * 100}% chance)`);
                 this.startTrumpCrawling(currentLoc);
                 return;
             }
@@ -941,11 +941,11 @@ class EnemyAI {
         if (currentLoc === 'cam2') {
             const shouldCrawl = Math.random() < config.ventCrawling.cam2Probability;
             if (shouldCrawl) {
-                console.log(`Trump decided to crawl from ${currentLoc} to office (${config.ventCrawling.cam2Probability * 100}% chance)`);
+                console.log(`Dr Hope decided to crawl from ${currentLoc} to office (${config.ventCrawling.cam2Probability * 100}% chance)`);
                 this.startTrumpCrawling(currentLoc);
                 return;
             } else {
-                console.log(`Trump decided to continue moving from ${currentLoc} (${(1 - config.ventCrawling.cam2Probability) * 100}% chance)`);
+                console.log(`Dr Hope decided to continue moving from ${currentLoc} (${(1 - config.ventCrawling.cam2Probability) * 100}% chance)`);
                 // 继续执行正常移动逻辑
             }
         }
@@ -968,7 +968,7 @@ class EnemyAI {
         
         // 如果没有任何可移动位置，不移动
         if (forwardLocations.length === 0 && lateralLocations.length === 0 && backwardLocations.length === 0) {
-            console.log(`Trump has no valid path from ${currentLoc}`);
+            console.log(`Dr Hope has no valid path from ${currentLoc}`);
             return;
         }
         
@@ -978,7 +978,7 @@ class EnemyAI {
         
         // 如果总概率为0，不移动
         if (totalProb === 0) {
-            console.log(`Trump movement probability is 0`);
+            console.log(`Dr Hope movement probability is 0`);
             return;
         }
         
@@ -1015,7 +1015,7 @@ class EnemyAI {
                 selectedLocations = backwardLocations;
                 movementType = 'backward (fallback)';
             } else {
-                console.log(`Trump has no valid path from ${currentLoc}`);
+                console.log(`Dr Hope has no valid path from ${currentLoc}`);
                 return;
             }
         }
@@ -1023,7 +1023,7 @@ class EnemyAI {
         // 从选中的方向中随机选择一个位置
         const nextLocation = selectedLocations[Math.floor(Math.random() * selectedLocations.length)];
         
-        console.log(`Trump moved [${movementType}]: ${currentLoc} (depth ${currentDepth}) -> ${nextLocation} (depth ${this.trumpLocationDepth[nextLocation]})`);
+        console.log(`Dr Hope moved [${movementType}]: ${currentLoc} (depth ${currentDepth}) -> ${nextLocation} (depth ${this.trumpLocationDepth[nextLocation]})`);
         
         this.trump.currentLocation = nextLocation;
         
@@ -1045,7 +1045,7 @@ class EnemyAI {
         
         // 检查通风管是否已经关闭
         if (this.game.state.ventsClosed) {
-            console.log('Trump tried to crawl but vents are already closed! Silent retreat.');
+            console.log('Dr Hope tried to crawl but vents are already closed! Silent retreat.');
             
             // 静默撤退 - 不播放任何音效
             // 找出所有步长为3的位置
@@ -1064,7 +1064,7 @@ class EnemyAI {
                 retreatLocation = epDepth3Locations[Math.floor(Math.random() * epDepth3Locations.length)];
             }
             
-            console.log(`Trump silently retreats to ${retreatLocation} (depth 3)`);
+            console.log(`Dr Hope silently retreats to ${retreatLocation} (depth 3)`);
             
             // 直接移动到撤退位置，不播放音效
             this.trump.currentLocation = retreatLocation;
@@ -1080,7 +1080,7 @@ class EnemyAI {
         this.trump.crawlingFrom = fromLocation; // 记录从哪里开始爬行
         this.trump.currentLocation = 'crawling'; // 标记为爬行状态
         
-        console.log(`Trump is crawling from ${fromLocation}...`);
+        console.log(`Dr Hope is crawling from ${fromLocation}...`);
         console.log(`Crawling config: soundDelay=${config.soundDelay}ms, soundDuration=${config.soundDuration}ms, totalDuration=${config.totalDuration}ms`);
         
         // 更新摄像头显示（Trump消失）
@@ -1105,7 +1105,7 @@ class EnemyAI {
         
         // 根据配置总时长后到达办公室并触发跳杀
         this.trump.crawlingTimer = setTimeout(() => {
-            console.log('Trump reached the office!');
+            console.log('Dr Hope reached the office!');
             this.trump.currentLocation = 'office';
             this.trump.isCrawling = false;
             this.trump.crawlingFrom = null;
@@ -1114,7 +1114,7 @@ class EnemyAI {
             this.game.assets.stopSound('ventCrawling');
             
             // 触发跳杀
-            this.triggerJumpscare('trump');
+            this.triggerJumpscare('Dr Hope');
         }, config.totalDuration);
     }
     
@@ -1126,7 +1126,7 @@ class EnemyAI {
         
         const config = this.currentTrumpConfig.ventCrawling;
         
-        console.log('Trump crawling blocked by closed vents!');
+        console.log('Dr Hope crawling blocked by closed vents!');
         
         // 清除爬行计时器
         if (this.trump.crawlingTimer) {
@@ -1158,7 +1158,7 @@ class EnemyAI {
             retreatLocation = epDepth3Locations[Math.floor(Math.random() * epDepth3Locations.length)];
         }
         
-        console.log(`Trump will retreat to ${retreatLocation} (depth 3)`);
+        console.log(`Dr Hope will retreat to ${retreatLocation} (depth 3)`);
         
         // 立即移动到撤退位置
         this.trump.currentLocation = retreatLocation;
@@ -1239,7 +1239,7 @@ class EnemyAI {
             // 吸引成功，Trump移动到sound位置（可以前进或后退）
             const currentDepth = this.trumpLocationDepth[trumpCurrentLoc];
             const soundDepth = this.trumpLocationDepth[soundLocation];
-            console.log(`Trump attracted by sound: ${trumpCurrentLoc} (depth ${currentDepth}) -> ${soundLocation} (depth ${soundDepth})`);
+            console.log(`Dr Hope attracted by sound: ${trumpCurrentLoc} (depth ${currentDepth}) -> ${soundLocation} (depth ${soundDepth})`);
             
             this.trump.currentLocation = soundLocation;
             
@@ -1250,12 +1250,12 @@ class EnemyAI {
             
             // 如果到达办公室，触发游戏结束
             if (soundLocation === 'office') {
-                this.triggerJumpscare('trump');
+                this.triggerJumpscare('Dr Hope');
             }
             
             trumpAttracted = true;
         } else if (this.trump.hasSpawned && !this.trump.isCrawling) {
-            console.log(`Sound at ${soundLocation} is not adjacent to Trump at ${trumpCurrentLoc}`);
+            console.log(`Sound at ${soundLocation} is not adjacent to Dr Hope at ${trumpCurrentLoc}`);
         }
         
         // 注意：不在这里更新显示，由CameraSystem的动画处理
@@ -1329,7 +1329,7 @@ class EnemyAI {
         // 创建跳杀图片（居中显示）
         const jumpscareImg = document.createElement('img');
         // 根据敌人选择跳杀图片
-        if (enemy === 'trump') {
+        if (enemy === 'Dr Hope') {
             jumpscareImg.src = this.game.assets.images.trumpJumpscare?.src || this.game.assets.images.jumpscare.src;
         } else if (enemy === 'hawking') {
             jumpscareImg.src = this.game.assets.images.hawkingJumpscare?.src || this.game.assets.images.jumpscare.src;
@@ -1420,7 +1420,7 @@ class EnemyAI {
             this.epstein.timer = null;
         }
         
-        // 重置 Trump
+        // 重置 Dr Hope
         this.trump.currentLocation = 'cam10';
         this.trump.aiLevel = 0;
         this.trump.hasSpawned = false;
@@ -1818,4 +1818,5 @@ class EnemyAI {
         return true;
     }
 }
+
 

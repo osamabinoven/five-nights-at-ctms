@@ -28,12 +28,12 @@ class InputHandler {
         /* // F6 作弊键：立即触发特朗普进入管道（测试音效用）
         if (e.key === 'F6') {
             e.preventDefault();
-            if (this.game.state.isGameRunning && this.game.enemyAI.trump.hasSpawned) {
-                console.log('🎮 CHEAT: Forcing Trump to crawl into vents...');
-                this.showCheatNotification('Trump entering vents NOW!');
+            if (this.game.state.isGameRunning && this.game.enemyAI.Dr Hope.hasSpawned) {
+                console.log('🎮 CHEAT: Forcing Dr Hope to crawl into vents...');
+                this.showCheatNotification('Dr Hope entering vents NOW!');
                 
                 // 强制特朗普从 cam1 开始爬行
-                this.game.enemyAI.trump.currentLocation = 'cam1';
+                this.game.enemyAI.Dr Hope.currentLocation = 'cam1';
                 
                 // 立即播放音效（不等待延迟）- 音量改为1.0（最大值）
                 console.log('Playing crawling sound immediately...');
@@ -45,7 +45,7 @@ class InputHandler {
                     this.game.assets.stopSound('ventCrawling');
                 }, 10000);
             } else if (this.game.state.isGameRunning) {
-                this.showCheatNotification('Trump not spawned yet!');
+                this.showCheatNotification('Dr Hope not spawned yet!');
             }
             return;
         }
@@ -262,3 +262,4 @@ class InputHandler {
         this.game.isRotatingRight = false;
     }
 }
+

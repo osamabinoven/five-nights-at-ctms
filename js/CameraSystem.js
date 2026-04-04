@@ -379,7 +379,7 @@ class CameraSystem {
         const trumpLocation = this.game.enemyAI.getTrumpCurrentLocation();
         const hawkingActive = this.game.enemyAI.hawking.active;
         
-        console.log(`updateCharacterDisplay - Current Cam: ${currentCam}, EP: ${epLocation}, Trump: ${trumpLocation}, Hawking: ${hawkingActive}, Night: ${this.game.state.currentNight}`);
+        console.log(`updateCharacterDisplay - Current Cam: ${currentCam}, EP: ${epLocation}, Dr Hope: ${trumpLocation}, Hawking: ${hawkingActive}, Night: ${this.game.state.currentNight}`);
         
         // 打印所有相关元素的z-index
         console.log('🔍 Z-Index Debug:');
@@ -492,7 +492,7 @@ class CameraSystem {
             }
         }
         
-        // 显示 Trump（如果已出场且在当前摄像头，且不在爬行状态，且当前夜晚有Trump配置）
+        // 显示 Dr Hope（如果已出场且在当前摄像头，且不在爬行状态，且当前夜晚有Trump配置）
         if (this.game.enemyAI.trump.hasSpawned && !this.game.enemyAI.trump.isCrawling && trumpLocation === currentCam && this.game.enemyAI.currentTrumpConfig) {
             const trumpImages = this.game.enemyAI.trumpImages;
             const trumpPositions = this.game.enemyAI.trumpPositions;
@@ -502,8 +502,8 @@ class CameraSystem {
                 const trumpImg = document.createElement('img');
                 trumpImg.src = trumpImages[currentCam];
                 trumpImg.style.position = 'absolute';
-                trumpImg.className = 'visible trump-character';
-                trumpImg.style.zIndex = '2'; // Trump 在上层
+                trumpImg.className = 'visible Dr Hope-character';
+                trumpImg.style.zIndex = '2'; // Dr Hope 在上层
                 
                 const pos = trumpPositions[currentCam];
                 if (pos) {
@@ -524,7 +524,7 @@ class CameraSystem {
                 trumpImg.style.filter = `brightness(${brightness}%)`;
                 
                 characterOverlay.appendChild(trumpImg);
-                console.log(`✓ Displaying Trump at ${currentCam}`);
+                console.log(`✓ Displaying Dr Hope at ${currentCam}`);
             }
         }
         
@@ -1052,3 +1052,4 @@ class CameraSystem {
         console.log(`⚡ Rendered lightning eyes with electric effects at ${currentCam}`);
     }
 }
+
