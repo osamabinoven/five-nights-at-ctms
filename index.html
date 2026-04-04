@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Five Nights At Tillery's - Web Version</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Five Nights At Epstein's</title>
     <base href="/five-nights-at-ctms/">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,7 +13,7 @@
 
     <div id="preloader">
         <div class="preloader-content">
-            <div id="preloader-logo" class="preloader-logo">FIVE NIGHTS<br>AT MR'S TILLERY'S</div>
+            <div class="preloader-logo">FIVE NIGHTS<br>AT EPSTEIN'S</div>
             <div class="preloader-spinner">
                 <div class="spinner-ring"></div>
                 <div class="spinner-ring"></div>
@@ -32,22 +31,29 @@
 
         <div id="game-screen">
             <img id="current-scene" src="" alt="" style="display: none;">
+
+
             <div id="hotspots"></div>
 
+
             <div id="ui-overlay">
+
                 <div id="top-left-ui">
                     <div id="time-display"><span id="time-value">12 AM</span></div>
                     <div id="night-display">NIGHT <span id="night-value">1</span></div>
                 </div>
 
+
                 <div id="bottom-right-ui">
                     <div id="oxygen-display">
                         <img src="assets/images/fa3.png" alt="Vent" class="vent-icon">
-                        <span id="power-value">100</span><span class="percent-sign">%</span><span class="oxygen-unit">O<sub>2</sub></span>
+                        <span id="power-value">100</span><span class="percent-sign">%</span><span
+                            class="oxygen-unit">O<sub>2</sub></span>
                     </div>
                 </div>
             </div>
         </div>
+
 
         <div id="camera-panel" class="hidden">
             <div id="current-cam-label">CAM 11</div>
@@ -63,33 +69,39 @@
             </video>
         </div>
 
+
         <div id="cutscene" class="hidden">
             <img src="assets/images/cutscene.png" alt="Cutscene">
             <div class="cutscene-hint">Click to continue...</div>
         </div>
 
+
         <div id="night-intro" class="hidden">
             <div id="night-intro-text">NIGHT 1</div>
         </div>
+
 
         <div id="main-menu">
             <img id="star-icon" class="hidden" src="assets/images/star.png" alt="Star">
             <img id="star-icon-2" class="hidden" src="assets/images/star.png" alt="Star 2">
             <img id="star-icon-3" class="hidden" src="assets/images/star.png" alt="Star 3">
 
-            <h1>FIVE<br>NIGHTS<br>AT<br>TILLERY'S</h1>
+            <h1>FIVE<br>NIGHTS<br>AT<br>EPSTEIN'S</h1>
             <button id="start-game">NEW GAME</button>
             <button id="continue-game" class="hidden">CONTINUE</button>
-            <button id="special-night-btn" class="hidden">TILLERY'S SPECIAL NIGHT</button>
+            <button id="special-night-btn" class="hidden">EPSTEIN'S SPECIAL NIGHT</button>
             <button id="custom-night-btn" class="hidden">CUSTOM NIGHT</button>
-            <div class="copyright">© OSAMABINOVEN PRODUCTIONS | HTML5 remake</div>
-            <div class="version">v1.2.3</div>
+            <div class="copyright">© N1yshi - Jannes</div>
+            <div class="version">v1.2.2</div>
         </div>
+
 
         <button id="volume-btn" title="Volume Settings">SOUND SETTINGS</button>
 
+
         <div id="volume-panel" class="hidden">
             <h3>VOLUME SETTINGS</h3>
+
             <div class="volume-item">
                 <label>Master Volume</label>
                 <div class="volume-slider-container">
@@ -97,6 +109,7 @@
                     <span class="volume-percent">70%</span>
                 </div>
             </div>
+
             <div class="volume-item">
                 <label>Game Background Music</label>
                 <div class="volume-slider-container">
@@ -104,6 +117,7 @@
                     <span class="volume-percent">70%</span>
                 </div>
             </div>
+
             <div class="volume-item">
                 <label>Menu Music</label>
                 <div class="volume-slider-container">
@@ -111,6 +125,7 @@
                     <span class="volume-percent">70%</span>
                 </div>
             </div>
+
             <div class="volume-item">
                 <label>Jumpscare Sounds</label>
                 <div class="volume-slider-container">
@@ -118,21 +133,25 @@
                     <span class="volume-percent">70%</span>
                 </div>
             </div>
+
             <div class="volume-item">
-                <label>DrHope Vent Crawling</label>
+                <label>Trump Vent Crawling</label>
                 <div class="volume-slider-container">
                     <input type="range" id="vent-crawling-volume" min="0" max="100" value="70" />
                     <span class="volume-percent">70%</span>
                 </div>
             </div>
+
             <button id="close-volume-panel">CLOSE</button>
         </div>
+
 
         <div id="custom-night-menu" class="hidden">
             <h1>CUSTOM NIGHT</h1>
             <div class="custom-night-controls">
+
                 <div class="ai-control">
-                    <div class="ai-name">TILLERY</div>
+                    <div class="ai-name">EPSTEIN</div>
                     <div class="ai-slider-container">
                         <button class="ai-btn-minus" data-ai="epstein">-</button>
                         <input type="range" id="epstein-slider" class="ai-slider" min="0" max="20" value="0">
@@ -140,8 +159,10 @@
                     </div>
                     <div class="ai-value" id="epstein-value">0</div>
                 </div>
+
+
                 <div class="ai-control">
-                    <div class="ai-name">DRHOPE</div>
+                    <div class="ai-name">TRUMP</div>
                     <div class="ai-slider-container">
                         <button class="ai-btn-minus" data-ai="trump">-</button>
                         <input type="range" id="trump-slider" class="ai-slider" min="0" max="20" value="0">
@@ -149,8 +170,10 @@
                     </div>
                     <div class="ai-value" id="trump-value">0</div>
                 </div>
+
+
                 <div class="ai-control">
-                    <div class="ai-name">DRNUT</div>
+                    <div class="ai-name">HAWKING</div>
                     <div class="ai-slider-container">
                         <button class="ai-btn-minus" data-ai="hawking">-</button>
                         <input type="range" id="hawking-slider" class="ai-slider" min="0" max="20" value="0">
@@ -159,19 +182,24 @@
                     <div class="ai-value" id="hawking-value">0</div>
                 </div>
             </div>
+
             <div class="custom-night-buttons">
                 <button id="start-custom-night">START</button>
                 <button id="back-to-menu">BACK</button>
             </div>
         </div>
 
+
         <canvas id="static-canvas"></canvas>
+
 
         <audio id="menu-music" loop>
             <source src="assets/sounds/music3.ogg" type="audio/ogg">
         </audio>
 
+
         <div id="game-over" class="hidden">
+
             <video id="game-over-static" loop muted playsinline autoplay>
                 <source src="assets/vedio/202512191935.webm" type="video/webm">
             </video>
@@ -183,16 +211,17 @@
             </div>
         </div>
 
+
         <div id="tutorial-overlay" class="hidden">
             <div id="tutorial-content">
-                <h2>DEFEND YOURSELF AGAINST MR'S TILLERY</h2>
+                <h2>DEFEND YOURSELF AGAINST EPSTEIN</h2>
                 <p>
-                    TILLERY ALWAYS STARTS AT CAM 11. USE THE CAMERA'S AUDIO LURE TO KEEP THE CHUD FAR AWAY FROM YOU.
-                    MAKE SURE THE CAMERA YOU'RE PLAYING THE SOUND IN IS NEXT TO THE CAMERA WHERE TILLERY IS.
+                    EPSTEIN ALWAYS STARTS AT CAM 11. USE THE CAMERA'S AUDIO LURE TO KEEP EPSTEIN FAR AWAY FROM YOU.
+                    MAKE SURE THE CAMERA YOU'RE PLAYING THE SOUND IN IS NEXT TO THE CAMERA WHERE EPSTEIN IS.
                     PLAYING SOUND IN ONLY ONE SPOT WILL NOT WORK IF YOU DO IT TWICE OR MORE IN A ROW.
                     USING THE AUDIO LURE TOO MUCH WILL LEAD TO THE CAMERAS BREAKING.
                     TO FIX THEM HEAD TO THE CONTROL PANEL AND RESTART THE CAMERAS LIKE YOU JUST DID.
-                    TILLERY DOES NOT ATTACK THROUGH THE VENTS SO DON'T BOTHER CLOSING THEM FOR THIS NIGHT.
+                    EPSTEIN DOES NOT ATTACK THROUGH THE VENTS SO DON'T BOTHER CLOSING THEM FOR THIS NIGHT.
                 </p>
                 <button id="tutorial-got-it">GOT IT</button>
             </div>
@@ -211,4 +240,5 @@
     <script type="module" src="js/main.js"></script>
 
 </body>
+
 </html>
