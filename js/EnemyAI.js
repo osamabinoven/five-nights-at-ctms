@@ -1341,6 +1341,7 @@ class EnemyAI {
         jumpscareImg.style.left = '50%';
         jumpscareImg.style.transform = 'translate(-50%, -50%)';
         jumpscareImg.style.width = '25%'; // 初始大小25%
+        jumpscareImg.style.maxWidth = '80vw';
         jumpscareImg.style.height = 'auto';
         jumpscareImg.style.zIndex = '2';
         jumpscareImg.style.transition = 'none';
@@ -1359,14 +1360,14 @@ class EnemyAI {
         // 第1帧：25% (立即显示)
         // 已经设置
         
-        // 第2帧：50% (0.15秒后)
+        // 第2帧：40% (0.15秒后)
         setTimeout(() => {
-            jumpscareImg.style.width = '50%';
+            jumpscareImg.style.width = '40%';
         }, 150);
         
-        // 第3帧：100% (0.3秒后)
+        // 第3帧：55% (0.3秒后)
         setTimeout(() => {
-            jumpscareImg.style.width = '100%';
+            jumpscareImg.style.width = '55%';
         }, 300);
         
         // 1.5秒后淡出并显示游戏结束画面

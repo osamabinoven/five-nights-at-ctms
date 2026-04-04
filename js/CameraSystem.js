@@ -541,14 +541,22 @@ class CameraSystem {
         const mapContainer = document.createElement('div');
         mapContainer.style.position = 'relative';
         mapContainer.style.width = '100%';
-        mapContainer.style.height = '100%';
+        mapContainer.style.paddingTop = '75%';
+        mapContainer.style.height = '0';
+        mapContainer.style.overflow = 'hidden';
+        mapContainer.style.background = 'rgba(0, 0, 0, 0.05)';
+        mapContainer.style.borderRadius = '8px';
+        mapContainer.style.boxShadow = 'inset 0 0 20px rgba(0,0,0,0.2)';
         
         // 添加地图图片
         const mapImg = document.createElement('img');
         mapImg.src = 'assets/images/FNAE-Map-layout.png';
+        mapImg.style.position = 'absolute';
+        mapImg.style.top = '0';
+        mapImg.style.left = '0';
         mapImg.style.width = '100%';
         mapImg.style.height = '100%';
-        mapImg.style.objectFit = 'contain';
+        mapImg.style.objectFit = 'cover';
         mapImg.style.display = 'block';
         mapContainer.appendChild(mapImg);
         
