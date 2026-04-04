@@ -111,8 +111,8 @@ class AssetManager {
     getBasePath() {
         // 检查是否在 iframe 中
         const currentPath = window.location.pathname;
-        if (currentPath.includes('/FNAE-HTML5-1.2.3/')) {
-            return '/FNAE-HTML5-1.2.3/';
+        if (currentPath.includes('/FNAE-HTML5-1.2.2-fix/')) {
+            return '/FNAE-HTML5-1.2.2-fix/';
         }
         // 本地开发环境
         return './';
@@ -159,21 +159,7 @@ class AssetManager {
 
     setSoundVolume(key, volume) {
         if (this.sounds[key]) {
-            // 根据音效类型应用对应的音量
-            let categoryVolume = this.volumeSettings.master;
-            
-            if (key === 'music' || key === 'music3') {
-                categoryVolume *= this.volumeSettings.menuMusic;
-            } else if (key === 'jumpscare' || key === 'hawkingJumpscare' || key === 'trumpJumpscare') {
-                categoryVolume *= this.volumeSettings.jumpscare;
-            } else if (key === 'ventCrawling') {
-                categoryVolume *= this.volumeSettings.ventCrawling;
-            } else if (key === 'vents' || key === 'ambience' || key === 'staticLoop' || key === 'static' || key === 'blip' || key === 'Blip') {
-                // 游戏背景音乐：包括通风口声音、静态噪声、摄像机切换声等
-                categoryVolume *= this.volumeSettings.gameBg;
-            }
-            
-            this.sounds[key].volume = Math.min(1, volume * categoryVolume);
+            this.sounds[key].volume = volume;
         }
     }
 }
