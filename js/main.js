@@ -190,17 +190,42 @@ async function preloadGameAssets() {
     const audioPromises = soundPaths.map(path => {
         return new Promise((resolve) => {
             const audio = new Audio();
-            audio.addEventListener('canplaythrough', () => {
-                loadedAssets++;
-                updatePreloadProgress((loadedAssets / totalAssets) * 100);
-                resolve();
-            }, { once: true });
-            audio.addEventListener('error', () => {
-                console.warn(`Failed to load audio: ${path}`);
-                loadedAssets++;
-                updatePreloadProgress((loadedAssets / totalAssets) * 100);
-                resolve();
-            }, { once: true });
+            let resolved = false;
+            
+            const onSuccess = () => {
+                if (!resolved) {
+                    resolved = true;
+                    loadedAssets++;
+                    updatePreloadProgress((loadedAssets / totalAssets) * 100);
+                    resolve();
+                }
+            };
+            
+            const onError = () => {
+                if (!resolved) {
+                    resolved = true;
+                    console.warn(`Failed to load audio: ${path}`);
+                    loadedAssets++;
+                    updatePreloadProgress((loadedAssets / totalAssets) * 100);
+                    resolve();
+                }
+            };
+            
+            audio.addEventListener('canplaythrough', onSuccess, { once: true });
+            audio.addEventListener('error', onError, { once: true });
+            audio.addEventListener('loadeddata', onSuccess, { once: true }); // Fallback event
+            
+            // Add timeout to prevent hanging
+            const timeout = setTimeout(() => {
+                if (!resolved) {
+                    resolved = true;
+                    console.warn(`Audio loading timeout: ${path}`);
+                    loadedAssets++;
+                    updatePreloadProgress((loadedAssets / totalAssets) * 100);
+                    resolve();
+                }
+            }, 5000);
+            
             audio.src = basePath + path;
             audio.load();
         });
@@ -231,7 +256,11 @@ window.addEventListener('DOMContentLoaded', async () => {
     await preloadGameAssets();
     
     // 预加载背景图片（用于恐怖脸效果）
-    preloadBackgrounds();
+    if (typeof preloadBackgrounds === 'function') {
+        preloadBackgrounds();
+    } else {
+        console.warn('preloadBackgrounds function not found, skipping...');
+    }
     
     // 隐藏预加载动画
     hidePreloader();
