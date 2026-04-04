@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Five Nights At Tillery's - Web Version</title>
-    <base href="/five-nights-at-ctms/"> 
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
     <div id="preloader">
         <div class="preloader-content">
             <div class="preloader-logo">FIVE NIGHTS<br>AT MR'S TILLERY'S</div>
@@ -25,17 +30,17 @@
     </div>
 
     <div id="game-container">
+
         <div id="game-screen">
             <img id="current-scene" src="" alt="" style="display: none;">
-            
             <div id="hotspots"></div>
-            
+
             <div id="ui-overlay">
                 <div id="top-left-ui">
                     <div id="time-display"><span id="time-value">12 AM</span></div>
                     <div id="night-display">NIGHT <span id="night-value">1</span></div>
                 </div>
-                
+
                 <div id="bottom-right-ui">
                     <div id="oxygen-display">
                         <img src="assets/images/fa3.png" alt="Vent" class="vent-icon">
@@ -48,10 +53,12 @@
         <div id="camera-panel" class="hidden">
             <div id="current-cam-label">CAM 11</div>
             <div id="camera-error-label">ERR</div>
+
             <div id="character-overlay"></div>
             <div id="camera-grid"></div>
             <button id="shock-hawking-btn">ELECTROCUTE</button>
             <button id="play-sound-btn">PLAY SOUND</button>
+
             <video id="camera-static-video" loop muted playsinline>
                 <source src="assets/vedio/202512191935.webm" type="video/webm">
             </video>
@@ -70,7 +77,7 @@
             <img id="star-icon" class="hidden" src="assets/images/star.png" alt="Star">
             <img id="star-icon-2" class="hidden" src="assets/images/star.png" alt="Star 2">
             <img id="star-icon-3" class="hidden" src="assets/images/star.png" alt="Star 3">
-            
+
             <h1>FIVE<br>NIGHTS<br>AT<br>TILLERY'S</h1>
             <button id="start-game">NEW GAME</button>
             <button id="continue-game" class="hidden">CONTINUE</button>
@@ -79,12 +86,12 @@
             <div class="copyright">© OSAMABINOVEN PRODUCTIONS | HTML5 remake</div>
             <div class="version">v1.2.3</div>
         </div>
-        
+
         <button id="volume-btn" title="Volume Settings">SOUND SETTINGS</button>
-        
+
         <div id="volume-panel" class="hidden">
             <h3>VOLUME SETTINGS</h3>
-            
+
             <div class="volume-item">
                 <label>Master Volume</label>
                 <div class="volume-slider-container">
@@ -92,7 +99,7 @@
                     <span class="volume-percent">70%</span>
                 </div>
             </div>
-            
+
             <div class="volume-item">
                 <label>Game Background Music</label>
                 <div class="volume-slider-container">
@@ -100,7 +107,7 @@
                     <span class="volume-percent">70%</span>
                 </div>
             </div>
-            
+
             <div class="volume-item">
                 <label>Menu Music</label>
                 <div class="volume-slider-container">
@@ -108,7 +115,7 @@
                     <span class="volume-percent">70%</span>
                 </div>
             </div>
-            
+
             <div class="volume-item">
                 <label>Jumpscare Sounds</label>
                 <div class="volume-slider-container">
@@ -116,7 +123,7 @@
                     <span class="volume-percent">70%</span>
                 </div>
             </div>
-            
+
             <div class="volume-item">
                 <label>DrHope Vent Crawling</label>
                 <div class="volume-slider-container">
@@ -124,13 +131,14 @@
                     <span class="volume-percent">70%</span>
                 </div>
             </div>
-            
+
             <button id="close-volume-panel">CLOSE</button>
         </div>
 
         <div id="custom-night-menu" class="hidden">
             <h1>CUSTOM NIGHT</h1>
             <div class="custom-night-controls">
+
                 <div class="ai-control">
                     <div class="ai-name">TILLERY</div>
                     <div class="ai-slider-container">
@@ -140,9 +148,9 @@
                     </div>
                     <div class="ai-value" id="epstein-value">0</div>
                 </div>
-                
+
                 <div class="ai-control">
-                    <div class="ai-name">DrHope</div>
+                    <div class="ai-name">DRHOPE</div>
                     <div class="ai-slider-container">
                         <button class="ai-btn-minus" data-ai="trump">-</button>
                         <input type="range" id="trump-slider" class="ai-slider" min="0" max="20" value="0">
@@ -150,9 +158,9 @@
                     </div>
                     <div class="ai-value" id="trump-value">0</div>
                 </div>
-                
+
                 <div class="ai-control">
-                    <div class="ai-name">DrNut</div>
+                    <div class="ai-name">DRNUT</div>
                     <div class="ai-slider-container">
                         <button class="ai-btn-minus" data-ai="hawking">-</button>
                         <input type="range" id="hawking-slider" class="ai-slider" min="0" max="20" value="0">
@@ -161,15 +169,15 @@
                     <div class="ai-value" id="hawking-value">0</div>
                 </div>
             </div>
-            
+
             <div class="custom-night-buttons">
                 <button id="start-custom-night">START</button>
                 <button id="back-to-menu">BACK</button>
             </div>
         </div>
-        
+
         <canvas id="static-canvas"></canvas>
-        
+
         <audio id="menu-music" loop>
             <source src="assets/sounds/music3.ogg" type="audio/ogg">
         </audio>
@@ -190,11 +198,11 @@
             <div id="tutorial-content">
                 <h2>DEFEND YOURSELF AGAINST MR'S TILLERY</h2>
                 <p>
-                    TILLERY ALWAYS STARTS AT CAM 11. USE THE CAMERA'S AUDIO LURE TO KEEP THE CHUD FAR AWAY FROM YOU. 
-                    MAKE SURE THE CAMERA YOU'RE PLAYING THE SOUND IN IS NEXT TO THE CAMERA WHERE TILLERY IS. 
-                    PLAYING SOUND IN ONLY ONE SPOT WILL NOT WORK IF YOU DO IT TWICE OR MORE IN A ROW. 
-                    USING THE AUDIO LURE TOO MUCH WILL LEAD TO THE CAMERAS BREAKING. 
-                    TO FIX THEM HEAD TO THE CONTROL PANEL AND RESTART THE CAMERAS LIKE YOU JUST DID. 
+                    TILLERY ALWAYS STARTS AT CAM 11. USE THE CAMERA'S AUDIO LURE TO KEEP THE CHUD FAR AWAY FROM YOU.
+                    MAKE SURE THE CAMERA YOU'RE PLAYING THE SOUND IN IS NEXT TO THE CAMERA WHERE TILLERY IS.
+                    PLAYING SOUND IN ONLY ONE SPOT WILL NOT WORK IF YOU DO IT TWICE OR MORE IN A ROW.
+                    USING THE AUDIO LURE TOO MUCH WILL LEAD TO THE CAMERAS BREAKING.
+                    TO FIX THEM HEAD TO THE CONTROL PANEL AND RESTART THE CAMERAS LIKE YOU JUST DID.
                     TILLERY DOES NOT ATTACK THROUGH THE VENTS SO DON'T BOTHER CLOSING THEM FOR THIS NIGHT.
                 </p>
                 <button id="tutorial-got-it">GOT IT</button>
@@ -212,5 +220,7 @@
     <script type="module" src="js/ScaryFaceFlicker.js"></script>
     <script type="module" src="js/Game.js"></script>
     <script type="module" src="js/main.js"></script>
+
 </body>
+
 </html>
