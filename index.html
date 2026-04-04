@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Five Nights At Epstein's</title>
+    <title>Five Nights At Mrs. Tillery's</title>
     <base href="/five-nights-at-ctms/">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -13,7 +13,7 @@
 
     <div id="preloader">
         <div class="preloader-content">
-            <div class="preloader-logo">FIVE NIGHTS<br>AT EPSTEIN'S</div>
+            <div id="preloader-logo" class="preloader-logo" style="color: red; text-shadow: 0 0 10px red;">FIVE NIGHTS<br>AT MRS. TILLERY'S</div>
             <div class="preloader-spinner">
                 <div class="spinner-ring"></div>
                 <div class="spinner-ring"></div>
@@ -32,17 +32,13 @@
         <div id="game-screen">
             <img id="current-scene" src="" alt="" style="display: none;">
 
-
             <div id="hotspots"></div>
 
-
             <div id="ui-overlay">
-
                 <div id="top-left-ui">
                     <div id="time-display"><span id="time-value">12 AM</span></div>
                     <div id="night-display">NIGHT <span id="night-value">1</span></div>
                 </div>
-
 
                 <div id="bottom-right-ui">
                     <div id="oxygen-display">
@@ -54,50 +50,55 @@
             </div>
         </div>
 
-
         <div id="camera-panel" class="hidden">
             <div id="current-cam-label">CAM 11</div>
             <div id="camera-error-label">ERR</div>
 
             <div id="character-overlay"></div>
             <div id="camera-grid"></div>
-            <button id="shock-hawking-btn">ELECTROCUTE</button>
-            <button id="play-sound-btn">PLAY SOUND</button>
+
+            <div class="camera-controls">
+                <button id="shock-hawking-btn">ELECTROCUTE</button>
+                <button id="play-sound-btn">PLAY SOUND</button>
+            </div>
 
             <video id="camera-static-video" loop muted playsinline>
                 <source src="assets/vedio/202512191935.webm" type="video/webm">
             </video>
         </div>
 
-
         <div id="cutscene" class="hidden">
             <img src="assets/images/cutscene.png" alt="Cutscene">
             <div class="cutscene-hint">Click to continue...</div>
         </div>
 
-
         <div id="night-intro" class="hidden">
             <div id="night-intro-text">NIGHT 1</div>
         </div>
 
-
         <div id="main-menu">
-            <img id="star-icon" class="hidden" src="assets/images/star.png" alt="Star">
-            <img id="star-icon-2" class="hidden" src="assets/images/star.png" alt="Star 2">
-            <img id="star-icon-3" class="hidden" src="assets/images/star.png" alt="Star 3">
+            <div class="menu-icons">
+                <img id="star-icon" class="hidden" src="assets/images/star.png" alt="Star">
+                <img id="star-icon-2" class="hidden" src="assets/images/star.png" alt="Star 2">
+                <img id="star-icon-3" class="hidden" src="assets/images/star.png" alt="Star 3">
+            </div>
 
-            <h1>FIVE<br>NIGHTS<br>AT<br>EPSTEIN'S</h1>
-            <button id="start-game">NEW GAME</button>
-            <button id="continue-game" class="hidden">CONTINUE</button>
-            <button id="special-night-btn" class="hidden">EPSTEIN'S SPECIAL NIGHT</button>
-            <button id="custom-night-btn" class="hidden">CUSTOM NIGHT</button>
-            <div class="copyright">© N1yshi - Jannes</div>
-            <div class="version">v1.2.2</div>
+            <h1 style="color: red; text-shadow: 0 0 15px red;">FIVE<br>NIGHTS<br>AT<br>MRS. TILLERY'S</h1>
+
+            <div class="menu-buttons">
+                <button id="start-game">NEW GAME</button>
+                <button id="continue-game" class="hidden">CONTINUE</button>
+                <button id="special-night-btn" class="hidden">TILLERY'S SPECIAL NIGHT</button>
+                <button id="custom-night-btn" class="hidden">CUSTOM NIGHT</button>
+            </div>
+
+            <div class="menu-footer">
+                <div class="copyright">© OSAMABINOVEN PRODUCTIONS | HTML5 REMAKE</div>
+                <div class="version">v1.2.3</div>
+            </div>
         </div>
 
-
         <button id="volume-btn" title="Volume Settings">SOUND SETTINGS</button>
-
 
         <div id="volume-panel" class="hidden">
             <h3>VOLUME SETTINGS</h3>
@@ -135,7 +136,7 @@
             </div>
 
             <div class="volume-item">
-                <label>Trump Vent Crawling</label>
+                <label>Vent Crawling</label>
                 <div class="volume-slider-container">
                     <input type="range" id="vent-crawling-volume" min="0" max="100" value="70" />
                     <span class="volume-percent">70%</span>
@@ -145,13 +146,12 @@
             <button id="close-volume-panel">CLOSE</button>
         </div>
 
-
         <div id="custom-night-menu" class="hidden">
             <h1>CUSTOM NIGHT</h1>
-            <div class="custom-night-controls">
 
+            <div class="custom-night-controls">
                 <div class="ai-control">
-                    <div class="ai-name">EPSTEIN</div>
+                    <div class="ai-name">MRS. TILLERY</div>
                     <div class="ai-slider-container">
                         <button class="ai-btn-minus" data-ai="epstein">-</button>
                         <input type="range" id="epstein-slider" class="ai-slider" min="0" max="20" value="0">
@@ -159,7 +159,6 @@
                     </div>
                     <div class="ai-value" id="epstein-value">0</div>
                 </div>
-
 
                 <div class="ai-control">
                     <div class="ai-name">TRUMP</div>
@@ -170,7 +169,6 @@
                     </div>
                     <div class="ai-value" id="trump-value">0</div>
                 </div>
-
 
                 <div class="ai-control">
                     <div class="ai-name">HAWKING</div>
@@ -189,43 +187,38 @@
             </div>
         </div>
 
-
         <canvas id="static-canvas"></canvas>
-
 
         <audio id="menu-music" loop>
             <source src="assets/sounds/music3.ogg" type="audio/ogg">
         </audio>
 
-
         <div id="game-over" class="hidden">
-
             <video id="game-over-static" loop muted playsinline autoplay>
                 <source src="assets/vedio/202512191935.webm" type="video/webm">
             </video>
             <div id="game-over-content">
-                <h2 id="game-over-text"></h2>
+                <h2 id="game-over-text">GAME OVER</h2>
                 <p id="game-over-subtitle" class="hidden"></p>
-                <button id="restart">Restart</button>
-                <button id="main-menu-btn">Main Menu</button>
+                <div class="game-over-buttons">
+                    <button id="restart">RETRY</button>
+                    <button id="main-menu-btn">MENU</button>
+                </div>
             </div>
         </div>
-
 
         <div id="tutorial-overlay" class="hidden">
             <div id="tutorial-content">
-                <h2>DEFEND YOURSELF AGAINST EPSTEIN</h2>
-                <p>
-                    EPSTEIN ALWAYS STARTS AT CAM 11. USE THE CAMERA'S AUDIO LURE TO KEEP EPSTEIN FAR AWAY FROM YOU.
-                    MAKE SURE THE CAMERA YOU'RE PLAYING THE SOUND IN IS NEXT TO THE CAMERA WHERE EPSTEIN IS.
-                    PLAYING SOUND IN ONLY ONE SPOT WILL NOT WORK IF YOU DO IT TWICE OR MORE IN A ROW.
-                    USING THE AUDIO LURE TOO MUCH WILL LEAD TO THE CAMERAS BREAKING.
-                    TO FIX THEM HEAD TO THE CONTROL PANEL AND RESTART THE CAMERAS LIKE YOU JUST DID.
-                    EPSTEIN DOES NOT ATTACK THROUGH THE VENTS SO DON'T BOTHER CLOSING THEM FOR THIS NIGHT.
-                </p>
-                <button id="tutorial-got-it">GOT IT</button>
+                <h2>HOW TO SURVIVE TILLERY</h2>
+                <div class="tutorial-text">
+                    <p>MRS. TILLERY ALWAYS STARTS AT CAM 11. USE THE CAMERA'S AUDIO LURE TO KEEP HER AWAY FROM YOU.</p>
+                    <p>MAKE SURE THE CAMERA YOU'RE PLAYING THE SOUND IN IS NEXT TO THE CAMERA WHERE SHE IS.</p>
+                    <p>USING THE AUDIO LURE TOO MUCH WILL BREAK THE CAMERAS. FIX THEM AT THE CONTROL PANEL.</p>
+                </div>
+                <button id="tutorial-got-it">I UNDERSTAND</button>
             </div>
         </div>
+
     </div>
 
     <script type="module" src="js/GameState.js"></script>
