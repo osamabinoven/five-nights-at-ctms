@@ -332,21 +332,15 @@ class UIManager {
         const dotsSpan = document.getElementById('door-dots');
         if (!statusSpan) return;
         
+        // Door restarting - don't show indicator in control panel (silent restart)
         if (this.game.state.doorRestarting) {
             if (dotsSpan) {
-                dotsSpan.style.color = '#0f0';
-                if (!dotsSpan.dataset.animating) {
-                    dotsSpan.dataset.animating = 'true';
-                    this.animateLoadingDots(dotsSpan);
-                }
+                dotsSpan.textContent = '';
+                delete dotsSpan.dataset.animating;
             }
-            if (this.game.state.doorFailed) {
-                statusSpan.style.color = '#f00';
-                statusSpan.textContent = 'ERR';
-            } else {
-                statusSpan.textContent = '';
-            }
+            statusSpan.textContent = '';
         } else if (this.game.state.doorFailed) {
+            // Door failed - show error
             if (dotsSpan) {
                 dotsSpan.textContent = '';
                 delete dotsSpan.dataset.animating;
@@ -354,6 +348,7 @@ class UIManager {
             statusSpan.style.color = '#f00';
             statusSpan.textContent = 'ERR';
         } else {
+            // Door normal
             if (dotsSpan) {
                 dotsSpan.textContent = '';
                 delete dotsSpan.dataset.animating;

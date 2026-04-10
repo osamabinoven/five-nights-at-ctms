@@ -19,8 +19,8 @@ class EnemyAI {
                 soundLureResistance: 0  // 对sound吸引的抵抗概率（0-1）
             },
             2: {
-                aiLevel: 16,
-                movementInterval: [9000, 10000],
+                aiLevel: 18,
+                movementInterval: [7500, 8500],
                 movementDuration: 1000,
                 spawnDelay: 0,
                 movementProbability: {
@@ -31,8 +31,8 @@ class EnemyAI {
                 soundLureResistance: 0.1
             },
             3: {
-                aiLevel: 17,
-                movementInterval: [9000, 10000],
+                aiLevel: 19,
+                movementInterval: [7000, 8000],
                 movementDuration: 1000,
                 spawnDelay: 0,
                 movementProbability: {
@@ -44,7 +44,7 @@ class EnemyAI {
             },
             4: {
                 aiLevel: 20,
-                movementInterval: [9000, 10000],    // Night 4：9-10秒间隔
+                movementInterval: [6500, 7500],    // Night 4：更快
                 movementDuration: 1000,
                 spawnDelay: 0,
                 movementProbability: {
@@ -56,7 +56,7 @@ class EnemyAI {
             },
             5: {
                 aiLevel: 12,
-                movementInterval: [9000, 10000],    // Night 5：9-10秒间隔
+                movementInterval: [6000, 7000],    // Night 5：更快
                 movementDuration: 1000,
                 spawnDelay: 0,
                 movementProbability: {
@@ -486,13 +486,17 @@ class EnemyAI {
         // Hawking激活逻辑
         // Custom Night: 根据自定义等级决定是否激活
         if (this.game.state.customNight && this.game.state.customAILevels.hawking > 0) {
-            console.log('Custom Night: Hawking activated at cam6!');
-            this.startHawking();
+            console.log('Custom Night: Hawking will activate in 75 seconds...');
+            setTimeout(() => {
+                this.startHawking();
+            }, 75000);
         }
         // 普通夜晚：Night 3-5 激活
         else if (!this.game.state.customNight && this.game.state.currentNight >= 3 && this.game.state.currentNight <= 5) {
-            console.log('Hawking activated at cam6!');
-            this.startHawking();
+            console.log('Hawking will activate in 75 seconds...');
+            setTimeout(() => {
+                this.startHawking();
+            }, 75000);
         }
     }
     

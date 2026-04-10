@@ -738,7 +738,7 @@ class Game {
         
         if (this.state.ventsClosed || this.state.doorClosed) {
             // When vents or door closed, oxygen decreases (faster speed)
-            this.state.oxygen -= 1.5;
+            this.state.oxygen -= 2.5;
         } else {
             // When vents and door open, oxygen quickly recovers to 100%
             if (this.state.oxygen < 100) {
@@ -959,6 +959,9 @@ class Game {
 
         // 更新UI以显示重启状态
         this.ui.updateControlPanelOptions();
+        
+        // Play ekg sound like camera restart
+        this.assets.playSound('ekg', false, 0.8);
 
         setTimeout(() => {
             this.state.doorCloseCount = 0;
@@ -968,7 +971,7 @@ class Game {
             this.state.controlPanelBusy = false;
             console.log('Door system restarted. Door closes available again.');
             this.ui.update();
-        }, 2000);
+        }, 4000);
     }
 
     startDoorCooldown() {
