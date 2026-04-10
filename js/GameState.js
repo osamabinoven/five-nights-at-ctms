@@ -16,6 +16,14 @@ class GameState {
         this.cameraRestarting = false; // 摄像头是否正在重启
         this.controlPanelBusy = false; // 控制面板是否正在处理操作
         
+        // Door system
+        this.doorClosed = false; // 门是否关闭
+        this.doorToggling = false; // 门是否正在切换
+        this.doorCloseCount = 0; // 本夜关闭门的次数
+        this.doorTimer = null; // 门关闭计时器
+        this.doorCooldownTimer = null; // 门冷却计时器
+        this.doorCooldownActive = false; // 门是否在冷却中
+        
         // Custom Night 状态
         this.customNight = false; // 是否为自定义夜晚
         this.customAILevels = {
@@ -38,6 +46,21 @@ class GameState {
         this.cameraFailed = false;
         this.cameraRestarting = false;
         this.controlPanelBusy = false;
+        
+        // Reset door system
+        this.doorClosed = false;
+        this.doorToggling = false;
+        this.doorCloseCount = 0;
+        if (this.doorTimer) {
+            clearTimeout(this.doorTimer);
+            this.doorTimer = null;
+        }
+        if (this.doorCooldownTimer) {
+            clearTimeout(this.doorCooldownTimer);
+            this.doorCooldownTimer = null;
+        }
+        this.doorCooldownActive = false;
+        
         // 注意：不重置 customNight 和 customAILevels，因为它们在 initGame 之前设置
     }
 }

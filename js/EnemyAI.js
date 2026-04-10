@@ -811,10 +811,20 @@ class EnemyAI {
         
         // 如果当前步长是1且没有前进位置，尝试移动到office
         if (forwardLocations.length === 0 && currentDepth === 1) {
-            console.log(`Epstein moved: ${currentLoc} -> office`);
-            this.epstein.currentLocation = 'office';
-            this.triggerJumpscare('epstein');
-            return;
+            if (this.game.state.doorClosed) {
+                // 门关闭，阻止Epstein进入办公室
+                console.log('Epstein blocked by closed door at office entrance!');
+                this.blockEnemyAtDoor('epstein');
+                // 播放门撞击音效
+                this.game.assets.playSound('doorBang', false, 1.0);
+                return;
+            } else {
+                // 门打开，可以进入办公室
+                console.log(`Epstein moved: ${currentLoc} -> office`);
+                this.epstein.currentLocation = 'office';
+                this.triggerJumpscare('epstein');
+                return;
+            }
         }
         
         // 根据配置概率决定移动方向
@@ -878,10 +888,20 @@ class EnemyAI {
         // 播放移动音效
         this.game.assets.playSound('blip', false, 0.5);
         
-        // 如果到达办公室，触发游戏结束
+        // 如果到达办公室，检查门状态
         if (nextLocation === 'office') {
-            this.triggerJumpscare('epstein');
-            return;
+            if (this.game.state.doorClosed) {
+                // 门关闭，阻止Epstein进入办公室
+                console.log('Epstein blocked by closed door at office!');
+                this.blockEnemyAtDoor('epstein');
+                // 播放门撞击音效
+                this.game.assets.playSound('doorBang', false, 1.0);
+                return;
+            } else {
+                // 门打开，触发游戏结束
+                this.triggerJumpscare('epstein');
+                return;
+            }
         }
         
         // 如果摄像头打开且没有故障，无论查看哪个摄像头都播放动画
@@ -1105,6 +1125,20 @@ class EnemyAI {
         
         // 根据配置总时长后到达办公室并触发跳杀
         this.trump.crawlingTimer = setTimeout(() => {
+            if (this.game.state.doorClosed) {
+                // 门关闭，阻止Dr Hope进入办公室
+                console.log('Dr Hope blocked by closed door at office!');
+                this.blockEnemyAtDoor('Dr Hope');
+                // 播放门撞击音效
+                this.game.assets.playSound('doorBang', false, 1.0);
+                
+                // 停止爬行状态
+                this.trump.isCrawling = false;
+                this.trump.crawlingFrom = null;
+                this.game.assets.stopSound('ventCrawling');
+                return;
+            }
+            
             console.log('Dr Hope reached the office!');
             this.trump.currentLocation = 'office';
             this.trump.isCrawling = false;
@@ -1189,6 +1223,75 @@ class EnemyAI {
         }
     }
     
+    // 检查门状态变化（从Game.js调用）
+    onDoorChanged(doorClosed) {
+        // 如果门关闭，检查是否有敌人试图进入办公室
+        if (doorClosed) {
+            this.checkEnemiesAtDoor();
+        }
+    }
+    
+    // 检查是否有敌人试图进入办公室（门关闭时）
+    checkEnemiesAtDoor() {
+        let enemyBlocked = false;
+        
+        // 检查Epstein是否在试图进入办公室
+        if (this.epstein.currentLocation === 'office' || 
+            (this.locationDepth[this.epstein.currentLocation] === 1 && this.epstein.hasSpawned)) {
+            console.log('Epstein blocked by closed door!');
+            this.blockEnemyAtDoor('epstein');
+            enemyBlocked = true;
+        }
+        
+        // 检查Dr Hope是否在试图进入办公室
+        if (this.trump.currentLocation === 'office' || 
+            (this.trumpLocationDepth[this.trump.currentLocation] === 1 && this.trump.hasSpawned && !this.trump.isCrawling)) {
+            console.log('Dr Hope blocked by closed door!');
+            this.blockEnemyAtDoor('Dr Hope');
+            enemyBlocked = true;
+        }
+        
+        // 检查Hawking是否在试图攻击
+        if (this.hawking.active && this.hawking.warningLevel >= 2) {
+            console.log('Hawking blocked by closed door!');
+            this.blockEnemyAtDoor('hawking');
+            enemyBlocked = true;
+        }
+        
+        if (enemyBlocked) {
+            // 播放门撞击音效
+            this.game.assets.playSound('doorBang', false, 1.0);
+        }
+    }
+    
+    // 阻止敌人进入办公室（门关闭时）
+    blockEnemyAtDoor(enemyType) {
+        if (enemyType === 'epstein') {
+            // 将Epstein移动到最远的摄像头（cam11）
+            this.epstein.currentLocation = 'cam11';
+            console.log('Epstein moved to cam11 (farthest camera)');
+        } else if (enemyType === 'Dr Hope') {
+            // 将Dr Hope移动到最远的摄像头（cam10或cam11）
+            this.trump.currentLocation = 'cam10';
+            console.log('Dr Hope moved to cam10 (farthest camera)');
+        } else if (enemyType === 'hawking') {
+            // 重置Hawking的警告状态
+            this.hawking.warningLevel = 0;
+            if (this.hawking.warningTimer) {
+                clearTimeout(this.hawking.warningTimer);
+                this.hawking.warningTimer = null;
+            }
+            if (this.hawking.attackTimer) {
+                clearTimeout(this.hawking.attackTimer);
+                this.hawking.attackTimer = null;
+            }
+            console.log('Hawking attack blocked, warning reset');
+        }
+        
+        // 更新摄像头显示
+        this.updateCameraDisplay();
+    }
+
     // 使用sound吸引敌人（从CameraSystem调用）
     attractToSound(soundLocation) {
         let epAttracted = false;
@@ -1221,9 +1324,19 @@ class EnemyAI {
             // 播放移动音效
             this.game.assets.playSound('blip', false, 0.5);
             
-            // 如果到达办公室，触发游戏结束
+            // 如果到达办公室，检查门状态
             if (soundLocation === 'office') {
-                this.triggerJumpscare('epstein');
+                if (this.game.state.doorClosed) {
+                    // 门关闭，阻止Epstein进入办公室
+                    console.log('Epstein lured to office but blocked by closed door!');
+                    this.blockEnemyAtDoor('epstein');
+                    // 播放门撞击音效
+                    this.game.assets.playSound('doorBang', false, 1.0);
+                    return false;
+                } else {
+                    // 门打开，触发游戏结束
+                    this.triggerJumpscare('epstein');
+                }
             }
             
             epAttracted = true;
@@ -1248,9 +1361,21 @@ class EnemyAI {
                 this.game.assets.playSound('blip', false, 0.5);
             }
             
-            // 如果到达办公室，触发游戏结束
+            // 如果到达办公室，检查门状态
             if (soundLocation === 'office') {
-                this.triggerJumpscare('Dr Hope');
+                if (this.game.state.doorClosed) {
+                    // 门关闭，阻止Dr Hope进入办公室
+                    console.log('Dr Hope lured to office but blocked by closed door!');
+                    this.blockEnemyAtDoor('Dr Hope');
+                    // 播放门撞击音效
+                    if (!epAttracted) {
+                        this.game.assets.playSound('doorBang', false, 1.0);
+                    }
+                    return false;
+                } else {
+                    // 门打开，触发游戏结束
+                    this.triggerJumpscare('Dr Hope');
+                }
             }
             
             trumpAttracted = true;
@@ -1639,6 +1764,14 @@ class EnemyAI {
         
         // 4秒后跳杀
         this.hawking.attackTimer = setTimeout(() => {
+            if (this.game.state.doorClosed) {
+                // 门关闭，阻止Hawking攻击
+                console.log('Hawking blocked by closed door!');
+                this.blockEnemyAtDoor('hawking');
+                // 播放门撞击音效
+                this.game.assets.playSound('doorBang', false, 1.0);
+                return;
+            }
             this.triggerJumpscare('hawking');
         }, 4000);
     }

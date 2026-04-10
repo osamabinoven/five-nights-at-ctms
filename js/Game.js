@@ -736,11 +736,11 @@ class Game {
             return; // 跳过氧气更新
         }
         
-        if (this.state.ventsClosed) {
-            // When vents closed, oxygen decreases (faster speed)
+        if (this.state.ventsClosed || this.state.doorClosed) {
+            // When vents or door closed, oxygen decreases (faster speed)
             this.state.oxygen -= 1.5;
         } else {
-            // When vents open, oxygen quickly recovers to 100%
+            // When vents and door open, oxygen quickly recovers to 100%
             if (this.state.oxygen < 100) {
                 this.state.oxygen += 2;
             }
@@ -848,6 +848,112 @@ class Game {
             this.ui.updateVentsStatus();
             this.ui.updateControlPanelOptions();
         }, 4000);
+    }
+
+    toggleDoor() {
+        console.log('toggleDoor called, controlPanelBusy:', this.state.controlPanelBusy, 'doorCooldownActive:', this.state.doorCooldownActive);
+        
+        // 如果控制面板正忙，不允许操作
+        if (this.state.controlPanelBusy) {
+            console.log('Control panel is busy, please wait...');
+            return;
+        }
+        
+        // 如果门在冷却中，不允许操作
+        if (this.state.doorCooldownActive) {
+            console.log('Door is in cooldown, please wait...');
+            return;
+        }
+        
+        // 如果已经关闭了2次门，需要重启控制面板
+        if (this.state.doorCloseCount >= 2) {
+            console.log('Door has been closed 2 times, need to restart control panel');
+            return;
+        }
+        
+        // 标记控制面板为忙碌状态
+        this.state.controlPanelBusy = true;
+        this.state.doorToggling = true;
+        console.log('Starting door toggle...');
+        
+        // 播放门音效
+        this.assets.playSound('doorClose', false, 0.8);
+        
+        // 立即切换门状态
+        this.state.doorClosed = !this.state.doorClosed;
+        
+        if (this.state.doorClosed) {
+            // 门关闭，增加关闭计数
+            this.state.doorCloseCount++;
+            console.log('Door closed, count:', this.state.doorCloseCount);
+            
+            // 12秒后自动打开门
+            this.state.doorTimer = setTimeout(() => {
+                console.log('Door auto-opening after 12 seconds');
+                this.autoOpenDoor();
+            }, 12000);
+        } else {
+            // 门打开，清除定时器
+            if (this.state.doorTimer) {
+                clearTimeout(this.state.doorTimer);
+                this.state.doorTimer = null;
+            }
+            
+            // 如果是自动打开，启动6秒冷却
+            if (this.state.doorCloseCount >= 2) {
+                console.log('Door auto-opened, starting 6-second cooldown');
+                this.startDoorCooldown();
+            }
+        }
+        
+        // 通知 EnemyAI 门状态变化
+        this.enemyAI.onDoorChanged(this.state.doorClosed);
+        
+        // 1秒后完成切换（门切换比通风口快）
+        setTimeout(() => {
+            this.state.doorToggling = false;
+            this.state.controlPanelBusy = false;
+            console.log('Door toggle completed');
+            
+            // 更新UI
+            this.ui.update();
+        }, 1000);
+    }
+    
+    autoOpenDoor() {
+        // 清除定时器
+        if (this.state.doorTimer) {
+            clearTimeout(this.state.doorTimer);
+            this.state.doorTimer = null;
+        }
+        
+        // 播放开门音效
+        this.assets.playSound('doorClose', false, 0.8);
+        
+        // 打开门
+        this.state.doorClosed = false;
+        console.log('Door auto-opened');
+        
+        // 通知 EnemyAI
+        this.enemyAI.onDoorChanged(false);
+        
+        // 如果关闭了2次，启动冷却
+        if (this.state.doorCloseCount >= 2) {
+            this.startDoorCooldown();
+        }
+        
+        // 更新UI
+        this.ui.update();
+    }
+    
+    startDoorCooldown() {
+        console.log('Starting door cooldown for 6 seconds');
+        this.state.doorCooldownActive = true;
+        
+        this.state.doorCooldownTimer = setTimeout(() => {
+            this.state.doorCooldownActive = false;
+            console.log('Door cooldown ended');
+        }, 6000);
     }
 
     toggleCamera() {

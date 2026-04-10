@@ -149,6 +149,9 @@ class InputHandler {
                 e.preventDefault();
                 this.game.toggleCamera();
                 break;
+            case 'e':
+                this.game.toggleDoor();
+                break;
         }
     }
     

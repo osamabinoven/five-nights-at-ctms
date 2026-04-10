@@ -159,7 +159,9 @@ async function preloadGameAssets() {
         'assets/sounds/chimes.ogg',
         'assets/sounds/Crank1.ogg',
         'assets/sounds/Crank2.ogg',
-        'assets/sounds/goldenstephenscare.ogg'
+        'assets/sounds/goldenstephenscare.ogg',
+        'assets/sounds/DoorClose.mp3',
+        'assets/sounds/DoorBang.mp3'
     ];
     
     totalAssets = imagePaths.length + soundPaths.length;

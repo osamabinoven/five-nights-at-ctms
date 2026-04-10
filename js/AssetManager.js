@@ -85,6 +85,8 @@ class AssetManager {
             ekg: `${basePath}assets/sounds/ekg.wav`,
             hawking_shock: `${basePath}assets/sounds/hawking_shock.wav`,
             goldenstephenscare: `${basePath}assets/sounds/goldenstephenscare.ogg`, // Golden 霍金音效
+            doorClose: `${basePath}assets/sounds/DoorClose.mp3`, // Door close/open sound
+            doorBang: `${basePath}assets/sounds/DoorBang.mp3`, // Door bang when enemy attacks
         };
 
         // 加载图片
