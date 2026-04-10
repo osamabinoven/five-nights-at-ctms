@@ -232,9 +232,9 @@ class UIManager {
         const optionsContainer = document.createElement('div');
         optionsContainer.id = 'control-options';
         
-        // Option 1: Air Vents
+        // Option 1: Doors
         const option1 = document.createElement('div');
-        option1.id = 'option-vents';
+        option1.id = 'option-door';
         option1.style.fontSize = '2.5vw';
         option1.style.marginBottom = '4vh';
         option1.style.cursor = 'pointer';
@@ -242,12 +242,11 @@ class UIManager {
         option1.style.display = 'flex';
         option1.style.alignItems = 'center';
         option1.style.direction = 'ltr'; // 强制从左到右
-        option1.innerHTML = this.game.state.ventsClosed ? 
-            '<span class="option-arrow" style="color: #0f0; margin-right: 1.5vw; width: 2vw;">&gt;</span><span>Unlock Doors</span><span id="vents-dots" style="margin-left: 1vw; direction: ltr; font-family: \'Courier New\', monospace;"></span>' :
-            '<span class="option-arrow" style="color: #0f0; margin-right: 1.5vw; width: 2vw;">&gt;</span><span>Lock Doors</span><span id="vents-dots" style="margin-left: 1vw; direction: ltr; font-family: \'Courier New\', monospace;"></span>';
+        option1.innerHTML =
+            '<span class="option-arrow" style="color: #0f0; margin-right: 1.5vw; width: 2vw;">&gt;</span><span>Restart Doors</span><span id="door-dots" style="margin-left: 1vw; direction: ltr; font-family: \'Courier New\', monospace;"></span>';
         option1.addEventListener('click', () => {
-            this.game.toggleVents();
-            // 不在这里立即更新，等toggleVents完成后会自动调用updateControlPanelOptions
+            this.handleRestartDoors();
+            // 不在这里立即更新，等handleRestartDoors完成后会自动调用updateControlPanelOptions
         });
         optionsContainer.appendChild(option1);
         
@@ -288,19 +287,19 @@ class UIManager {
     }
 
     selectControlOption(option) {
-        const option1 = document.getElementById('option-vents');
+        const option1 = document.getElementById('option-door');
         const option2 = document.getElementById('option-cameras');
         
-        if (option === 'vents') {
+        if (option === 'door') {
             const arrow1 = option1.querySelector('.option-arrow');
             const arrow2 = option2.querySelector('.option-arrow');
             if (arrow1) arrow1.style.color = '#0f0';
             if (arrow2) arrow2.style.color = 'transparent';
             
-            // 更新通风口文本（不包括dots span）
+            // 更新门文本（不包括dots span）
             const text1 = option1.querySelector('span:nth-child(2)');
             if (text1) {
-                text1.textContent = this.game.state.ventsClosed ? 'Unlock Doors' : 'Lock Doors';
+                text1.textContent = 'Restart Doors';
             }
         } else {
             const arrow1 = option1.querySelector('.option-arrow');
@@ -311,17 +310,17 @@ class UIManager {
     }
 
     updateControlPanelOptions() {
-        this.selectControlOption('vents');
+        this.selectControlOption('door');
         this.updateCameraStatus();
-        this.updateVentsStatus(); // 添加通风口状态更新
+        this.updateDoorStatus(); // 添加门状态更新
     }
     
-    // Update vents status display (dots animation)
-    updateVentsStatus() {
-        const dotsSpan = document.getElementById('vents-dots');
+    // Update door status display (dots animation)
+    updateDoorStatus() {
+        const dotsSpan = document.getElementById('door-dots');
         if (!dotsSpan) return;
         
-        if (this.game.state.ventsToggling) {
+        if (this.game.state.doorToggling) {
             // 正在切换，显示点动画
             dotsSpan.style.color = '#0f0'; // Green dots
             if (!dotsSpan.dataset.animating) {
@@ -332,6 +331,20 @@ class UIManager {
             // 不在切换中，清空点
             dotsSpan.textContent = '';
             delete dotsSpan.dataset.animating;
+        }
+    }
+
+    // Handle restart doors
+    handleRestartDoors() {
+        if (!this.game.state.controlPanelBusy) {
+            this.game.restartDoorSystem();
+            this.updateControlPanelOptions();
+            const updateInterval = setInterval(() => {
+                this.updateDoorStatus();
+                if (!this.game.state.doorToggling) {
+                    clearInterval(updateInterval);
+                }
+            }, 100);
         }
     }
     

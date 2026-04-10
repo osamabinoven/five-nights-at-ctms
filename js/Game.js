@@ -946,6 +946,34 @@ class Game {
         this.ui.update();
     }
     
+    restartDoorSystem() {
+        if (this.state.controlPanelBusy || this.state.doorToggling) {
+            return;
+        }
+
+        console.log('Restarting door system...');
+        this.state.controlPanelBusy = true;
+        this.state.doorToggling = true;
+
+        if (this.state.doorTimer) {
+            clearTimeout(this.state.doorTimer);
+            this.state.doorTimer = null;
+        }
+        if (this.state.doorCooldownTimer) {
+            clearTimeout(this.state.doorCooldownTimer);
+            this.state.doorCooldownTimer = null;
+        }
+
+        setTimeout(() => {
+            this.state.doorCloseCount = 0;
+            this.state.doorCooldownActive = false;
+            this.state.doorToggling = false;
+            this.state.controlPanelBusy = false;
+            console.log('Door system restarted. Door closes available again.');
+            this.ui.update();
+        }, 2000);
+    }
+
     startDoorCooldown() {
         console.log('Starting door cooldown for 6 seconds');
         this.state.doorCooldownActive = true;
