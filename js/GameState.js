@@ -23,6 +23,8 @@ class GameState {
         this.doorTimer = null; // 门关闭计时器
         this.doorCooldownTimer = null; // 门冷却计时器
         this.doorCooldownActive = false; // 门是否在冷却中
+        this.doorFailed = false; // 门系统是否需要重启
+        this.doorRestarting = false; // 门系统是否正在重启
         
         // Custom Night 状态
         this.customNight = false; // 是否为自定义夜晚
@@ -51,6 +53,8 @@ class GameState {
         this.doorClosed = false;
         this.doorToggling = false;
         this.doorCloseCount = 0;
+        this.doorFailed = false;
+        this.doorRestarting = false;
         if (this.doorTimer) {
             clearTimeout(this.doorTimer);
             this.doorTimer = null;

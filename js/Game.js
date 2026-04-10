@@ -851,7 +851,7 @@ class Game {
     }
 
     toggleDoor() {
-        console.log('toggleDoor called, controlPanelBusy:', this.state.controlPanelBusy, 'doorCooldownActive:', this.state.doorCooldownActive);
+        console.log('toggleDoor called, controlPanelBusy:', this.state.controlPanelBusy, 'doorCooldownActive:', this.state.doorCooldownActive, 'doorFailed:', this.state.doorFailed);
         
         // 如果控制面板正忙，不允许操作
         if (this.state.controlPanelBusy) {
@@ -865,46 +865,36 @@ class Game {
             return;
         }
         
-        // 如果已经关闭了2次门，需要重启控制面板
-        if (this.state.doorCloseCount >= 2) {
-            console.log('Door has been closed 2 times, need to restart control panel');
+        // 如果门系统已经失败，需要重启控制面板
+        if (this.state.doorFailed) {
+            console.log('Door system needs restart and cannot be used until then.');
+            return;
+        }
+        
+        // 已经关闭时无法手动打开，等待自动开门
+        if (this.state.doorClosed) {
+            console.log('Door is already closed. Wait for auto-open.');
             return;
         }
         
         // 标记控制面板为忙碌状态
         this.state.controlPanelBusy = true;
         this.state.doorToggling = true;
-        console.log('Starting door toggle...');
+        console.log('Starting door close...');
         
         // 播放门音效
         this.assets.playSound('doorClose', false, 0.8);
         
-        // 立即切换门状态
-        this.state.doorClosed = !this.state.doorClosed;
+        // 立即关闭门
+        this.state.doorClosed = true;
+        this.state.doorCloseCount++;
+        console.log('Door closed, count:', this.state.doorCloseCount);
         
-        if (this.state.doorClosed) {
-            // 门关闭，增加关闭计数
-            this.state.doorCloseCount++;
-            console.log('Door closed, count:', this.state.doorCloseCount);
-            
-            // 12秒后自动打开门
-            this.state.doorTimer = setTimeout(() => {
-                console.log('Door auto-opening after 12 seconds');
-                this.autoOpenDoor();
-            }, 12000);
-        } else {
-            // 门打开，清除定时器
-            if (this.state.doorTimer) {
-                clearTimeout(this.state.doorTimer);
-                this.state.doorTimer = null;
-            }
-            
-            // 如果是自动打开，启动6秒冷却
-            if (this.state.doorCloseCount >= 2) {
-                console.log('Door auto-opened, starting 6-second cooldown');
-                this.startDoorCooldown();
-            }
-        }
+        // 12秒后自动打开门
+        this.state.doorTimer = setTimeout(() => {
+            console.log('Door auto-opening after 12 seconds');
+            this.autoOpenDoor();
+        }, 12000);
         
         // 通知 EnemyAI 门状态变化
         this.enemyAI.onDoorChanged(this.state.doorClosed);
@@ -937,8 +927,11 @@ class Game {
         // 通知 EnemyAI
         this.enemyAI.onDoorChanged(false);
         
-        // 如果关闭了2次，启动冷却
         if (this.state.doorCloseCount >= 2) {
+            this.state.doorFailed = true;
+            this.state.doorCooldownActive = false;
+            console.log('Door system needs restart after 2 uses.');
+        } else {
             this.startDoorCooldown();
         }
         
@@ -947,13 +940,13 @@ class Game {
     }
     
     restartDoorSystem() {
-        if (this.state.controlPanelBusy || this.state.doorToggling) {
+        if (this.state.controlPanelBusy || this.state.doorRestarting) {
             return;
         }
 
         console.log('Restarting door system...');
         this.state.controlPanelBusy = true;
-        this.state.doorToggling = true;
+        this.state.doorRestarting = true;
 
         if (this.state.doorTimer) {
             clearTimeout(this.state.doorTimer);
@@ -964,10 +957,14 @@ class Game {
             this.state.doorCooldownTimer = null;
         }
 
+        // 更新UI以显示重启状态
+        this.ui.updateControlPanelOptions();
+
         setTimeout(() => {
             this.state.doorCloseCount = 0;
+            this.state.doorFailed = false;
+            this.state.doorRestarting = false;
             this.state.doorCooldownActive = false;
-            this.state.doorToggling = false;
             this.state.controlPanelBusy = false;
             console.log('Door system restarted. Door closes available again.');
             this.ui.update();

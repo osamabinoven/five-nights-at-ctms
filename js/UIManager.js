@@ -38,6 +38,17 @@ class UIManager {
         } else {
             this.powerValue.classList.remove('flicker');
         }
+
+        const doorStatusText = document.getElementById('door-status-text');
+        if (doorStatusText) {
+            if (this.game.state.doorFailed) {
+                doorStatusText.textContent = 'RESTART DOORS';
+            } else if (this.game.state.doorClosed) {
+                doorStatusText.textContent = 'Door Closed';
+            } else {
+                doorStatusText.textContent = 'Door Open';
+            }
+        }
         
         // Update camera status
         this.updateCameraStatus();
@@ -243,7 +254,7 @@ class UIManager {
         option1.style.alignItems = 'center';
         option1.style.direction = 'ltr'; // 强制从左到右
         option1.innerHTML =
-            '<span class="option-arrow" style="color: #0f0; margin-right: 1.5vw; width: 2vw;">&gt;</span><span>Restart Doors</span><span id="door-dots" style="margin-left: 1vw; direction: ltr; font-family: \'Courier New\', monospace;"></span>';
+            '<span class="option-arrow" style="color: #0f0; margin-right: 1.5vw; width: 2vw;">&gt;</span><span>Restart Doors</span><span id="door-dots" style="margin-left: 1vw; direction: ltr; font-family: \'Courier New\', monospace;"></span><span id="door-status" style="margin-left: auto; padding-right: 2vw; direction: ltr;"></span>';
         option1.addEventListener('click', () => {
             this.handleRestartDoors();
             // 不在这里立即更新，等handleRestartDoors完成后会自动调用updateControlPanelOptions
@@ -296,7 +307,7 @@ class UIManager {
             if (arrow1) arrow1.style.color = '#0f0';
             if (arrow2) arrow2.style.color = 'transparent';
             
-            // 更新门文本（不包括dots span）
+            // 更新门文本（不包括dots/span）
             const text1 = option1.querySelector('span:nth-child(2)');
             if (text1) {
                 text1.textContent = 'Restart Doors';
@@ -315,22 +326,39 @@ class UIManager {
         this.updateDoorStatus(); // 添加门状态更新
     }
     
-    // Update door status display (dots animation)
+    // Update door status display (dots animation and error)
     updateDoorStatus() {
+        const statusSpan = document.getElementById('door-status');
         const dotsSpan = document.getElementById('door-dots');
-        if (!dotsSpan) return;
+        if (!statusSpan) return;
         
-        if (this.game.state.doorToggling) {
-            // 正在切换，显示点动画
-            dotsSpan.style.color = '#0f0'; // Green dots
-            if (!dotsSpan.dataset.animating) {
-                dotsSpan.dataset.animating = 'true';
-                this.animateLoadingDots(dotsSpan);
+        if (this.game.state.doorRestarting) {
+            if (dotsSpan) {
+                dotsSpan.style.color = '#0f0';
+                if (!dotsSpan.dataset.animating) {
+                    dotsSpan.dataset.animating = 'true';
+                    this.animateLoadingDots(dotsSpan);
+                }
             }
+            if (this.game.state.doorFailed) {
+                statusSpan.style.color = '#f00';
+                statusSpan.textContent = 'ERR';
+            } else {
+                statusSpan.textContent = '';
+            }
+        } else if (this.game.state.doorFailed) {
+            if (dotsSpan) {
+                dotsSpan.textContent = '';
+                delete dotsSpan.dataset.animating;
+            }
+            statusSpan.style.color = '#f00';
+            statusSpan.textContent = 'ERR';
         } else {
-            // 不在切换中，清空点
-            dotsSpan.textContent = '';
-            delete dotsSpan.dataset.animating;
+            if (dotsSpan) {
+                dotsSpan.textContent = '';
+                delete dotsSpan.dataset.animating;
+            }
+            statusSpan.textContent = '';
         }
     }
 
@@ -341,7 +369,7 @@ class UIManager {
             this.updateControlPanelOptions();
             const updateInterval = setInterval(() => {
                 this.updateDoorStatus();
-                if (!this.game.state.doorToggling) {
+                if (!this.game.state.doorRestarting) {
                     clearInterval(updateInterval);
                 }
             }, 100);
