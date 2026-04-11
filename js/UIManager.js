@@ -41,7 +41,9 @@ class UIManager {
 
         const doorStatusText = document.getElementById('door-status-text');
         if (doorStatusText) {
-            if (this.game.state.doorFailed) {
+            if (this.game.state.doorRestarting) {
+                doorStatusText.textContent = 'Restarting Doors...';
+            } else if (this.game.state.doorFailed) {
                 doorStatusText.textContent = 'RESTART DOORS';
             } else if (this.game.state.doorClosed) {
                 doorStatusText.textContent = 'Door Closed';
@@ -52,6 +54,7 @@ class UIManager {
         
         // Update camera status
         this.updateCameraStatus();
+        this.updateDoorStatus();
     }
 
     createHotspots() {
@@ -332,15 +335,21 @@ class UIManager {
         const dotsSpan = document.getElementById('door-dots');
         if (!statusSpan) return;
         
-        // Door restarting - don't show indicator in control panel (silent restart)
         if (this.game.state.doorRestarting) {
             if (dotsSpan) {
-                dotsSpan.textContent = '';
-                delete dotsSpan.dataset.animating;
+                dotsSpan.style.color = '#0f0';
+                if (!dotsSpan.dataset.animating) {
+                    dotsSpan.dataset.animating = 'true';
+                    this.animateLoadingDots(dotsSpan);
+                }
             }
-            statusSpan.textContent = '';
+            if (this.game.state.doorFailed) {
+                statusSpan.style.color = '#f00';
+                statusSpan.textContent = 'ERR';
+            } else {
+                statusSpan.textContent = '';
+            }
         } else if (this.game.state.doorFailed) {
-            // Door failed - show error
             if (dotsSpan) {
                 dotsSpan.textContent = '';
                 delete dotsSpan.dataset.animating;
@@ -348,24 +357,25 @@ class UIManager {
             statusSpan.style.color = '#f00';
             statusSpan.textContent = 'ERR';
         } else {
-            // Door normal
             if (dotsSpan) {
                 dotsSpan.textContent = '';
                 delete dotsSpan.dataset.animating;
             }
+            statusSpan.style.color = '';
             statusSpan.textContent = '';
         }
     }
 
     // Handle restart doors
     handleRestartDoors() {
-        if (!this.game.state.controlPanelBusy) {
+        if (!this.game.state.doorRestarting && !this.game.state.controlPanelBusy) {
             this.game.restartDoorSystem();
-            this.updateControlPanelOptions();
+            this.updateDoorStatus();
             const updateInterval = setInterval(() => {
                 this.updateDoorStatus();
                 if (!this.game.state.doorRestarting) {
                     clearInterval(updateInterval);
+                    this.updateDoorStatus();
                 }
             }, 100);
         }
