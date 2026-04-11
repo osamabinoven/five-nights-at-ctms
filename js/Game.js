@@ -737,8 +737,14 @@ class Game {
         }
         
         if (this.state.ventsClosed || this.state.doorClosed) {
-            // When vents or door closed, oxygen decreases (faster speed)
-            this.state.oxygen -= 2.5;
+            // Closed doors drain a bit more oxygen than closed vents.
+            if (this.state.ventsClosed && this.state.doorClosed) {
+                this.state.oxygen -= 3.5;
+            } else if (this.state.doorClosed) {
+                this.state.oxygen -= 3;
+            } else {
+                this.state.oxygen -= 2.5;
+            }
         } else {
             // When vents and door open, oxygen quickly recovers to 100%
             if (this.state.oxygen < 100) {
@@ -890,11 +896,11 @@ class Game {
         this.state.doorCloseCount++;
         console.log('Door closed, count:', this.state.doorCloseCount);
         
-        // 12秒后自动打开门
+        // 8秒后自动打开门
         this.state.doorTimer = setTimeout(() => {
-            console.log('Door auto-opening after 12 seconds');
+            console.log('Door auto-opening after 8 seconds');
             this.autoOpenDoor();
-        }, 12000);
+        }, 8000);
         
         // 通知 EnemyAI 门状态变化
         this.enemyAI.onDoorChanged(this.state.doorClosed);
@@ -975,13 +981,13 @@ class Game {
     }
 
     startDoorCooldown() {
-        console.log('Starting door cooldown for 6 seconds');
+        console.log('Starting door cooldown for 10 seconds');
         this.state.doorCooldownActive = true;
         
         this.state.doorCooldownTimer = setTimeout(() => {
             this.state.doorCooldownActive = false;
             console.log('Door cooldown ended');
-        }, 6000);
+        }, 10000);
     }
 
     toggleCamera() {
