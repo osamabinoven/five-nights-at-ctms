@@ -573,19 +573,8 @@ class UIManager {
                     this.animateLoadingDots(dotsSpan);
                 }
             }
-            if (this.game.state.cameraFailed || this.game.state.doorFailed) {
-                statusSpan.style.color = '#f00';
-                statusSpan.textContent = 'ERR';
-            } else {
-                statusSpan.textContent = '';
-            }
-        } else if (this.game.state.cameraFailed || this.game.state.doorFailed) {
-            if (dotsSpan) {
-                dotsSpan.textContent = '';
-                delete dotsSpan.dataset.animating;
-            }
-            statusSpan.style.color = '#f00';
-            statusSpan.textContent = 'ERR';
+            statusSpan.style.color = '';
+            statusSpan.textContent = '';
         } else {
             if (dotsSpan) {
                 dotsSpan.textContent = '';

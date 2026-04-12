@@ -1303,7 +1303,7 @@ button {
     display: inline-block;
     font-size: 1em;
     line-height: 1;
-    vertical-align: baseline;
+    vertical-align: middle;
 }
 
 #night-intro-text .night-intro-label {
@@ -1311,8 +1311,10 @@ button {
 }
 
 #night-intro-text .night-intro-number {
-    min-width: 1ch;
+    min-width: 1.45ch;
     text-align: center;
+    transform: scale(1.22) translateY(-0.01em);
+    transform-origin: center center;
 }
 
 /* 电眼闪烁动画 (Night 6) */

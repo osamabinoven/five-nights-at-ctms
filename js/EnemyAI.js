@@ -93,8 +93,8 @@ class EnemyAI {
                     backward: 0.0         // 0% 后退
                 },
                 ventCrawling: {           // 通风管爬行配置
-                    cam1Probability: 1.0, // 在cam1时爬行概率 100%
-                    cam2Probability: 0.5, // 在cam2时爬行概率 50%
+                    cam1Probability: 0.0, // Disabled: Dr Hope now stays on cameras
+                    cam2Probability: 0.0, // Disabled: Dr Hope now stays on cameras
                     soundDelay: 5000,     // 开始爬行后多久播放音效（毫秒）
                     soundDuration: 10000, // 爬行音效持续时长（毫秒）
                     totalDuration: 20000, // 爬行总时长（毫秒）
@@ -113,8 +113,8 @@ class EnemyAI {
                     backward: 0.0
                 },
                 ventCrawling: {
-                    cam1Probability: 1.0,
-                    cam2Probability: 0.4, // 降低到40%（从50%）
+                    cam1Probability: 0.0,
+                    cam2Probability: 0.0,
                     soundDelay: 5000,
                     soundDuration: 10000,
                     totalDuration: 20000,
@@ -133,8 +133,8 @@ class EnemyAI {
                     backward: 0.0
                 },
                 ventCrawling: {
-                    cam1Probability: 1.0,
-                    cam2Probability: 0.5,
+                    cam1Probability: 0.0,
+                    cam2Probability: 0.0,
                     soundDelay: 5000,
                     soundDuration: 10000,
                     totalDuration: 20000,
@@ -153,8 +153,8 @@ class EnemyAI {
                     backward: 0.0
                 },
                 ventCrawling: {
-                    cam1Probability: 1.0,
-                    cam2Probability: 0.5,
+                    cam1Probability: 0.0,
+                    cam2Probability: 0.0,
                     soundDelay: 5000,
                     soundDuration: 10000,
                     totalDuration: 20000,
@@ -406,32 +406,32 @@ class EnemyAI {
         
         // 特朗普的位置配置（使用调试工具设置）
         this.trumpPositions = {
-            'cam10': { left: '10%', bottom: '0%', width: '40%', transform: 'translateX(-50%) rotate(0deg)' },
-            'cam11': { left: '38.2%', bottom: '0%', width: '40%', transform: 'translateX(-50%) rotate(0deg)' },
-            'cam9': { left: '0%', bottom: '34.6%', width: '13.9%', transform: 'translateX(-50%) rotate(44deg)' },
-            'cam8': { left: '1.5%', bottom: '24.5%', width: '20.1%', transform: 'translateX(-50%) rotate(58deg)' },
-            'cam7': { left: '7.4%', bottom: '0%', width: '41.4%', transform: 'translateX(-50%) rotate(1deg)' },
-            'cam6': { left: '86.3%', bottom: '0%', width: '41.4%', transform: 'translateX(-50%) rotate(1deg)' },
-            'cam5': { left: '0%', bottom: '0%', width: '29.3%', transform: 'translateX(-50%) rotate(1deg)' },
-            'cam1': { left: '10.8%', bottom: '15%', width: '31.6%', transform: 'translateX(-50%) rotate(1deg)' },
-            'cam2': { left: '77.2%', bottom: '32.3%', width: '31.6%', transform: 'translateX(-50%) rotate(1deg)' },
-            'cam3': { left: '100%', bottom: '21.4%', width: '32.9%', transform: 'translateX(-50%) rotate(-62deg)' },
-            'cam4': { left: '11%', bottom: '0%', width: '31.6%', transform: 'translateX(-50%) rotate(1deg)' },
+            'cam10': { left: '12%', bottom: '0%', width: '48%', transform: 'translateX(-50%) rotate(0deg)' },
+            'cam11': { left: '40%', bottom: '0%', width: '46%', transform: 'translateX(-50%) rotate(0deg)' },
+            'cam9': { left: '2%', bottom: '32%', width: '18%', transform: 'translateX(-50%) rotate(44deg)' },
+            'cam8': { left: '3%', bottom: '22%', width: '24%', transform: 'translateX(-50%) rotate(58deg)' },
+            'cam7': { left: '9%', bottom: '0%', width: '48%', transform: 'translateX(-50%) rotate(1deg)' },
+            'cam6': { left: '84%', bottom: '0%', width: '48%', transform: 'translateX(-50%) rotate(1deg)' },
+            'cam5': { left: '2%', bottom: '0%', width: '35%', transform: 'translateX(-50%) rotate(1deg)' },
+            'cam1': { left: '12%', bottom: '14%', width: '38%', transform: 'translateX(-50%) rotate(1deg)' },
+            'cam2': { left: '75%', bottom: '30%', width: '38%', transform: 'translateX(-50%) rotate(1deg)' },
+            'cam3': { left: '97%', bottom: '20%', width: '40%', transform: 'translateX(-50%) rotate(-62deg)' },
+            'cam4': { left: '12%', bottom: '0%', width: '38%', transform: 'translateX(-50%) rotate(1deg)' },
         };
         
         // 特朗普的明暗度配置
         this.trumpBrightness = {
-            'cam10': 31,
-            'cam11': 100,
-            'cam9': 29,
-            'cam8': 28,
-            'cam7': 28,
-            'cam6': 28,
-            'cam5': 12,
-            'cam1': 40,
-            'cam2': 31,
-            'cam3': 19,
-            'cam4': 31,
+            'cam10': 58,
+            'cam11': 110,
+            'cam9': 54,
+            'cam8': 56,
+            'cam7': 56,
+            'cam6': 56,
+            'cam5': 38,
+            'cam1': 68,
+            'cam2': 58,
+            'cam3': 44,
+            'cam4': 58,
         };
         
         // 特朗普的旋转配置
@@ -934,13 +934,13 @@ class EnemyAI {
                 },
                 ventCrawling: {
                     ...this.currentTrumpConfig.ventCrawling,
-                    cam1Probability: 1.0, // 4AM后在cam1必定爬行
-                    cam2Probability: 0.8  // 4AM后在cam2有80%概率爬行
+                    cam1Probability: 0.0,
+                    cam2Probability: 0.0
                 }
             };
             // 只在第一次触发时显示日志
             if (!this.trump.night5AggressiveMode) {
-                console.log('⚡ Night 5: 4AM reached! Dr Hope is now in aggressive mode (faster + more crawling)');
+                console.log('⚡ Night 5: 4AM reached! Dr Hope is now in aggressive mode (faster camera movement)');
                 this.trump.night5AggressiveMode = true;
             }
         }
@@ -1065,6 +1065,13 @@ class EnemyAI {
     
     // Trump开始爬行进入办公室
     startTrumpCrawling(fromLocation) {
+        console.log('Vent crawling is disabled. Dr Hope stays on camera paths.');
+        this.trump.isCrawling = false;
+        this.trump.crawlingFrom = null;
+        this.trump.currentLocation = fromLocation;
+        this.updateCameraDisplay();
+        return;
+
         const config = this.currentTrumpConfig.ventCrawling;
         
         // 检查通风管是否已经关闭
@@ -1468,12 +1475,15 @@ class EnemyAI {
         jumpscareImg.style.position = 'absolute';
         jumpscareImg.style.top = '50%';
         jumpscareImg.style.left = '50%';
-        jumpscareImg.style.transform = 'translate(-50%, -50%)';
-        jumpscareImg.style.width = '18%'; // 初始大小较小，避免过度放大
-        jumpscareImg.style.maxWidth = '60vw';
+        jumpscareImg.style.transform = 'translate(-50%, -50%) scale(0.72)';
+        jumpscareImg.style.width = '32vw';
+        jumpscareImg.style.maxWidth = '72vw';
+        jumpscareImg.style.maxHeight = '88vh';
         jumpscareImg.style.height = 'auto';
+        jumpscareImg.style.objectFit = 'contain';
         jumpscareImg.style.zIndex = '2';
-        jumpscareImg.style.transition = 'none';
+        jumpscareImg.style.transition = 'transform 0.14s ease-out, filter 0.14s ease-out';
+        jumpscareImg.style.filter = 'drop-shadow(0 0 22px rgba(0, 0, 0, 0.45))';
         
         jumpscareContainer.appendChild(officeBackground);
         jumpscareContainer.appendChild(jumpscareImg);
@@ -1486,17 +1496,15 @@ class EnemyAI {
             this.game.assets.playSound('jumpscare', false, 1.0);
         }
         
-        // 第1帧：25% (立即显示)
-        // 已经设置
-        
-        // 第2帧：30% (0.15秒后)
+        // 第2帧
         setTimeout(() => {
-            jumpscareImg.style.width = '30%';
+            jumpscareImg.style.transform = 'translate(-50%, -50%) scale(0.9)';
         }, 150);
         
-        // 第3帧：45% (0.3秒后)
+        // 第3帧
         setTimeout(() => {
-            jumpscareImg.style.width = '45%';
+            jumpscareImg.style.transform = 'translate(-50%, -50%) scale(1.08)';
+            jumpscareImg.style.filter = 'drop-shadow(0 0 30px rgba(0, 0, 0, 0.55))';
         }, 300);
         
         // 1.5秒后淡出并显示游戏结束画面

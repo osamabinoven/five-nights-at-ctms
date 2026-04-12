@@ -431,7 +431,7 @@ class CameraSystem {
             hawkingImg.style.bottom = '0.9%';
             hawkingImg.style.width = '37%';
             hawkingImg.style.transform = 'translateX(-50%) rotate(-5deg)';
-            hawkingImg.style.filter = 'brightness(0.33) contrast(1) saturate(1)';
+            hawkingImg.style.filter = 'brightness(0.52) contrast(1.08) saturate(1.05) drop-shadow(0 0 18px rgba(255, 255, 255, 0.12))';
             
             characterOverlay.appendChild(hawkingImg);
             console.log(`✓ Displaying Hawking at cam6`);
@@ -480,7 +480,8 @@ class CameraSystem {
             
             // 应用明暗度
             const brightness = this.characterBrightness[currentCam] || 100;
-            epImg.style.filter = `brightness(${brightness}%)`;
+            const boostedBrightness = Math.min(brightness + 18, 135);
+            epImg.style.filter = `brightness(${boostedBrightness}%) contrast(1.08) saturate(1.04) drop-shadow(0 0 16px rgba(255, 255, 255, 0.08))`;
             
             epContainer.appendChild(epImg);
             characterOverlay.appendChild(epContainer);
@@ -521,7 +522,8 @@ class CameraSystem {
                 }
                 
                 const brightness = trumpBrightness[currentCam] || 100;
-                trumpImg.style.filter = `brightness(${brightness}%)`;
+                const boostedBrightness = Math.min(brightness + 16, 145);
+                trumpImg.style.filter = `brightness(${boostedBrightness}%) contrast(1.1) saturate(1.05) drop-shadow(0 0 18px rgba(255, 255, 255, 0.1))`;
                 
                 characterOverlay.appendChild(trumpImg);
                 console.log(`✓ Displaying Dr Hope at ${currentCam}`);
