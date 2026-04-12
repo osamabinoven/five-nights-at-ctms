@@ -552,7 +552,7 @@ class Game {
             tutorialContent.innerHTML = `
                 <h2>DEFEND YOURSELF AGAINST DR HOPE</h2>
                 <div class="tutorial-text">
-                    <p>DR HOPE ATTACKS THROUGH THE DOORS FROM CAM 1 AND CAM 2. IF YOU HEAR BANGING, HEAD TO THE CONTROL PANEL AND CLOSE THE DOOR.</p>
+                    <p>DR HOPE ATTACKS THROUGH THE DOORS FROM CAM 1 AND CAM 2. IF YOU HEAR BANGING, PRESS E TO CLOSE THE DOOR.</p>
                     <p>THE DOOR STAYS SHUT FOR 8 SECONDS, THEN AUTO-OPENS AND GOES ON A 10 SECOND COOLDOWN. AFTER 2 USES IT FAILS, SO RESTART DOORS OR USE RESTART ALL.</p>
                     <p>DR HOPE CAN BE LURED WITH AUDIO, BUT YOUR MAIN AUDIO PRIORITY SHOULD STILL BE TILLERY.</p>
                 </div>
@@ -586,8 +586,8 @@ class Game {
                 <div class="tutorial-text">
                     <p>TILLERY ALWAYS STARTS AT CAM 11. USE THE CAMERA AUDIO LURE TO KEEP HER FAR AWAY FROM YOU.</p>
                     <p>PLAY THE SOUND IN A CAMERA NEXT TO WHERE TILLERY CURRENTLY IS. SPAMMING THE SAME SPOT WILL STOP WORKING, AND OVERUSING AUDIO WILL BREAK THE CAMERAS.</p>
-                    <p>THE DOOR LASTS 8 SECONDS, THEN AUTO-OPENS AND GOES ON A 10 SECOND COOLDOWN. AFTER 2 USES THE DOOR SYSTEM FAILS AND MUST BE RESTARTED.</p>
-                    <p>TILLERY DOES NOT USE THE DOOR ON NIGHT 1, BUT LEARNING THE CONTROL PANEL NOW WILL HELP YOU LATER. YOU CAN RESTART CAMERAS, DOORS, OR USE RESTART ALL TO FIX BOTH SYSTEMS AT ONCE.</p>
+                    <p>PRESS E TO CLOSE THE DOOR. THE DOOR LASTS 8 SECONDS, THEN AUTO-OPENS AND GOES ON A 10 SECOND COOLDOWN. AFTER 2 USES THE DOOR SYSTEM FAILS AND MUST BE RESTARTED.</p>
+                    <p>THE DOOR DOES BLOCK TILLERY ON NIGHT 1 IF SHE REACHES THE OFFICE. YOU CAN RESTART CAMERAS, DOORS, OR USE RESTART ALL TO FIX BOTH SYSTEMS AT ONCE.</p>
                 </div>
                 <button id="tutorial-got-it">GOT IT</button>
             `;
@@ -665,7 +665,7 @@ class Game {
             if (this.state.customNight && this.state.currentNight === 7) {
                 nightIntroText.textContent = 'CUSTOM NIGHT';
             } else {
-                nightIntroText.textContent = `NIGHT ${this.state.currentNight}`;
+                nightIntroText.innerHTML = `<span class="night-intro-label">NIGHT</span><span class="night-intro-number">${this.state.currentNight}</span>`;
             }
             
             // Show scene

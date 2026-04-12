@@ -1298,6 +1298,23 @@ button {
     z-index: 1;
 }
 
+#night-intro-text .night-intro-label,
+#night-intro-text .night-intro-number {
+    display: inline-block;
+    font-size: 1em;
+    line-height: 1;
+    vertical-align: baseline;
+}
+
+#night-intro-text .night-intro-label {
+    margin-right: 0.28em;
+}
+
+#night-intro-text .night-intro-number {
+    min-width: 1ch;
+    text-align: center;
+}
+
 /* 电眼闪烁动画 (Night 6) */
 @keyframes lightning-flicker {
     0%, 100% { opacity: 1; }

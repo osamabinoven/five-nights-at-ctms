@@ -274,7 +274,6 @@ class UIManager {
         const option1 = document.createElement('div');
         option1.id = 'option-door';
         option1.style.fontSize = '2.5vw';
-        option1.style.marginBottom = '4vh';
         option1.style.cursor = 'pointer';
         option1.style.padding = '1.5vh 0';
         option1.style.display = 'flex';
