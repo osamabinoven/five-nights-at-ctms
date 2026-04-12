@@ -2,6 +2,8 @@
 class UIManager {
     constructor(game) {
         this.game = game;
+        this.controlPanelSelectedOption = 'door';
+        this.controlPanelHoveredOption = null;
         this.initElements();
     }
 
@@ -233,6 +235,8 @@ class UIManager {
         popup.style.zIndex = '100';
         popup.style.fontFamily = "'Courier New', monospace";
         popup.style.color = '#0f0';
+        popup.style.boxShadow = '0 0 25px rgba(0, 255, 0, 0.25), inset 0 0 18px rgba(0, 255, 0, 0.08)';
+        popup.style.transition = 'opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease';
         
         // Title
         const title = document.createElement('div');
@@ -245,6 +249,9 @@ class UIManager {
         // Options container
         const optionsContainer = document.createElement('div');
         optionsContainer.id = 'control-options';
+        optionsContainer.style.display = 'flex';
+        optionsContainer.style.flexDirection = 'column';
+        optionsContainer.style.gap = '2vh';
         
         // Option 1: Doors
         const option1 = document.createElement('div');
@@ -256,9 +263,17 @@ class UIManager {
         option1.style.display = 'flex';
         option1.style.alignItems = 'center';
         option1.style.direction = 'ltr'; // 强制从左到右
+        option1.style.border = '1px solid rgba(0, 255, 0, 0.18)';
+        option1.style.borderRadius = '0.8vw';
+        option1.style.paddingLeft = '1.2vw';
+        option1.style.paddingRight = '1.2vw';
+        option1.style.transition = 'background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease';
         option1.innerHTML =
             '<span class="option-arrow" style="color: #0f0; margin-right: 1.5vw; width: 2vw;">&gt;</span><span>Restart Doors</span><span id="door-dots" style="margin-left: 1vw; direction: ltr; font-family: \'Courier New\', monospace;"></span><span id="door-status" style="margin-left: auto; padding-right: 2vw; direction: ltr;"></span>';
+        option1.addEventListener('mouseenter', () => this.previewControlOption('door'));
+        option1.addEventListener('mouseleave', () => this.clearControlOptionPreview());
         option1.addEventListener('click', () => {
+            this.selectControlOption('door');
             this.handleRestartDoors();
             // 不在这里立即更新，等handleRestartDoors完成后会自动调用updateControlPanelOptions
         });
@@ -273,7 +288,14 @@ class UIManager {
         option2.style.display = 'flex';
         option2.style.alignItems = 'center';
         option2.style.direction = 'ltr'; // 强制从左到右
+        option2.style.border = '1px solid rgba(0, 255, 0, 0.18)';
+        option2.style.borderRadius = '0.8vw';
+        option2.style.paddingLeft = '1.2vw';
+        option2.style.paddingRight = '1.2vw';
+        option2.style.transition = 'background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease';
         option2.innerHTML = '<span class="option-arrow" style="color: transparent; margin-right: 1.5vw; width: 2vw;">&gt;</span><span>Restart Cameras</span><span id="camera-dots" style="margin-left: 1vw; direction: ltr; font-family: \'Courier New\', monospace;"></span><span id="camera-status" style="margin-left: auto; padding-right: 2vw; direction: ltr;"></span>';
+        option2.addEventListener('mouseenter', () => this.previewControlOption('cameras'));
+        option2.addEventListener('mouseleave', () => this.clearControlOptionPreview());
         option2.addEventListener('click', () => {
             this.selectControlOption('cameras');
             this.handleRestartCamera();
@@ -298,28 +320,53 @@ class UIManager {
         });
         
         document.body.appendChild(popup);
+        this.refreshControlOptionVisuals();
     }
 
     selectControlOption(option) {
+        this.controlPanelSelectedOption = option;
+        this.refreshControlOptionVisuals();
+    }
+
+    previewControlOption(option) {
+        this.controlPanelHoveredOption = option;
+        this.refreshControlOptionVisuals();
+    }
+
+    clearControlOptionPreview() {
+        this.controlPanelHoveredOption = null;
+        this.refreshControlOptionVisuals();
+    }
+
+    refreshControlOptionVisuals() {
         const option1 = document.getElementById('option-door');
         const option2 = document.getElementById('option-cameras');
-        
-        if (option === 'door') {
-            const arrow1 = option1.querySelector('.option-arrow');
-            const arrow2 = option2.querySelector('.option-arrow');
-            if (arrow1) arrow1.style.color = '#0f0';
-            if (arrow2) arrow2.style.color = 'transparent';
-            
-            // 更新门文本（不包括dots/span）
-            const text1 = option1.querySelector('span:nth-child(2)');
-            if (text1) {
-                text1.textContent = 'Restart Doors';
-            }
-        } else {
-            const arrow1 = option1.querySelector('.option-arrow');
-            const arrow2 = option2.querySelector('.option-arrow');
-            if (arrow1) arrow1.style.color = 'transparent';
-            if (arrow2) arrow2.style.color = '#0f0';
+        if (!option1 || !option2) return;
+
+        const activeOption = this.controlPanelHoveredOption || this.controlPanelSelectedOption || 'door';
+        this.styleControlOption(option1, activeOption === 'door');
+        this.styleControlOption(option2, activeOption === 'cameras');
+    }
+
+    styleControlOption(optionElement, isActive) {
+        optionElement.dataset.selected = isActive ? 'true' : 'false';
+
+        const arrow = optionElement.querySelector('.option-arrow');
+        const label = optionElement.querySelector('span:nth-child(2)');
+
+        optionElement.style.background = isActive ? 'rgba(0, 255, 0, 0.12)' : 'rgba(0, 0, 0, 0.12)';
+        optionElement.style.borderColor = isActive ? 'rgba(0, 255, 0, 0.55)' : 'rgba(0, 255, 0, 0.18)';
+        optionElement.style.boxShadow = isActive ? '0 0 18px rgba(0, 255, 0, 0.18), inset 0 0 10px rgba(0, 255, 0, 0.08)' : 'none';
+        optionElement.style.transform = isActive ? 'translateX(0.35vw)' : 'translateX(0)';
+
+        if (arrow) {
+            arrow.style.color = isActive ? '#0f0' : 'transparent';
+            arrow.style.textShadow = isActive ? '0 0 10px rgba(0, 255, 0, 0.75)' : 'none';
+        }
+
+        if (label) {
+            label.style.color = isActive ? '#d8ffd8' : '#87c987';
+            label.style.transition = 'color 0.18s ease';
         }
     }
 

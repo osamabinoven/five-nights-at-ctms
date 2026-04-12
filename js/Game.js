@@ -922,12 +922,10 @@ class Game {
             clearTimeout(this.state.doorTimer);
             this.state.doorTimer = null;
         }
-        
-        // 播放开门音效
-        this.assets.playSound('doorClose', false, 0.8);
-        
+
         // 打开门
         this.state.doorClosed = false;
+        this.assets.playSound('doorClose', false, 0.8);
         console.log('Door auto-opened');
         
         // 通知 EnemyAI
