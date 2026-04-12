@@ -1130,42 +1130,55 @@ button {
 }
 
 #tutorial-content {
-    background: rgba(30, 30, 30, 0.95);
-    border: 3px solid #666;
-    padding: 4vh 5vw;
-    max-width: 60vw;
+    background: linear-gradient(180deg, rgba(34, 34, 34, 0.97), rgba(16, 16, 16, 0.95));
+    border: 2px solid rgba(210, 210, 210, 0.45);
+    border-radius: 18px;
+    padding: 3.4vh 4.2vw;
+    max-width: 62vw;
+    max-height: 82vh;
     text-align: center;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 24px rgba(255, 255, 255, 0.04);
+    overflow-y: auto;
 }
 
 #tutorial-content h2 {
-    font-size: 3vw;
-    margin-bottom: 3vh;
+    font-size: 2.5vw;
+    margin-bottom: 2.2vh;
     color: #fff;
-    text-shadow: 2px 2px 4px #000;
-    letter-spacing: 0.1em;
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.12);
+    letter-spacing: 0.08em;
+    font-family: Georgia, 'Times New Roman', serif;
 }
 
-#tutorial-content p {
-    font-size: 1.4vw;
-    line-height: 1.8;
+#tutorial-content p,
+.tutorial-text p {
+    font-size: 1.18vw;
+    line-height: 1.65;
     color: #ddd;
-    margin-bottom: 3vh;
+    margin-bottom: 1.5vh;
     text-align: left;
+}
+
+.tutorial-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vh;
+    margin-bottom: 2.2vh;
 }
 
 #tutorial-got-it {
     width: 15vw;
     min-width: 150px;
-    padding: 1.5vh 3vw;
-    font-size: 1.8vw;
-    background: #555;
-    border: 2px solid #888;
+    padding: 1.3vh 3vw;
+    font-size: 1.5vw;
+    background: linear-gradient(180deg, #666, #434343);
+    border: 2px solid #9a9a9a;
+    border-radius: 999px;
     color: #fff;
     cursor: pointer;
     transition: all 0.3s;
     font-weight: bold;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
 }
 
 #tutorial-got-it:hover {
@@ -1256,7 +1269,7 @@ button {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000;
+    background: radial-gradient(circle at center, rgba(40, 40, 40, 0.25), rgba(0, 0, 0, 0.98) 60%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1276,10 +1289,12 @@ button {
 #night-intro-text {
     font-size: 8vw;
     color: #fff;
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
-    letter-spacing: 0.5vw;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    letter-spacing: 0.28vw;
+    text-transform: uppercase;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.22), 0 0 40px rgba(255, 255, 255, 0.08);
+    transform: translateY(-1vh);
     z-index: 1;
 }
 

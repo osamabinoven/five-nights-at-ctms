@@ -48,6 +48,7 @@ class Game {
         this.menuMusicVolumeSlider = document.getElementById('menu-music-volume');
         this.jumpscareVolumeSlider = document.getElementById('jumpscare-volume');
         this.ventCrawlingVolumeSlider = document.getElementById('vent-crawling-volume');
+        this.doorVolumeSlider = document.getElementById('door-volume');
         this.masterVolumeSlider = document.getElementById('master-volume');
         
         // 调试：检查元素是否找到
@@ -75,6 +76,7 @@ class Game {
         this.menuMusicVolumeSlider.value = Math.round(volumes.menuMusic * 100);
         this.jumpscareVolumeSlider.value = Math.round(volumes.jumpscare * 100);
         this.ventCrawlingVolumeSlider.value = Math.round(volumes.ventCrawling * 100);
+        this.doorVolumeSlider.value = Math.round((volumes.door ?? 0.7) * 100);
         this.masterVolumeSlider.value = Math.round(volumes.master * 100);
         
         // 更新百分比显示
@@ -87,6 +89,7 @@ class Game {
             this.menuMusicVolumeSlider,
             this.jumpscareVolumeSlider,
             this.ventCrawlingVolumeSlider,
+            this.doorVolumeSlider,
             this.masterVolumeSlider
         ];
         
@@ -146,6 +149,11 @@ class Game {
         
         this.ventCrawlingVolumeSlider.addEventListener('input', (e) => {
             this.assets.setVolume('ventCrawling', parseInt(e.target.value) / 100);
+            this.updateVolumePercents();
+        });
+
+        this.doorVolumeSlider.addEventListener('input', (e) => {
+            this.assets.setVolume('door', parseInt(e.target.value) / 100);
             this.updateVolumePercents();
         });
         
@@ -543,11 +551,11 @@ class Game {
             // Night 2 教程：Dr Hope
             tutorialContent.innerHTML = `
                 <h2>DEFEND YOURSELF AGAINST DR HOPE</h2>
-                <p>
-                    DR HOPE WILL TRY TO ATTACK YOU THROUGH THE DOORS IN CAM 1 AND CAM 2, SO IF YOU HEAR BANGING AT THE DOORS HEAD OVER TO THE CONTROL PANEL AND LOCK THEM. 
-                    AFTER LOCKING THEM YOU WILL HEAR BANGING AGAIN AFTER A FEW SECONDS WHICH MEANS HE LEFT THE DOORS. YOU MUST UNLOCK THE DOORS OTHERWISE YOU WILL DIE FROM LACK OF OXYGEN. 
-                    DR HOPE CAN BE LURED WITH THE AUDIOS BUT YOUR MAIN PRIORITY WITH THE AUDIO LURES SHOULD BE EPSTEIN.
-                </p>
+                <div class="tutorial-text">
+                    <p>DR HOPE ATTACKS THROUGH THE DOORS FROM CAM 1 AND CAM 2. IF YOU HEAR BANGING, HEAD TO THE CONTROL PANEL AND CLOSE THE DOOR.</p>
+                    <p>THE DOOR STAYS SHUT FOR 8 SECONDS, THEN AUTO-OPENS AND GOES ON A 10 SECOND COOLDOWN. AFTER 2 USES IT FAILS, SO RESTART DOORS OR USE RESTART ALL.</p>
+                    <p>DR HOPE CAN BE LURED WITH AUDIO, BUT YOUR MAIN AUDIO PRIORITY SHOULD STILL BE TILLERY.</p>
+                </div>
                 <button id="tutorial-got-it">GOT IT</button>
             `;
             // 重新绑定按钮事件
@@ -559,10 +567,11 @@ class Game {
             // Night 3 教程：霍金
             tutorialContent.innerHTML = `
                 <h2>DEFEND YOURSELF AGAINST STEPHEN HAWKING</h2>
-                <p>
-                    STEPHEN HAWKING ALWAYS STAYS AT CAM 6 AND HE IS NOT AFFECTED BY THE AUDIO LURES. 
-                    ELECTROCUTE STEPHEN HAWKING EVERY ONCE IN A WHILE TO PREVENT HIM FROM LEAVING CAM 6.
-                </p>
+                <div class="tutorial-text">
+                    <p>STEPHEN HAWKING ALWAYS STAYS AT CAM 6 AND IS NOT AFFECTED BY AUDIO LURES.</p>
+                    <p>ELECTROCUTE HIM EVERY ONCE IN A WHILE TO KEEP HIM FROM LEAVING CAM 6.</p>
+                    <p>IF THE DOOR SYSTEM FAILS WHILE YOU ARE JUGGLING OTHER THREATS, RESTART DOORS OR USE RESTART ALL FROM THE CONTROL PANEL.</p>
+                </div>
                 <button id="tutorial-got-it">GOT IT</button>
             `;
             // 重新绑定按钮事件
@@ -574,14 +583,12 @@ class Game {
             // Night 1 教程：TILLERY
             tutorialContent.innerHTML = `
                 <h2>DEFEND YOURSELF AGAINST TILLERY</h2>
-                <p>
-                    TILLERY ALWAYS STARTS AT CAM 11. USE THE CAMERA'S AUDIO LURE TO KEEP TILLERY FAR AWAY FROM YOU. 
-                    MAKE SURE THE CAMERA YOU'RE PLAYING THE SOUND IN IS NEXT TO THE CAMERA WHERE TILLERY IS. 
-                    PLAYING SOUND IN ONLY ONE SPOT WILL NOT WORK IF YOU DO IT TWICE OR MORE IN A ROW. 
-                    USING THE AUDIO LURE TOO MUCH WILL LEAD TO THE CAMERAS BREAKING. 
-                    TO FIX THEM HEAD TO THE CONTROL PANEL AND RESTART THE CAMERAS LIKE YOU JUST DID. 
-                    TILLERY DOES NOT ATTACK THROUGH THE DOORS SO DON'T BOTHER LOCKING THEM FOR THIS NIGHT.
-                </p>
+                <div class="tutorial-text">
+                    <p>TILLERY ALWAYS STARTS AT CAM 11. USE THE CAMERA AUDIO LURE TO KEEP HER FAR AWAY FROM YOU.</p>
+                    <p>PLAY THE SOUND IN A CAMERA NEXT TO WHERE TILLERY CURRENTLY IS. SPAMMING THE SAME SPOT WILL STOP WORKING, AND OVERUSING AUDIO WILL BREAK THE CAMERAS.</p>
+                    <p>THE DOOR LASTS 8 SECONDS, THEN AUTO-OPENS AND GOES ON A 10 SECOND COOLDOWN. AFTER 2 USES THE DOOR SYSTEM FAILS AND MUST BE RESTARTED.</p>
+                    <p>TILLERY DOES NOT USE THE DOOR ON NIGHT 1, BUT LEARNING THE CONTROL PANEL NOW WILL HELP YOU LATER. YOU CAN RESTART CAMERAS, DOORS, OR USE RESTART ALL TO FIX BOTH SYSTEMS AT ONCE.</p>
+                </div>
                 <button id="tutorial-got-it">GOT IT</button>
             `;
             // 重新绑定按钮事件
@@ -961,6 +968,11 @@ class Game {
             this.state.doorCooldownTimer = null;
         }
 
+        if (this.state.doorClosed) {
+            this.state.doorClosed = false;
+            this.enemyAI.onDoorChanged(false);
+        }
+
         // 更新UI以显示重启状态
         this.ui.updateControlPanelOptions();
         
@@ -976,6 +988,53 @@ class Game {
             console.log('Door system restarted. Door closes available again.');
             this.ui.update();
         }, 4000);
+    }
+
+    restartAllSystems() {
+        if (this.state.controlPanelBusy || this.state.cameraRestarting || this.state.doorRestarting) {
+            return;
+        }
+
+        console.log('Restarting all systems...');
+        this.state.controlPanelBusy = true;
+        this.state.cameraRestarting = true;
+        this.state.doorRestarting = true;
+
+        if (this.state.doorTimer) {
+            clearTimeout(this.state.doorTimer);
+            this.state.doorTimer = null;
+        }
+        if (this.state.doorCooldownTimer) {
+            clearTimeout(this.state.doorCooldownTimer);
+            this.state.doorCooldownTimer = null;
+        }
+        if (this.state.doorClosed) {
+            this.state.doorClosed = false;
+            this.enemyAI.onDoorChanged(false);
+        }
+
+        this.ui.updateControlPanelOptions();
+        this.assets.playSound('ekg', false, 0.8);
+
+        setTimeout(() => {
+            this.state.cameraFailed = false;
+            this.state.cameraRestarting = false;
+            this.state.doorCloseCount = 0;
+            this.state.doorFailed = false;
+            this.state.doorRestarting = false;
+            this.state.doorCooldownActive = false;
+            this.state.controlPanelBusy = false;
+
+            this.assets.stopSound('static');
+            this.camera.resetSoundButtonCount();
+
+            if (this.state.cameraOpen) {
+                this.camera.restoreCameraView();
+            }
+
+            console.log('All systems restored.');
+            this.ui.update();
+        }, 12000);
     }
 
     startDoorCooldown() {

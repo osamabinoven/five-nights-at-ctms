@@ -224,6 +224,7 @@ class UIManager {
                 this.game.isRotatingLeft = false;
                 this.game.isRotatingRight = false;
                 this.game.state.controlPanelOpen = true;
+                this.game.assets.playSound('crank1');
             } else {
                 // Close panel
                 this.game.state.controlPanelOpen = false;
@@ -233,6 +234,7 @@ class UIManager {
             this.game.isRotatingLeft = false;
             this.game.isRotatingRight = false;
             this.game.state.controlPanelOpen = true;
+            this.game.assets.playSound('crank1');
         }
     }
 
@@ -316,6 +318,29 @@ class UIManager {
             this.handleRestartCamera();
         });
         optionsContainer.appendChild(option2);
+
+        // Option 3: Restart All
+        const option3 = document.createElement('div');
+        option3.id = 'option-all';
+        option3.style.fontSize = '2.5vw';
+        option3.style.cursor = 'pointer';
+        option3.style.padding = '1.5vh 0';
+        option3.style.display = 'flex';
+        option3.style.alignItems = 'center';
+        option3.style.direction = 'ltr';
+        option3.style.border = '1px solid rgba(0, 255, 0, 0.18)';
+        option3.style.borderRadius = '0.8vw';
+        option3.style.paddingLeft = '1.2vw';
+        option3.style.paddingRight = '1.2vw';
+        option3.style.transition = 'background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease';
+        option3.innerHTML = '<span class="option-arrow" style="color: transparent; margin-right: 1.5vw; width: 2vw;">&gt;</span><span>Restart All</span><span id="all-dots" style="margin-left: 1vw; direction: ltr; font-family: \'Courier New\', monospace;"></span><span id="all-status" style="margin-left: auto; padding-right: 2vw; direction: ltr;"></span>';
+        option3.addEventListener('mouseenter', () => this.previewControlOption('all'));
+        option3.addEventListener('mouseleave', () => this.clearControlOptionPreview());
+        option3.addEventListener('click', () => {
+            this.selectControlOption('all');
+            this.handleRestartAll();
+        });
+        optionsContainer.appendChild(option3);
         
         popup.appendChild(optionsContainer);
         
@@ -356,11 +381,13 @@ class UIManager {
     refreshControlOptionVisuals() {
         const option1 = document.getElementById('option-door');
         const option2 = document.getElementById('option-cameras');
-        if (!option1 || !option2) return;
+        const option3 = document.getElementById('option-all');
+        if (!option1 || !option2 || !option3) return;
 
         const activeOption = this.controlPanelHoveredOption || this.controlPanelSelectedOption || 'door';
         this.styleControlOption(option1, activeOption === 'door');
         this.styleControlOption(option2, activeOption === 'cameras');
+        this.styleControlOption(option3, activeOption === 'all');
     }
 
     styleControlOption(optionElement, isActive) {
@@ -389,6 +416,7 @@ class UIManager {
         this.selectControlOption('door');
         this.updateCameraStatus();
         this.updateDoorStatus(); // 添加门状态更新
+        this.updateRestartAllStatus();
     }
     
     // Update door status display (dots animation and error)
@@ -433,11 +461,14 @@ class UIManager {
         if (!this.game.state.doorRestarting && !this.game.state.controlPanelBusy) {
             this.game.restartDoorSystem();
             this.updateDoorStatus();
+            this.updateRestartAllStatus();
             const updateInterval = setInterval(() => {
                 this.updateDoorStatus();
+                this.updateRestartAllStatus();
                 if (!this.game.state.doorRestarting) {
                     clearInterval(updateInterval);
                     this.updateDoorStatus();
+                    this.updateRestartAllStatus();
                 }
             }, 100);
         }
@@ -516,12 +547,73 @@ class UIManager {
             
             // Immediately update status display (show loading animation, but ERR doesn't disappear)
             this.updateCameraStatus();
+            this.updateRestartAllStatus();
             
             // Update status display every 100ms
             const updateInterval = setInterval(() => {
                 this.updateCameraStatus();
+                this.updateRestartAllStatus();
                 if (!this.game.state.cameraRestarting) {
                     clearInterval(updateInterval);
+                    this.updateRestartAllStatus();
+                }
+            }, 100);
+        }
+    }
+
+    updateRestartAllStatus() {
+        const statusSpan = document.getElementById('all-status');
+        const dotsSpan = document.getElementById('all-dots');
+        if (!statusSpan) return;
+
+        if (this.game.state.cameraRestarting && this.game.state.doorRestarting) {
+            if (dotsSpan) {
+                dotsSpan.style.color = '#0f0';
+                if (!dotsSpan.dataset.animating) {
+                    dotsSpan.dataset.animating = 'true';
+                    this.animateLoadingDots(dotsSpan);
+                }
+            }
+            if (this.game.state.cameraFailed || this.game.state.doorFailed) {
+                statusSpan.style.color = '#f00';
+                statusSpan.textContent = 'ERR';
+            } else {
+                statusSpan.textContent = '';
+            }
+        } else if (this.game.state.cameraFailed || this.game.state.doorFailed) {
+            if (dotsSpan) {
+                dotsSpan.textContent = '';
+                delete dotsSpan.dataset.animating;
+            }
+            statusSpan.style.color = '#f00';
+            statusSpan.textContent = 'ERR';
+        } else {
+            if (dotsSpan) {
+                dotsSpan.textContent = '';
+                delete dotsSpan.dataset.animating;
+            }
+            statusSpan.style.color = '';
+            statusSpan.textContent = '';
+        }
+    }
+
+    handleRestartAll() {
+        if (!this.game.state.controlPanelBusy && !this.game.state.cameraRestarting && !this.game.state.doorRestarting) {
+            this.game.restartAllSystems();
+            this.selectControlOption('all');
+            this.updateCameraStatus();
+            this.updateDoorStatus();
+            this.updateRestartAllStatus();
+
+            const updateInterval = setInterval(() => {
+                this.updateCameraStatus();
+                this.updateDoorStatus();
+                this.updateRestartAllStatus();
+                if (!this.game.state.cameraRestarting && !this.game.state.doorRestarting) {
+                    clearInterval(updateInterval);
+                    this.updateCameraStatus();
+                    this.updateDoorStatus();
+                    this.updateRestartAllStatus();
                 }
             }, 100);
         }

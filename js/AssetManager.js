@@ -11,18 +11,20 @@ class AssetManager {
     
     // 从 localStorage 加载音量设置
     loadVolumeSettings() {
-        const saved = localStorage.getItem('fnae_volume_settings');
-        if (saved) {
-            return JSON.parse(saved);
-        }
-        // 默认音量设置
-        return {
+        const defaults = {
             master: 0.7,
             gameBg: 0.7,
             menuMusic: 0.7,
             jumpscare: 0.7,
-            ventCrawling: 0.7
+            ventCrawling: 0.7,
+            door: 0.7
         };
+        const saved = localStorage.getItem('fnae_volume_settings');
+        if (saved) {
+            return { ...defaults, ...JSON.parse(saved) };
+        }
+        // 默认音量设置
+        return defaults;
     }
     
     // 保存音量设置
@@ -149,6 +151,8 @@ class AssetManager {
                 categoryVolume *= this.volumeSettings.jumpscare;
             } else if (key === 'ventCrawling') {
                 categoryVolume *= this.volumeSettings.ventCrawling;
+            } else if (key === 'doorClose' || key === 'doorBang') {
+                categoryVolume *= this.volumeSettings.door;
             } else if (key === 'vents' || key === 'ambience' || key === 'staticLoop' || key === 'static' || key === 'blip' || key === 'Blip') {
                 // 游戏背景音乐：包括通风口声音、静态噪声、摄像机切换声等
                 categoryVolume *= this.volumeSettings.gameBg;
