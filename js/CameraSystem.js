@@ -543,7 +543,7 @@ class CameraSystem {
         mapContainer.style.width = '100%';
         mapContainer.style.paddingTop = '75%';
         mapContainer.style.height = '0';
-        mapContainer.style.overflow = 'hidden';
+        mapContainer.style.overflow = 'visible';
         mapContainer.style.background = 'rgba(0, 0, 0, 0.05)';
         mapContainer.style.borderRadius = '8px';
         mapContainer.style.boxShadow = 'inset 0 0 20px rgba(0,0,0,0.2)';
@@ -564,7 +564,7 @@ class CameraSystem {
         const youMarker = document.createElement('div');
         youMarker.style.position = 'absolute';
         youMarker.style.left = '7.0%';
-        youMarker.style.top = '82.6%';
+        youMarker.style.top = '80.8%';
         youMarker.style.width = '13.0%';
         youMarker.style.height = '8.0%';
         youMarker.style.display = 'flex';
@@ -582,12 +582,12 @@ class CameraSystem {
         
         // 定义每个摄像头在地图上的位置（百分比）
         const cameraPositions = [
-            { cam: 1, x: 25.7, y: 84.3, width: 13.0, height: 8.0 },
+            { cam: 1, x: 25.7, y: 81.9, width: 13.0, height: 8.0 },
             { cam: 2, x: 35.0, y: 56.6, width: 13.0, height: 8.0 },
-            { cam: 3, x: 51.5, y: 77.6, width: 13.0, height: 8.0 },
+            { cam: 3, x: 51.5, y: 75.4, width: 13.0, height: 8.0 },
             { cam: 4, x: 57.7, y: 44.9, width: 12.9, height: 8.0 },
             { cam: 5, x: 75.4, y: 60.3, width: 12.9, height: 8.0 },
-            { cam: 6, x: 77.2, y: 82.2, width: 13.0, height: 8.0 },
+            { cam: 6, x: 77.2, y: 79.6, width: 13.0, height: 8.0 },
             { cam: 7, x: 52.0, y: 27.9, width: 12.9, height: 8.0 },
             { cam: 8, x: 80.2, y: 21.9, width: 12.8, height: 8.0 },
             { cam: 9, x: 24.4, y: 20.6, width: 12.9, height: 8.0 },

@@ -84,19 +84,22 @@ class UIManager {
         controlBtn.style.bottom = '0';
         controlBtn.style.width = '25vw';
         controlBtn.style.height = '10vh';
-        controlBtn.style.background = 'rgba(0, 0, 0, 0.7)';
-        controlBtn.style.border = '2px solid rgba(255, 255, 255, 0.3)';
+        controlBtn.style.background = 'linear-gradient(135deg, rgba(0, 0, 0, 0.82), rgba(25, 25, 25, 0.62))';
+        controlBtn.style.backdropFilter = 'blur(6px)';
+        controlBtn.style.border = '2px solid rgba(255, 255, 255, 0.24)';
         controlBtn.style.borderLeft = 'none';
         controlBtn.style.borderBottom = 'none';
+        controlBtn.style.borderTopRightRadius = '1vw';
         controlBtn.style.display = 'flex';
         controlBtn.style.flexDirection = 'row';
         controlBtn.style.alignItems = 'center';
         controlBtn.style.justifyContent = 'space-between';
         controlBtn.style.cursor = 'pointer';
         controlBtn.style.opacity = '0';
-        controlBtn.style.transition = 'opacity 0.3s, background 0.3s';
+        controlBtn.style.transition = 'opacity 0.25s ease, background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease';
         controlBtn.style.padding = '0 1.5vw';
         controlBtn.style.pointerEvents = 'none';
+        controlBtn.style.boxShadow = '0 0 18px rgba(0, 0, 0, 0.35), inset 0 0 18px rgba(255, 255, 255, 0.04)';
         
         // Left arrows container
         const leftArrows = document.createElement('div');
@@ -132,6 +135,8 @@ class UIManager {
         text.style.whiteSpace = 'nowrap';
         text.style.flex = '1';
         text.style.textAlign = 'center';
+        text.style.textShadow = '0 0 10px rgba(255, 255, 255, 0.25)';
+        text.style.transition = 'letter-spacing 0.25s ease, text-shadow 0.25s ease, color 0.25s ease';
         controlBtn.appendChild(text);
         
         // Right arrows container
@@ -159,11 +164,21 @@ class UIManager {
         
         // Hover effect
         controlBtn.addEventListener('mouseenter', () => {
-            controlBtn.style.background = 'rgba(0, 0, 0, 0.9)';
+            controlBtn.style.background = 'linear-gradient(135deg, rgba(10, 10, 10, 0.94), rgba(42, 42, 42, 0.75))';
+            controlBtn.style.borderColor = 'rgba(255, 255, 255, 0.45)';
+            controlBtn.style.transform = 'translateX(0.25vw) translateY(-0.1vh)';
+            controlBtn.style.boxShadow = '0 0 22px rgba(0, 0, 0, 0.42), inset 0 0 24px rgba(255, 255, 255, 0.08)';
+            text.style.letterSpacing = '0.2vw';
+            text.style.textShadow = '0 0 14px rgba(255, 255, 255, 0.38)';
         });
         
         controlBtn.addEventListener('mouseleave', () => {
-            controlBtn.style.background = 'rgba(0, 0, 0, 0.7)';
+            controlBtn.style.background = 'linear-gradient(135deg, rgba(0, 0, 0, 0.82), rgba(25, 25, 25, 0.62))';
+            controlBtn.style.borderColor = 'rgba(255, 255, 255, 0.24)';
+            controlBtn.style.transform = 'translateX(0) translateY(0)';
+            controlBtn.style.boxShadow = '0 0 18px rgba(0, 0, 0, 0.35), inset 0 0 18px rgba(255, 255, 255, 0.04)';
+            text.style.letterSpacing = '0.15vw';
+            text.style.textShadow = '0 0 10px rgba(255, 255, 255, 0.25)';
         });
         
         // Click event - open control panel popup
@@ -523,18 +538,22 @@ class UIManager {
         cameraBtn.style.top = '25%';
         cameraBtn.style.width = '6vw';
         cameraBtn.style.height = '45vh';
-        cameraBtn.style.background = 'rgba(0, 0, 0, 0.7)';
-        cameraBtn.style.border = '2px solid rgba(255, 255, 255, 0.3)';
+        cameraBtn.style.background = 'linear-gradient(180deg, rgba(0, 0, 0, 0.82), rgba(24, 24, 24, 0.62))';
+        cameraBtn.style.backdropFilter = 'blur(6px)';
+        cameraBtn.style.border = '2px solid rgba(255, 255, 255, 0.24)';
         cameraBtn.style.borderRight = 'none';
+        cameraBtn.style.borderTopLeftRadius = '1vw';
+        cameraBtn.style.borderBottomLeftRadius = '1vw';
         cameraBtn.style.display = 'flex';
         cameraBtn.style.flexDirection = 'column';
         cameraBtn.style.alignItems = 'center';
         cameraBtn.style.justifyContent = 'space-between';
         cameraBtn.style.cursor = 'pointer';
         cameraBtn.style.opacity = '0';
-        cameraBtn.style.transition = 'opacity 0.3s, background 0.3s';
+        cameraBtn.style.transition = 'opacity 0.25s ease, background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease';
         cameraBtn.style.padding = '2vh 0';
         cameraBtn.style.pointerEvents = 'none';
+        cameraBtn.style.boxShadow = '0 0 18px rgba(0, 0, 0, 0.35), inset 0 0 18px rgba(255, 255, 255, 0.04)';
         
         // Top arrows container
         const topArrows = document.createElement('div');
@@ -574,6 +593,8 @@ class UIManager {
         text.style.transform = 'rotate(-90deg)';
         text.style.letterSpacing = '0.2vw';
         text.style.whiteSpace = 'nowrap';
+        text.style.textShadow = '0 0 10px rgba(255, 255, 255, 0.25)';
+        text.style.transition = 'letter-spacing 0.25s ease, text-shadow 0.25s ease, color 0.25s ease';
         cameraBtn.appendChild(text);
         
         // Bottom arrows container
@@ -606,11 +627,21 @@ class UIManager {
         
         // Hover effect
         cameraBtn.addEventListener('mouseenter', () => {
-            cameraBtn.style.background = 'rgba(0, 0, 0, 0.9)';
+            cameraBtn.style.background = 'linear-gradient(180deg, rgba(10, 10, 10, 0.94), rgba(42, 42, 42, 0.74))';
+            cameraBtn.style.borderColor = 'rgba(255, 255, 255, 0.45)';
+            cameraBtn.style.transform = 'translateX(-0.2vw)';
+            cameraBtn.style.boxShadow = '0 0 22px rgba(0, 0, 0, 0.42), inset 0 0 24px rgba(255, 255, 255, 0.08)';
+            text.style.letterSpacing = '0.26vw';
+            text.style.textShadow = '0 0 14px rgba(255, 255, 255, 0.38)';
         });
         
         cameraBtn.addEventListener('mouseleave', () => {
-            cameraBtn.style.background = 'rgba(0, 0, 0, 0.7)';
+            cameraBtn.style.background = 'linear-gradient(180deg, rgba(0, 0, 0, 0.82), rgba(24, 24, 24, 0.62))';
+            cameraBtn.style.borderColor = 'rgba(255, 255, 255, 0.24)';
+            cameraBtn.style.transform = 'translateX(0)';
+            cameraBtn.style.boxShadow = '0 0 18px rgba(0, 0, 0, 0.35), inset 0 0 18px rgba(255, 255, 255, 0.04)';
+            text.style.letterSpacing = '0.2vw';
+            text.style.textShadow = '0 0 10px rgba(255, 255, 255, 0.25)';
         });
         
         // Click event
