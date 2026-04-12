@@ -383,7 +383,7 @@ class UIManager {
         const option3 = document.getElementById('option-all');
         if (!option1 || !option2 || !option3) return;
 
-        const activeOption = this.controlPanelHoveredOption || this.controlPanelSelectedOption || 'door';
+        const activeOption = this.controlPanelHoveredOption || (this.game.state.controlPanelBusy ? this.controlPanelSelectedOption : null);
         this.styleControlOption(option1, activeOption === 'door');
         this.styleControlOption(option2, activeOption === 'cameras');
         this.styleControlOption(option3, activeOption === 'all');
