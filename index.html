@@ -76,6 +76,74 @@
             <div id="night-intro-text">NIGHT 1</div>
         </div>
 
+        <div id="admin-menu-overlay" class="hidden">
+            <div id="admin-menu-panel">
+                <div class="admin-menu-header">
+                    <div>
+                        <div class="admin-kicker">999 ACCESS</div>
+                        <h2>Admin Menu</h2>
+                    </div>
+                    <button id="admin-menu-close" type="button">CLOSE</button>
+                </div>
+
+                <div class="admin-status-bar">
+                    <span id="admin-current-night">Night 1</span>
+                    <span id="admin-current-hour">12 AM</span>
+                </div>
+
+                <div class="admin-grid">
+                    <section class="admin-card">
+                        <h3>Time Control</h3>
+                        <p>Push the clock forward by one in-game hour.</p>
+                        <button id="admin-advance-hour" type="button">Advance 1 Hour</button>
+                    </section>
+
+                    <section class="admin-card">
+                        <h3>Night Jump</h3>
+                        <p>Restart straight into any story night.</p>
+                        <div class="admin-inline-controls">
+                            <select id="admin-night-select">
+                                <option value="1">Night 1</option>
+                                <option value="2">Night 2</option>
+                                <option value="3">Night 3</option>
+                                <option value="4">Night 4</option>
+                                <option value="5">Night 5</option>
+                                <option value="6">Night 6</option>
+                            </select>
+                            <button id="admin-jump-night" type="button">Start Night</button>
+                        </div>
+                    </section>
+                </div>
+
+                <section class="admin-card admin-card-full">
+                    <h3>Custom Night</h3>
+                    <p>Set the AI levels below and jump straight into Custom Night.</p>
+
+                    <div class="admin-custom-grid">
+                        <label class="admin-slider-row">
+                            <span>MRS. TILLERY</span>
+                            <input type="range" id="admin-epstein-slider" min="0" max="20" value="0">
+                            <strong id="admin-epstein-value">0</strong>
+                        </label>
+
+                        <label class="admin-slider-row">
+                            <span>DR HOPE</span>
+                            <input type="range" id="admin-drhope-slider" min="0" max="20" value="0">
+                            <strong id="admin-drhope-value">0</strong>
+                        </label>
+
+                        <label class="admin-slider-row">
+                            <span>HAWKING</span>
+                            <input type="range" id="admin-hawking-slider" min="0" max="20" value="0">
+                            <strong id="admin-hawking-value">0</strong>
+                        </label>
+                    </div>
+
+                    <button id="admin-start-custom" type="button">Start Custom Night</button>
+                </section>
+            </div>
+        </div>
+
         <div id="main-menu">
             <div class="menu-icons">
                 <img id="star-icon" class="hidden" src="assets/images/star.png" alt="Star">

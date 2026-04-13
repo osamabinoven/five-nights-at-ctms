@@ -15,6 +15,7 @@ class GameState {
         this.cameraFailed = false; // 摄像头是否故障
         this.cameraRestarting = false; // 摄像头是否正在重启
         this.controlPanelBusy = false; // 控制面板是否正在处理操作
+        this.adminMenuOpen = false; // 管理菜单是否打开
         
         // Door system
         this.doorClosed = false; // 门是否关闭
@@ -48,6 +49,7 @@ class GameState {
         this.cameraFailed = false;
         this.cameraRestarting = false;
         this.controlPanelBusy = false;
+        this.adminMenuOpen = false;
         
         // Reset door system
         this.doorClosed = false;

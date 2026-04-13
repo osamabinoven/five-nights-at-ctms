@@ -5,6 +5,8 @@ class InputHandler {
         this.touchStartX = 0;
         this.touchStartY = 0;
         this.isTouching = false;
+        this.adminCodeBuffer = '';
+        this.adminCodeTimer = null;
         this.bindEvents();
     }
 
@@ -23,122 +25,27 @@ class InputHandler {
     }
 
     handleKeyPress(e) {
-        // ==================== 作弊键（生产环境请注释掉） ====================
-        
-        /* // F6 作弊键：立即触发特朗普进入管道（测试音效用）
-        if (e.key === 'F6') {
-            e.preventDefault();
-            if (this.game.state.isGameRunning && this.game.enemyAI.Dr Hope.hasSpawned) {
-                console.log('🎮 CHEAT: Forcing Dr Hope to crawl into vents...');
-                this.showCheatNotification('Dr Hope entering vents NOW!');
-                
-                // 强制特朗普从 cam1 开始爬行
-                this.game.enemyAI.Dr Hope.currentLocation = 'cam1';
-                
-                // 立即播放音效（不等待延迟）- 音量改为1.0（最大值）
-                console.log('Playing crawling sound immediately...');
-                this.game.assets.playSound('ventCrawling', true, 1.0);
-                
-                // 10秒后停止音效
-                setTimeout(() => {
-                    console.log('Stopping crawling sound...');
-                    this.game.assets.stopSound('ventCrawling');
-                }, 10000);
-            } else if (this.game.state.isGameRunning) {
-                this.showCheatNotification('Dr Hope not spawned yet!');
-            }
-            return;
+        const target = e.target;
+        const isAdminField = target && target.closest && target.closest('#admin-menu-panel');
+
+        if (this.game.state.isGameRunning && !isAdminField && !e.ctrlKey && !e.metaKey && !e.altKey) {
+            this.trackAdminCode(e.key);
         }
-        
-        // F9 作弊键：跳过当前夜晚（调试用）
-        if (e.key === 'F9') {
-            e.preventDefault();
-            if (this.game.state.isGameRunning) {
-                console.log('🎮 CHEAT: Skipping current night...');
-                
-                // 显示作弊提示
-                this.showCheatNotification('Skipping Night ' + this.game.state.currentNight);
-                
-                // 延迟执行，让玩家看到提示
-                setTimeout(() => {
-                    this.game.winNight();
-                }, 500);
-            }
-            return;
-        }
-        
-        // F10 作弊键：解锁特殊夜晚（调试用）
-        if (e.key === 'F10') {
-            e.preventDefault();
-            console.log('🎮 CHEAT: Unlocking Special Night...');
-            localStorage.setItem('night6Unlocked', 'true');
-            this.showCheatNotification('Special Night Unlocked!');
-            
-            // 如果在主菜单，立即更新按钮显示
-            if (this.game.mainMenu && !this.game.mainMenu.classList.contains('hidden')) {
-                this.game.updateContinueButton();
-            }
-            return;
-        }
-        
-        // F8 作弊键：解锁Custom Night（调试用）
-        if (e.key === 'F8') {
-            e.preventDefault();
-            console.log('🎮 CHEAT: Unlocking Custom Night...');
-            localStorage.setItem('night6Completed', 'true');
-            this.showCheatNotification('Custom Night Unlocked!');
-            
-            // 如果在主菜单，立即更新按钮显示
-            if (this.game.mainMenu && !this.game.mainMenu.classList.contains('hidden')) {
-                this.game.updateContinueButton();
-            }
-            return;
-        }
-        
-        // F7 作弊键：时间加速（测试用）
-        if (e.key === 'F7') {
-            e.preventDefault();
-            if (this.game.state.isGameRunning) {
-                this.game.state.currentTime += 1;
-                this.game.ui.update();
-                this.showCheatNotification(`Time: ${this.game.state.currentTime} AM`);
-                
-                if (this.game.state.currentTime >= 6) {
-                    this.game.winNight();
-                }
-            }
-            return;
-        }
-        
-        // 数字键1-6：快速跳到对应关卡（测试用，仅在主菜单有效）
-        if (e.key >= '1' && e.key <= '6') {
-            if (this.game.mainMenu && !this.game.mainMenu.classList.contains('hidden')) {
+
+        if (this.game.state.adminMenuOpen) {
+            if (e.key === 'Escape') {
                 e.preventDefault();
-                const night = parseInt(e.key);
-                console.log(`🎮 CHEAT: Jumping to Night ${night}...`);
-                this.game.state.currentNight = night;
-                this.showCheatNotification(`Starting Night ${night}`);
-                
-                // 如果是Night 6，需要先解锁
-                if (night === 6) {
-                    localStorage.setItem('night6Unlocked', 'true');
-                    setTimeout(() => this.game.startSpecialNight(), 500);
-                } else {
-                    setTimeout(() => this.game.initGame(), 500);
-                }
-                
-                this.game.mainMenu.classList.add('hidden');
-                const menuMusic = document.getElementById('menu-music');
-                if (menuMusic) {
-                    menuMusic.pause();
-                    menuMusic.currentTime = 0;
-                }
+                this.game.closeAdminMenu();
+            }
+            if (isAdminField) {
+                return;
+            }
+            if (e.key !== 'Escape') {
+                e.preventDefault();
             }
             return;
-        } */
-        
-        // ==================== 作弊键结束 ====================
-        
+        }
+
         if (!this.game.state.isGameRunning) return;
         
         switch(e.key.toLowerCase()) {
@@ -154,32 +61,31 @@ class InputHandler {
                 break;
         }
     }
-    
-    // 作弊通知
-    showCheatNotification(message) {
-        // 创建通知元素
-        const notification = document.createElement('div');
-        notification.style.position = 'fixed';
-        notification.style.top = '10px';
-        notification.style.left = '50%';
-        notification.style.transform = 'translateX(-50%)';
-        notification.style.background = 'rgba(255, 215, 0, 0.9)';
-        notification.style.color = '#000';
-        notification.style.padding = '10px 20px';
-        notification.style.fontSize = '20px';
-        notification.style.fontWeight = 'bold';
-        notification.style.fontFamily = 'Arial, sans-serif';
-        notification.style.borderRadius = '5px';
-        notification.style.zIndex = '99999';
-        notification.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.8)';
-        notification.textContent = '🎮 CHEAT: ' + message;
-        
-        document.body.appendChild(notification);
-        
-        // 1秒后移除
-        setTimeout(() => {
-            notification.remove();
-        }, 1000);
+
+    trackAdminCode(key) {
+        if (key === '9') {
+            this.adminCodeBuffer = (this.adminCodeBuffer + '9').slice(-3);
+            if (this.adminCodeTimer) {
+                clearTimeout(this.adminCodeTimer);
+            }
+            this.adminCodeTimer = setTimeout(() => {
+                this.adminCodeBuffer = '';
+                this.adminCodeTimer = null;
+            }, 900);
+
+            if (this.adminCodeBuffer === '999') {
+                this.adminCodeBuffer = '';
+                clearTimeout(this.adminCodeTimer);
+                this.adminCodeTimer = null;
+                this.game.toggleAdminMenu();
+            }
+        } else if (key.length === 1) {
+            this.adminCodeBuffer = '';
+            if (this.adminCodeTimer) {
+                clearTimeout(this.adminCodeTimer);
+                this.adminCodeTimer = null;
+            }
+        }
     }
 
     handleMouseMove(e) {

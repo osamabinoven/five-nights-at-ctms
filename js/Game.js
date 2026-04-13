@@ -44,6 +44,20 @@ class Game {
         this.volumeBtn = document.getElementById('volume-btn');
         this.volumePanel = document.getElementById('volume-panel');
         this.closeVolumePanelBtn = document.getElementById('close-volume-panel');
+        this.adminMenuOverlay = document.getElementById('admin-menu-overlay');
+        this.adminMenuCloseBtn = document.getElementById('admin-menu-close');
+        this.adminCurrentNight = document.getElementById('admin-current-night');
+        this.adminCurrentHour = document.getElementById('admin-current-hour');
+        this.adminAdvanceHourBtn = document.getElementById('admin-advance-hour');
+        this.adminNightSelect = document.getElementById('admin-night-select');
+        this.adminJumpNightBtn = document.getElementById('admin-jump-night');
+        this.adminEpsteinSlider = document.getElementById('admin-epstein-slider');
+        this.adminDrHopeSlider = document.getElementById('admin-drhope-slider');
+        this.adminHawkingSlider = document.getElementById('admin-hawking-slider');
+        this.adminEpsteinValue = document.getElementById('admin-epstein-value');
+        this.adminDrHopeValue = document.getElementById('admin-drhope-value');
+        this.adminHawkingValue = document.getElementById('admin-hawking-value');
+        this.adminStartCustomBtn = document.getElementById('admin-start-custom');
         this.gameBgVolumeSlider = document.getElementById('game-bg-volume');
         this.menuMusicVolumeSlider = document.getElementById('menu-music-volume');
         this.jumpscareVolumeSlider = document.getElementById('jumpscare-volume');
@@ -176,6 +190,18 @@ class Game {
         });
         this.mainMenuBtn.addEventListener('click', () => this.showMainMenu());
         this.tutorialGotItBtn.addEventListener('click', () => this.closeTutorial());
+        this.adminMenuCloseBtn.addEventListener('click', () => this.closeAdminMenu());
+        this.adminAdvanceHourBtn.addEventListener('click', () => this.adminAdvanceHour());
+        this.adminJumpNightBtn.addEventListener('click', () => {
+            const night = parseInt(this.adminNightSelect.value, 10);
+            this.adminStartNight(night);
+        });
+        this.adminStartCustomBtn.addEventListener('click', () => this.adminStartCustomNight());
+        this.adminMenuOverlay.addEventListener('click', (e) => {
+            if (e.target === this.adminMenuOverlay) {
+                this.closeAdminMenu();
+            }
+        });
         
         // Custom Night 事件
         this.startCustomNightBtn.addEventListener('click', () => this.startCustomNight());
@@ -190,6 +216,15 @@ class Game {
         });
         this.hawkingSlider.addEventListener('input', (e) => {
             this.hawkingValue.textContent = e.target.value;
+        });
+        this.adminEpsteinSlider.addEventListener('input', (e) => {
+            this.adminEpsteinValue.textContent = e.target.value;
+        });
+        this.adminDrHopeSlider.addEventListener('input', (e) => {
+            this.adminDrHopeValue.textContent = e.target.value;
+        });
+        this.adminHawkingSlider.addEventListener('input', (e) => {
+            this.adminHawkingValue.textContent = e.target.value;
         });
         
         // +/- 按钮事件
@@ -456,6 +491,7 @@ class Game {
     
     async initGame() {
         // console.log('🎮 initGame called, currentNight:', this.state.currentNight);
+        this.closeAdminMenu();
         
         if (!this.assets.loaded) {
             await this.assets.loadAssets();
@@ -989,6 +1025,125 @@ class Game {
             console.log('Door system restarted. Door closes available again.');
             this.ui.update();
         }, 4000);
+    }
+
+    toggleAdminMenu() {
+        if (!this.state.isGameRunning) return;
+        if (this.state.adminMenuOpen) {
+            this.closeAdminMenu();
+        } else {
+            this.openAdminMenu();
+        }
+    }
+
+    openAdminMenu() {
+        if (!this.adminMenuOverlay || this.state.adminMenuOpen) return;
+        this.state.adminMenuOpen = true;
+        this.isRotatingLeft = false;
+        this.isRotatingRight = false;
+        this.syncAdminMenuValues();
+        this.adminMenuOverlay.classList.remove('hidden');
+    }
+
+    closeAdminMenu() {
+        if (!this.adminMenuOverlay) return;
+        this.state.adminMenuOpen = false;
+        this.adminMenuOverlay.classList.add('hidden');
+    }
+
+    syncAdminMenuValues() {
+        if (!this.adminCurrentNight || !this.adminCurrentHour) return;
+        this.adminCurrentNight.textContent = this.state.customNight && this.state.currentNight === 7
+            ? 'Custom Night'
+            : `Night ${this.state.currentNight}`;
+        this.adminCurrentHour.textContent = `${this.state.currentTime === 0 ? 12 : this.state.currentTime} AM`;
+        this.adminNightSelect.value = Math.min(Math.max(this.state.currentNight, 1), 6).toString();
+        this.adminEpsteinSlider.value = this.state.customAILevels.epstein ?? 0;
+        this.adminDrHopeSlider.value = this.state.customAILevels.drHope ?? 0;
+        this.adminHawkingSlider.value = this.state.customAILevels.hawking ?? 0;
+        this.adminEpsteinValue.textContent = this.adminEpsteinSlider.value;
+        this.adminDrHopeValue.textContent = this.adminDrHopeSlider.value;
+        this.adminHawkingValue.textContent = this.adminHawkingSlider.value;
+    }
+
+    adminAdvanceHour() {
+        if (!this.state.isGameRunning) return;
+        this.state.currentTime += 1;
+        this.ui.update();
+        this.syncAdminMenuValues();
+
+        if (this.state.currentTime >= 6) {
+            this.closeAdminMenu();
+            this.winNight();
+        }
+    }
+
+    async adminStartNight(night) {
+        if (!this.state.isGameRunning) return;
+        if (Number.isNaN(night) || night < 1 || night > 6) return;
+
+        this.closeAdminMenu();
+        await this.adminRestartSession(async () => {
+            this.state.customNight = false;
+            this.state.currentNight = night;
+            if (night === 6) {
+                localStorage.setItem('night6Unlocked', 'true');
+            }
+            await this.initGame();
+        });
+    }
+
+    async adminStartCustomNight() {
+        if (!this.state.isGameRunning) return;
+
+        this.closeAdminMenu();
+        await this.adminRestartSession(async () => {
+            this.state.customNight = true;
+            this.state.currentNight = 7;
+            this.state.customAILevels = {
+                epstein: parseInt(this.adminEpsteinSlider.value, 10),
+                drHope: parseInt(this.adminDrHopeSlider.value, 10),
+                hawking: parseInt(this.adminHawkingSlider.value, 10)
+            };
+            await this.initGame();
+        });
+    }
+
+    async adminRestartSession(startCallback) {
+        this.stopGame();
+        this.state.tutorialActive = false;
+
+        if (this.tutorialOverlay) {
+            this.tutorialOverlay.classList.add('hidden');
+        }
+        if (this.volumePanel) {
+            this.volumePanel.classList.add('hidden');
+        }
+
+        const popup = document.getElementById('control-panel-popup');
+        if (popup) {
+            popup.classList.add('hidden');
+        }
+
+        if (this.state.cameraOpen) {
+            this.camera.close();
+        }
+
+        const cameraPanel = document.getElementById('camera-panel');
+        if (cameraPanel) {
+            cameraPanel.classList.add('hidden');
+            cameraPanel.classList.remove('show', 'closing');
+            cameraPanel.style.display = '';
+        }
+
+        this.assets.stopSound('vents');
+        this.assets.stopSound('static');
+        this.assets.stopSound('staticLoop');
+        this.assets.stopSound('ventCrawling');
+        this.assets.stopSound('ekg');
+
+        this.enemyAI.reset();
+        await startCallback();
     }
 
     restartAllSystems() {
@@ -1558,6 +1713,7 @@ class Game {
     }
 
     stopGame() {
+        this.closeAdminMenu();
         this.state.isGameRunning = false;
         clearInterval(this.timeInterval);
         clearInterval(this.powerInterval);

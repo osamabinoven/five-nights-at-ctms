@@ -1317,6 +1317,225 @@ button {
     transform-origin: center center;
 }
 
+#admin-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 12000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle at top, rgba(90, 150, 255, 0.16), transparent 30%),
+        linear-gradient(180deg, rgba(9, 15, 28, 0.78), rgba(5, 8, 18, 0.92));
+    backdrop-filter: blur(10px);
+    padding: 4vh 3vw;
+}
+
+#admin-menu-panel {
+    width: min(78vw, 980px);
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 28px;
+    border: 1px solid rgba(150, 205, 255, 0.28);
+    background:
+        linear-gradient(145deg, rgba(16, 26, 48, 0.96), rgba(8, 13, 26, 0.94)),
+        linear-gradient(180deg, rgba(68, 144, 255, 0.12), rgba(0, 0, 0, 0));
+    box-shadow:
+        0 24px 80px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 0 0 1px rgba(90, 150, 255, 0.08);
+    padding: 3.2vh 2.2vw;
+    color: #eef6ff;
+}
+
+.admin-menu-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2vw;
+    margin-bottom: 2.2vh;
+}
+
+.admin-kicker {
+    font-size: 0.82vw;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #91c2ff;
+    margin-bottom: 0.6vh;
+}
+
+.admin-menu-header h2 {
+    margin: 0;
+    font-size: 3vw;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 0 18px rgba(140, 190, 255, 0.22);
+}
+
+#admin-menu-close,
+#admin-advance-hour,
+#admin-jump-night,
+#admin-start-custom {
+    border: 1px solid rgba(143, 198, 255, 0.32);
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(83, 136, 210, 0.3), rgba(34, 63, 110, 0.55));
+    color: #f3f8ff;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+#admin-menu-close {
+    padding: 1.1vh 1.3vw;
+    min-width: 120px;
+}
+
+#admin-advance-hour,
+#admin-jump-night,
+#admin-start-custom {
+    padding: 1.2vh 1.5vw;
+    font-size: 1vw;
+}
+
+#admin-menu-close:hover,
+#admin-advance-hour:hover,
+#admin-jump-night:hover,
+#admin-start-custom:hover {
+    transform: translateY(-1px);
+    border-color: rgba(180, 223, 255, 0.5);
+    background: linear-gradient(180deg, rgba(109, 165, 247, 0.42), rgba(39, 78, 139, 0.72));
+    box-shadow: 0 10px 24px rgba(36, 92, 167, 0.22);
+}
+
+.admin-status-bar {
+    display: flex;
+    gap: 1vw;
+    flex-wrap: wrap;
+    margin-bottom: 2vh;
+}
+
+.admin-status-bar span {
+    padding: 0.8vh 1vw;
+    border-radius: 999px;
+    background: rgba(122, 180, 255, 0.1);
+    border: 1px solid rgba(143, 198, 255, 0.18);
+    color: #d9ebff;
+    font-size: 0.95vw;
+    letter-spacing: 0.05em;
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.4vw;
+    margin-bottom: 1.4vw;
+}
+
+.admin-card {
+    border-radius: 22px;
+    padding: 1.8vh 1.4vw;
+    background: linear-gradient(180deg, rgba(18, 31, 56, 0.86), rgba(10, 18, 35, 0.92));
+    border: 1px solid rgba(136, 192, 255, 0.16);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.admin-card-full {
+    margin-top: 0.8vh;
+}
+
+.admin-card h3 {
+    margin: 0 0 0.7vh;
+    font-size: 1.35vw;
+    color: #ffffff;
+}
+
+.admin-card p {
+    margin: 0 0 1.4vh;
+    color: #b7cae6;
+    font-size: 0.95vw;
+    line-height: 1.5;
+}
+
+.admin-inline-controls {
+    display: flex;
+    gap: 0.9vw;
+    align-items: center;
+}
+
+#admin-night-select {
+    flex: 1;
+    padding: 1.1vh 1vw;
+    border-radius: 16px;
+    border: 1px solid rgba(143, 198, 255, 0.24);
+    background: rgba(7, 15, 29, 0.82);
+    color: #eef6ff;
+    font-size: 1vw;
+}
+
+.admin-custom-grid {
+    display: grid;
+    gap: 1.1vh;
+    margin-bottom: 1.5vh;
+}
+
+.admin-slider-row {
+    display: grid;
+    grid-template-columns: 11vw 1fr 3vw;
+    align-items: center;
+    gap: 1vw;
+    color: #eef6ff;
+    font-size: 1vw;
+}
+
+.admin-slider-row strong {
+    text-align: center;
+    color: #9eceff;
+}
+
+.admin-slider-row input[type="range"] {
+    width: 100%;
+}
+
+@media (max-width: 926px) {
+    #admin-menu-panel {
+        width: min(92vw, 980px);
+        padding: 3vh 4vw;
+    }
+
+    .admin-menu-header h2 {
+        font-size: 7vw;
+    }
+
+    .admin-kicker,
+    .admin-status-bar span,
+    .admin-card p,
+    .admin-slider-row,
+    #admin-night-select,
+    #admin-advance-hour,
+    #admin-jump-night,
+    #admin-start-custom {
+        font-size: 3.2vw;
+    }
+
+    .admin-grid {
+        grid-template-columns: 1fr;
+        gap: 2vh;
+    }
+
+    .admin-inline-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .admin-slider-row {
+        grid-template-columns: 1fr;
+        gap: 0.7vh;
+    }
+}
+
 /* 电眼闪烁动画 (Night 6) */
 @keyframes lightning-flicker {
     0%, 100% { opacity: 1; }
