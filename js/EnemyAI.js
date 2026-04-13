@@ -589,13 +589,15 @@ class EnemyAI {
     
     // 从区间中随机选择一个间隔时间
     getRandomInterval(intervalConfig) {
+        const movementSlowdownMultiplier = 1.08;
         // 如果是数组，从区间中随机选择
         if (Array.isArray(intervalConfig)) {
             const [min, max] = intervalConfig;
-            return Math.floor(Math.random() * (max - min + 1)) + min;
+            const randomInterval = Math.floor(Math.random() * (max - min + 1)) + min;
+            return Math.round(randomInterval * movementSlowdownMultiplier);
         }
         // 如果是数字，直接返回
-        return intervalConfig;
+        return Math.round(intervalConfig * movementSlowdownMultiplier);
     }
     
     // EP出场

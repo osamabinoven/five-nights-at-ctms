@@ -217,7 +217,7 @@ class CameraSystem {
         this.game.state.controlPanelBusy = true; // 锁定控制面板
         
         // 播放心电图音效
-        this.game.assets.playSound('ekg', false, 0.8);
+        this.game.assets.playSound('ekg', true, 0.8);
         
         // Restore after 4 seconds
         setTimeout(() => {
@@ -225,6 +225,7 @@ class CameraSystem {
             this.game.state.cameraFailed = false;
             this.game.state.cameraRestarting = false;
             this.game.state.controlPanelBusy = false; // 解锁控制面板
+            this.game.assets.stopSound('ekg');
             
             // Stop static noise (如果有的话)
             this.game.assets.stopSound('static');

@@ -587,7 +587,7 @@ class Game {
                     <p>TILLERY ALWAYS STARTS AT CAM 11. USE THE CAMERA AUDIO LURE TO KEEP HER FAR AWAY FROM YOU.</p>
                     <p>PLAY THE SOUND IN A CAMERA NEXT TO WHERE TILLERY CURRENTLY IS. SPAMMING THE SAME SPOT WILL STOP WORKING, AND OVERUSING AUDIO WILL BREAK THE CAMERAS.</p>
                     <p>PRESS E TO CLOSE THE DOOR. THE DOOR LASTS 8 SECONDS, THEN AUTO-OPENS AND GOES ON A 10 SECOND COOLDOWN. AFTER 2 USES THE DOOR SYSTEM FAILS AND MUST BE RESTARTED.</p>
-                    <p>THE DOOR DOES BLOCK TILLERY ON NIGHT 1 IF SHE REACHES THE OFFICE. YOU CAN RESTART CAMERAS, DOORS, OR USE RESTART ALL TO FIX BOTH SYSTEMS AT ONCE.</p>
+                    <p>IF TILLERY HITS THE DOOR, SHE GETS SENT ALL THE WAY BACK TO CAM 11. YOU CAN RESTART CAMERAS, DOORS, OR USE RESTART ALL TO FIX BOTH SYSTEMS AT ONCE.</p>
                 </div>
                 <button id="tutorial-got-it">GOT IT</button>
             `;
@@ -977,7 +977,7 @@ class Game {
         this.ui.updateControlPanelOptions();
         
         // Play ekg sound like camera restart
-        this.assets.playSound('ekg', false, 0.8);
+        this.assets.playSound('ekg', true, 0.8);
 
         setTimeout(() => {
             this.state.doorCloseCount = 0;
@@ -985,6 +985,7 @@ class Game {
             this.state.doorRestarting = false;
             this.state.doorCooldownActive = false;
             this.state.controlPanelBusy = false;
+            this.assets.stopSound('ekg');
             console.log('Door system restarted. Door closes available again.');
             this.ui.update();
         }, 4000);
@@ -1014,7 +1015,7 @@ class Game {
         }
 
         this.ui.updateControlPanelOptions();
-        this.assets.playSound('ekg', false, 0.8);
+        this.assets.playSound('ekg', true, 0.8);
 
         setTimeout(() => {
             this.state.cameraFailed = false;
@@ -1024,6 +1025,7 @@ class Game {
             this.state.doorRestarting = false;
             this.state.doorCooldownActive = false;
             this.state.controlPanelBusy = false;
+            this.assets.stopSound('ekg');
 
             this.assets.stopSound('static');
             this.camera.resetSoundButtonCount();
