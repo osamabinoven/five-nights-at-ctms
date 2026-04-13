@@ -1390,7 +1390,10 @@ button {
 #admin-menu-close,
 #admin-advance-hour,
 #admin-jump-night,
-#admin-start-custom {
+#admin-start-custom,
+#admin-spawn-all,
+#admin-reset-data,
+.admin-entity-spawn-btn {
     border: 1px solid rgba(143, 198, 255, 0.32);
     border-radius: 999px;
     background: linear-gradient(180deg, rgba(83, 136, 210, 0.3), rgba(34, 63, 110, 0.55));
@@ -1409,7 +1412,10 @@ button {
 
 #admin-advance-hour,
 #admin-jump-night,
-#admin-start-custom {
+#admin-start-custom,
+#admin-spawn-all,
+#admin-reset-data,
+.admin-entity-spawn-btn {
     padding: 1.2vh 1.5vw;
     font-size: 1vw;
 }
@@ -1417,7 +1423,10 @@ button {
 #admin-menu-close:hover,
 #admin-advance-hour:hover,
 #admin-jump-night:hover,
-#admin-start-custom:hover {
+#admin-start-custom:hover,
+#admin-spawn-all:hover,
+#admin-reset-data:hover,
+.admin-entity-spawn-btn:hover {
     transform: translateY(-1px);
     border-color: rgba(180, 223, 255, 0.5);
     background: linear-gradient(180deg, rgba(109, 165, 247, 0.42), rgba(39, 78, 139, 0.72));
@@ -1479,6 +1488,27 @@ button {
     align-items: center;
 }
 
+.admin-entity-toolbar {
+    display: flex;
+    gap: 0.9vw;
+    flex-wrap: wrap;
+    margin-bottom: 1.2vh;
+}
+
+.admin-entity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.8vw;
+    margin-bottom: 1.2vh;
+}
+
+.admin-action-feedback {
+    min-height: 1.4em;
+    color: #9eceff;
+    font-size: 0.92vw;
+    letter-spacing: 0.03em;
+}
+
 #admin-night-select {
     flex: 1;
     padding: 1.1vh 1vw;
@@ -1526,11 +1556,15 @@ button {
     .admin-kicker,
     .admin-status-bar span,
     .admin-card p,
+    .admin-action-feedback,
     .admin-slider-row,
     #admin-night-select,
     #admin-advance-hour,
     #admin-jump-night,
-    #admin-start-custom {
+    #admin-start-custom,
+    #admin-spawn-all,
+    #admin-reset-data,
+    .admin-entity-spawn-btn {
         font-size: 3.2vw;
     }
 
@@ -1542,6 +1576,10 @@ button {
     .admin-inline-controls {
         flex-direction: column;
         align-items: stretch;
+    }
+
+    .admin-entity-toolbar {
+        flex-direction: column;
     }
 
     .admin-slider-row {

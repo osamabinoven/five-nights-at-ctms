@@ -58,6 +58,10 @@ class Game {
         this.adminDrHopeValue = document.getElementById('admin-drhope-value');
         this.adminHawkingValue = document.getElementById('admin-hawking-value');
         this.adminStartCustomBtn = document.getElementById('admin-start-custom');
+        this.adminSpawnAllBtn = document.getElementById('admin-spawn-all');
+        this.adminResetDataBtn = document.getElementById('admin-reset-data');
+        this.adminEntitySpawnGrid = document.getElementById('admin-entity-spawn-grid');
+        this.adminActionFeedback = document.getElementById('admin-action-feedback');
         this.gameBgVolumeSlider = document.getElementById('game-bg-volume');
         this.menuMusicVolumeSlider = document.getElementById('menu-music-volume');
         this.jumpscareVolumeSlider = document.getElementById('jumpscare-volume');
@@ -82,6 +86,7 @@ class Game {
         
         // 初始化音量设置
         this.initVolumeSettings();
+        this.initAdminEntityButtons();
     }
     
     initVolumeSettings() {
@@ -197,6 +202,8 @@ class Game {
             this.adminStartNight(night);
         });
         this.adminStartCustomBtn.addEventListener('click', () => this.adminStartCustomNight());
+        this.adminSpawnAllBtn.addEventListener('click', () => this.adminSpawnAllEntities());
+        this.adminResetDataBtn.addEventListener('click', () => this.adminResetSaveData());
         this.adminMenuOverlay.addEventListener('click', (e) => {
             if (e.target === this.adminMenuOverlay) {
                 this.closeAdminMenu();
@@ -1076,11 +1083,40 @@ class Game {
         this.adminHawkingValue.textContent = this.adminHawkingSlider.value;
     }
 
+    initAdminEntityButtons() {
+        if (!this.adminEntitySpawnGrid) return;
+        this.adminEntitySpawnGrid.innerHTML = '';
+
+        this.getAdminSpawnDefinitions().forEach((entity) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'admin-entity-spawn-btn';
+            button.textContent = entity.label;
+            button.addEventListener('click', () => this.adminSpawnEntity(entity.id));
+            this.adminEntitySpawnGrid.appendChild(button);
+        });
+    }
+
+    getAdminSpawnDefinitions() {
+        return [
+            { id: 'epstein', label: 'Spawn Tillery' },
+            { id: 'trump', label: 'Spawn Dr Hope' },
+            { id: 'hawking', label: 'Spawn Hawking' }
+        ];
+    }
+
+    setAdminActionFeedback(message) {
+        if (this.adminActionFeedback) {
+            this.adminActionFeedback.textContent = message;
+        }
+    }
+
     adminAdvanceHour() {
         if (!this.state.isGameRunning) return;
         this.state.currentTime += 1;
         this.ui.update();
         this.syncAdminMenuValues();
+        this.setAdminActionFeedback(`Advanced to ${this.state.currentTime === 0 ? 12 : this.state.currentTime} AM.`);
 
         if (this.state.currentTime >= 6) {
             this.closeAdminMenu();
@@ -1092,6 +1128,7 @@ class Game {
         if (!this.state.isGameRunning) return;
         if (Number.isNaN(night) || night < 1 || night > 6) return;
 
+        this.setAdminActionFeedback(`Starting Night ${night}...`);
         this.closeAdminMenu();
         await this.adminRestartSession(async () => {
             this.state.customNight = false;
@@ -1106,6 +1143,7 @@ class Game {
     async adminStartCustomNight() {
         if (!this.state.isGameRunning) return;
 
+        this.setAdminActionFeedback('Starting Custom Night...');
         this.closeAdminMenu();
         await this.adminRestartSession(async () => {
             this.state.customNight = true;
@@ -1154,6 +1192,53 @@ class Game {
 
         this.enemyAI.reset();
         await startCallback();
+    }
+
+    adminSpawnEntity(entityId) {
+        if (!this.state.isGameRunning) return;
+
+        const spawnHandlers = {
+            epstein: () => this.enemyAI.adminSpawnEpstein(),
+            trump: () => this.enemyAI.adminSpawnTrump(),
+            hawking: () => this.enemyAI.adminSpawnHawking()
+        };
+
+        const spawn = spawnHandlers[entityId];
+        if (!spawn) return;
+
+        const didSpawn = spawn();
+        const entity = this.getAdminSpawnDefinitions().find((item) => item.id === entityId);
+        this.setAdminActionFeedback(
+            didSpawn ? `${entity.label} spawned.` : `${entity.label} is already active.`
+        );
+    }
+
+    adminSpawnAllEntities() {
+        if (!this.state.isGameRunning) return;
+        const results = this.getAdminSpawnDefinitions().map((entity) => ({
+            label: entity.label,
+            spawned: this.enemyAI[`adminSpawn${entity.id.charAt(0).toUpperCase()}${entity.id.slice(1)}`]?.()
+        }));
+
+        const spawnedNow = results.filter((result) => result.spawned).map((result) => result.label);
+        if (spawnedNow.length > 0) {
+            this.setAdminActionFeedback(`Spawned: ${spawnedNow.join(', ')}.`);
+        } else {
+            this.setAdminActionFeedback('All admin entities are already active.');
+        }
+    }
+
+    adminResetSaveData() {
+        const keysToClear = [
+            'fnae_current_night',
+            'night6Unlocked',
+            'night6Completed',
+            'customNight202020'
+        ];
+
+        keysToClear.forEach((key) => localStorage.removeItem(key));
+        this.updateContinueButton();
+        this.setAdminActionFeedback('Save data reset. Volume settings were left alone.');
     }
 
     restartAllSystems() {

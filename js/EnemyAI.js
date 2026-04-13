@@ -611,6 +611,10 @@ class EnemyAI {
         if (this.game.state.currentNight === 1) {
             this.triggerCameraFailure();
         }
+
+        if (this.game.state.cameraOpen) {
+            this.updateCameraDisplay();
+        }
         
         // 开始移动检查循环
         this.startMovementLoop();
@@ -630,6 +634,51 @@ class EnemyAI {
         
         // 开始Trump的移动检查循环
         this.startTrumpMovementLoop();
+    }
+
+    ensureAdminSpawnConfig(entityType) {
+        this.loadAIConfig();
+
+        if (entityType === 'epstein') {
+            if (!this.currentEpsteinConfig) {
+                this.currentEpsteinConfig = this.epsteinConfig[1];
+            }
+            if (this.epstein.aiLevel <= 0) {
+                this.epstein.aiLevel = this.currentEpsteinConfig.aiLevel;
+                this.epstein.movementInterval = this.getRandomInterval(this.currentEpsteinConfig.movementInterval);
+            }
+        }
+
+        if (entityType === 'trump') {
+            if (!this.currentTrumpConfig) {
+                this.currentTrumpConfig = this.trumpConfig[Math.min(Math.max(this.game.state.currentNight, 2), 5)] || this.trumpConfig[2];
+            }
+            if (this.trump.aiLevel <= 0) {
+                this.trump.aiLevel = this.currentTrumpConfig.aiLevel;
+                this.trump.movementInterval = this.getRandomInterval(this.currentTrumpConfig.movementInterval);
+            }
+        }
+    }
+
+    adminSpawnEpstein() {
+        this.ensureAdminSpawnConfig('epstein');
+        if (this.epstein.hasSpawned) return false;
+        this.spawnEpstein();
+        return true;
+    }
+
+    adminSpawnTrump() {
+        this.ensureAdminSpawnConfig('trump');
+        if (this.trump.hasSpawned) return false;
+        this.spawnTrump();
+        return true;
+    }
+
+    adminSpawnHawking() {
+        if (this.hawking.active) return false;
+        this.startHawking();
+        this.updateCameraDisplay();
+        return true;
     }
 
     // 停止AI
