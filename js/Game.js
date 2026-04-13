@@ -1043,12 +1043,22 @@ class Game {
         this.isRotatingRight = false;
         this.syncAdminMenuValues();
         this.adminMenuOverlay.classList.remove('hidden');
+        this.adminMenuOverlay.classList.remove('admin-menu-show');
+        requestAnimationFrame(() => {
+            this.adminMenuOverlay.classList.add('admin-menu-show');
+        });
+        this.assets.playSound('crank1', false, 0.85);
     }
 
     closeAdminMenu() {
         if (!this.adminMenuOverlay) return;
         this.state.adminMenuOpen = false;
-        this.adminMenuOverlay.classList.add('hidden');
+        this.adminMenuOverlay.classList.remove('admin-menu-show');
+        setTimeout(() => {
+            if (!this.state.adminMenuOpen) {
+                this.adminMenuOverlay.classList.add('hidden');
+            }
+        }, 220);
     }
 
     syncAdminMenuValues() {
